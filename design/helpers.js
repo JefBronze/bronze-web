@@ -7,6 +7,18 @@ window.BRONZE_CHART = (function () {
     var sx = scale(0, values.length - 1, x0, x1), sy = scale(yMin, yMax, yBottom, yTop);
     return values.map(function (v, i) { return (i ? "L" : "M") + sx(i).toFixed(1) + " " + sy(v).toFixed(1); }).join("");
   }
+  // Smooth (Catmull-Rom → cubic Bézier) version of line(), for trails that should read as light, not as a chart.
+  function smooth(values, x0, x1, yTop, yBottom, yMin, yMax, tension) {
+    var sx = scale(0, values.length - 1, x0, x1), sy = scale(yMin, yMax, yBottom, yTop), t = tension === undefined ? 0.5 : tension;
+    var p = values.map(function (v, i) { return [sx(i), sy(v)]; }), d = "M" + p[0][0].toFixed(1) + " " + p[0][1].toFixed(1);
+    for (var i = 0; i < p.length - 1; i++) {
+      var p0 = p[i - 1] || p[i], p1 = p[i], p2 = p[i + 1], p3 = p[i + 2] || p2;
+      var c1x = p1[0] + (p2[0] - p0[0]) / 6 * t * 2, c1y = p1[1] + (p2[1] - p0[1]) / 6 * t * 2;
+      var c2x = p2[0] - (p3[0] - p1[0]) / 6 * t * 2, c2y = p2[1] - (p3[1] - p1[1]) / 6 * t * 2;
+      d += "C" + c1x.toFixed(1) + " " + c1y.toFixed(1) + " " + c2x.toFixed(1) + " " + c2y.toFixed(1) + " " + p2[0].toFixed(1) + " " + p2[1].toFixed(1);
+    }
+    return d;
+  }
   function area(values, x0, x1, yTop, yBottom, yMin, yMax) {
     return line(values, x0, x1, yTop, yBottom, yMin, yMax) + "L" + x1 + " " + yBottom + "L" + x0 + " " + yBottom + "Z";
   }
@@ -50,5 +62,5 @@ window.BRONZE_CHART = (function () {
     return NaN;
   }
   function x(v, d0, d1, r0, r1) { return scale(d0, d1, r0, r1)(v); }
-  return { scale: scale, fmt: fmt, dec: dec, line: line, area: area, band: band, stack: stack, curve: curve, steps: steps, quantile: quantile, x: x };
+  return { scale: scale, fmt: fmt, dec: dec, line: line, smooth: smooth, area: area, band: band, stack: stack, curve: curve, steps: steps, quantile: quantile, x: x };
 })();

@@ -1,0 +1,2524 @@
+{
+ "month": "08/2026",
+ "source": "ANP · Levantamento de preços de combustíveis (dados abertos, por posto)",
+ "brasil": {
+  "GASOLINA": 6.55,
+  "GASOLINA ADITIVADA": 6.77,
+  "ETANOL": 4.13,
+  "DIESEL S10": 6.89,
+  "DIESEL": 6.59,
+  "GNV": 4.79
+ },
+ "parana": {
+  "GASOLINA": 6.59,
+  "GASOLINA ADITIVADA": 6.79,
+  "ETANOL": 3.99,
+  "DIESEL S10": 6.89,
+  "DIESEL": 6.19,
+  "GNV": 4.69
+ },
+ "curitiba": {
+  "GASOLINA": 6.89,
+  "GASOLINA ADITIVADA": 7.09,
+  "ETANOL": 4.69,
+  "DIESEL S10": 6.99,
+  "DIESEL": 5.99,
+  "GNV": 5.08
+ },
+ "curitiba_stations": [
+  {
+   "p": "GASOLINA",
+   "v": 6.69,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.67,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.84,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.39,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.23,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.87,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.77,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.79,
+   "b": "POTENCIAL"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "POTENCIAL"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.74,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.39,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.84,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.87,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.77,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.74,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.39,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.74,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.59,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.64,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.79,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.47,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.29,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.84,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "POTENCIAL"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.79,
+   "b": "POTENCIAL"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.84,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.69,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.67,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.43,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.27,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.74,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.39,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.72,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.54,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.43,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.27,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.86,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.76,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.55,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.84,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.64,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.87,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.77,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.74,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.39,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.79,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.69,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.67,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.84,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.59,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.39,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.84,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.87,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.77,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.74,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.39,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.72,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.49,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.55,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.43,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.27,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.79,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.43,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.27,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.86,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.84,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.64,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.75,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.59,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.84,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.84,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.43,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.27,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.3,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.15,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.87,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.77,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.88,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.84,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.87,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.77,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.65,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.86,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.75,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.79,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.55,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.79,
+   "b": "POTENCIAL"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.59,
+   "b": "POTENCIAL"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.59,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.39,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.64,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.74,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.39,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.75,
+   "b": "BRANCA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.59,
+   "b": "BRANCA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.85,
+   "b": "VIBRA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.84,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.79,
+   "b": "POTENCIAL"
+  },
+  {
+   "p": "ETANOL",
+   "v": 4.59,
+   "b": "POTENCIAL"
+  },
+  {
+   "p": "GASOLINA",
+   "v": 6.84,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.57,
+   "b": "BRANCA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.19,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.19,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.69,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.59,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.59,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.49,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.5,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.74,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.83,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.39,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.59,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.49,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.19,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.57,
+   "b": "BRANCA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.19,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.59,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.59,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.59,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.49,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.59,
+   "b": "BRANCA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.49,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.39,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.5,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.09,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.59,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.78,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.57,
+   "b": "BRANCA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.19,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.19,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.59,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.49,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.5,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.74,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.59,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.59,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.89,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.69,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.59,
+   "b": "BRANCA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.09,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.85,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.19,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.59,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.59,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.79,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.59,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.59,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.95,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.39,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.78,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.5,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.69,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 7.74,
+   "b": "IPIRANGA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.89,
+   "b": "VIBRA"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.69,
+   "b": "RAIZEN"
+  },
+  {
+   "p": "DIESEL S10",
+   "v": 6.99,
+   "b": "VIBRA"
+  }
+ ],
+ "curitiba_brands": {
+  "VIBRA": 184,
+  "IPIRANGA": 142,
+  "RAIZEN": 78,
+  "BRANCA": 47,
+  "POTENCIAL": 8
+ },
+ "ratio_by_uf": [
+  {
+   "uf": "MT",
+   "gasolina": 6.79,
+   "etanol": 3.73,
+   "ratio": 0.549,
+   "n": 364
+  },
+  {
+   "uf": "SP",
+   "gasolina": 6.39,
+   "etanol": 3.59,
+   "ratio": 0.562,
+   "n": 5395
+  },
+  {
+   "uf": "MS",
+   "gasolina": 6.56,
+   "etanol": 3.89,
+   "ratio": 0.593,
+   "n": 178
+  },
+  {
+   "uf": "GO",
+   "gasolina": 6.59,
+   "etanol": 3.99,
+   "ratio": 0.605,
+   "n": 766
+  },
+  {
+   "uf": "PR",
+   "gasolina": 6.59,
+   "etanol": 3.99,
+   "ratio": 0.605,
+   "n": 1160
+  },
+  {
+   "uf": "MG",
+   "gasolina": 6.29,
+   "etanol": 3.99,
+   "ratio": 0.634,
+   "n": 2097
+  },
+  {
+   "uf": "DF",
+   "gasolina": 6.58,
+   "etanol": 4.19,
+   "ratio": 0.637,
+   "n": 106
+  },
+  {
+   "uf": "AM",
+   "gasolina": 7.29,
+   "etanol": 4.79,
+   "ratio": 0.657,
+   "n": 164
+  },
+  {
+   "uf": "BA",
+   "gasolina": 6.94,
+   "etanol": 4.65,
+   "ratio": 0.67,
+   "n": 931
+  },
+  {
+   "uf": "AC",
+   "gasolina": 7.29,
+   "etanol": 4.99,
+   "ratio": 0.684,
+   "n": 45
+  },
+  {
+   "uf": "SC",
+   "gasolina": 6.49,
+   "etanol": 4.48,
+   "ratio": 0.69,
+   "n": 492
+  },
+  {
+   "uf": "RR",
+   "gasolina": 7.57,
+   "etanol": 5.4,
+   "ratio": 0.713,
+   "n": 40
+  },
+  {
+   "uf": "TO",
+   "gasolina": 6.99,
+   "etanol": 4.99,
+   "ratio": 0.714,
+   "n": 119
+  },
+  {
+   "uf": "CE",
+   "gasolina": 6.98,
+   "etanol": 4.99,
+   "ratio": 0.715,
+   "n": 584
+  },
+  {
+   "uf": "PI",
+   "gasolina": 6.84,
+   "etanol": 4.9,
+   "ratio": 0.716,
+   "n": 180
+  },
+  {
+   "uf": "RO",
+   "gasolina": 7.39,
+   "etanol": 5.3,
+   "ratio": 0.717,
+   "n": 159
+  },
+  {
+   "uf": "ES",
+   "gasolina": 6.39,
+   "etanol": 4.59,
+   "ratio": 0.718,
+   "n": 245
+  },
+  {
+   "uf": "PA",
+   "gasolina": 6.89,
+   "etanol": 4.99,
+   "ratio": 0.724,
+   "n": 199
+  },
+  {
+   "uf": "RJ",
+   "gasolina": 6.59,
+   "etanol": 4.77,
+   "ratio": 0.724,
+   "n": 1172
+  },
+  {
+   "uf": "PE",
+   "gasolina": 6.8,
+   "etanol": 4.99,
+   "ratio": 0.734,
+   "n": 725
+  },
+  {
+   "uf": "PB",
+   "gasolina": 6.49,
+   "etanol": 4.79,
+   "ratio": 0.738,
+   "n": 273
+  },
+  {
+   "uf": "AL",
+   "gasolina": 6.69,
+   "etanol": 4.99,
+   "ratio": 0.746,
+   "n": 255
+  },
+  {
+   "uf": "RS",
+   "gasolina": 6.26,
+   "etanol": 4.67,
+   "ratio": 0.746,
+   "n": 661
+  },
+  {
+   "uf": "SE",
+   "gasolina": 7.0,
+   "etanol": 5.3,
+   "ratio": 0.757,
+   "n": 101
+  },
+  {
+   "uf": "MA",
+   "gasolina": 6.79,
+   "etanol": 5.22,
+   "ratio": 0.769,
+   "n": 286
+  },
+  {
+   "uf": "RN",
+   "gasolina": 6.71,
+   "etanol": 5.17,
+   "ratio": 0.77,
+   "n": 146
+  },
+  {
+   "uf": "AP",
+   "gasolina": 6.59,
+   "etanol": 5.81,
+   "ratio": 0.882,
+   "n": 7
+  }
+ ],
+ "uf_below_070": 11
+}

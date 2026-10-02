@@ -1,6 +1,6 @@
 # Lapidação da Direção A — "Papel"
 
-Escolhida em 2026-10-02. Este documento é a crítica a partir de dois olhares e a lista exata do que muda da v1 (mock-up das seções 1, 2 e colofão) para a v2 (página completa, seções 1–8).
+Escolhida em 2026-10-02. Este documento é a crítica a partir de dois olhares e a lista exata do que muda da v1 (mock-up das seções 1, 2 e bastidores) para a v2 (página completa, seções 1–8).
 
 ## Dois leitores
 
@@ -66,7 +66,7 @@ A v1 põe na mesma curva dois objetos diferentes. Corrigir sem perder a ideia:
 - Replay com scrubber (teclado: ← → espaço), escala W; marcadores T1/T2/T3 e o retorno em 55 s; abaixo, a lista dos sinais que o VEN escuta (HQ, ONS, NYISO, CAISO, ISO-NE) com um ponto que acende quando a seção 1 ou 3 mostra o mesmo sinal.
 - Método: hardware, OpenADR 3.0, medição por tomada inteligente, código aberto (Apache 2.0).
 
-### Seção 8 · Colofão
+### Seção 8 · Bastidores
 - Três colunas (método · orçamento · fontes) ficam; acrescentar **"código deste gráfico"** em cada seção (link para o arquivo no repositório) e uma linha "verificado em" com a data da última execução do CI.
 - Rodapé: identidade, CREA, cidades, WhatsApp, e-mail, privacidade, Data Joule. Uma frase, antes do rodapé, que responde "por que Curitiba e Montréal": *"Engenharia registrada no Paraná; laboratório em Montréal."*
 

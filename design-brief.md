@@ -6,7 +6,7 @@ Dados reais para os mock-ups: `design-data.json` (snapshot de 2026-10-01, ~23h B
 
 ## O que o site é
 
-Um **observatório de energia**: uma sequência de instrumentos ao vivo, cada um respondendo uma pergunta concreta com dados públicos, cada número carimbado com fonte e horário. Lê-se como uma reportagem de dados impressa — não como um dashboard de SaaS nem como um site institucional. O "quem somos" cabe numa linha do rodapé. O colofão (como o site é feito) é o portfólio.
+Um **observatório de energia**: uma sequência de instrumentos ao vivo, cada um respondendo uma pergunta concreta com dados públicos, cada número carimbado com fonte e horário. Lê-se como uma reportagem de dados impressa — não como um dashboard de SaaS nem como um site institucional. O "quem somos" cabe numa linha do rodapé. O bastidores (como o site é feito) é o portfólio.
 
 Público: parceiros técnicos (distribuidoras, GEDISA, LF Energy, Hydro-Québec), clientes da Data Joule verificando quem está por trás, e engenheiros/desenvolvedores que vão olhar o código-fonte.
 
@@ -76,7 +76,7 @@ Pergunta: *computação consegue reduzir carga a um sinal da rede?*
 Dados: traço gravado de um evento real (W × t, níveis T1–T3) do laboratório em Montréal (estático).
 Visual: replay com scrubber: ~10–14 W → ~0 W no nível máximo, retorno em 55 s. Marcas dos sinais (Hydro-Québec, ONS, NYISO, CAISO, ISO-NE) e OCPP.
 
-### 8 · Colofão
+### 8 · Bastidores
 Pergunta: *como isto é feito?*
 Conteúdo: stack (Next.js, React Server Components, SVG à mão), cache por fonte, orçamento de desempenho (Lighthouse ≥ 95, ≤ 90 KB de JS), lista de fontes com "última leitura" ao vivo, link para o repositório público (MIT), licença dos dados.
 Rodapé: Bronze Engenharia de Energia · CNPJ 19.824.419/0001-96 · CREA-PR 194835/D · Curitiba · Montréal · WhatsApp · e-mail · Política de privacidade · link discreto para a Data Joule.

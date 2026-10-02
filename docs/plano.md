@@ -21,7 +21,7 @@ One long bilingual page (PT at `/`, EN at `/en`) that reads like a data-journali
 | 5 | **Na bomba** (for gas-station owners) | What do gasolina, etanol and diesel cost, where does the price come from, and does ethanol pay off in my state? | ANP monthly station-level survey (build-time snapshot, ~75k rows/month: pump price, product, brand, município), Petrobras refinery price (build-time scrape), tax constants per year (ICMS monofásico R$/L per state, PIS/COFINS R$/L), anhydrous-ethanol blend share, BCB PTAX (live) | See "Section 5 detail" below |
 | 6 | **Demanda ociosa no Paraná** | How much contracted demand sits idle? | Precomputed aggregates from BDGD/Copel 2025 (11 780 A4 units, from `auditoria-fatura/bdgd_analise.md`) — static JSON | Canvas beeswarm by sector, R$ 122 M/ano headline, sector filter |
 | 7 | **Laboratório OpenADR** | Can compute shed load on a grid signal? | Recorded event trace from the Montréal lab (W vs t, tiers T1–T3) — static JSON | Scrubbable replay of one real event (10–14 W → 0 W, 55 s recovery) |
-| 8 | **Colofão** | How is this built? | — | Stack, caching per source, perf budget, source list with live "última leitura", link to public repo, licence. Footer: Bronze Engenharia de Energia · CNPJ · CREA-PR 194835/D · Curitiba · Montréal · WhatsApp · e-mail |
+| 8 | **Bastidores** | How is this built? | — | Stack, caching per source, perf budget, source list with live "última leitura", link to public repo, licence. Footer: Bronze Engenharia de Energia · CNPJ · CREA-PR 194835/D · Curitiba · Montréal · WhatsApp · e-mail |
 
 ### Section 4 detail — "O preço da energia no Brasil"
 

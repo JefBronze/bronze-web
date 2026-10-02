@@ -49,7 +49,11 @@ data = {
     # Lab tiers: point measurements 2026-06-06 (data-joule README:58-76, Strategy:1142); restore 55 s.
     'lab': {'tiers': [['T0', 10.5], ['T1', 9.0], ['T2', 7.1], ['T3', 3.8], ['T4', 0.2]], 'restoreS': 55, 'nota': 'degraus a partir de medições pontuais; sem série temporal gravada'},
     'fuel': {'month': fuel['month'], 'curitiba': fuel['curitiba'], 'brasil': fuel['brasil'], 'ratio': fuel['ratio_by_uf'], 'below070': fuel['uf_below_070'],
-             'stations': fuel['curitiba_stations'], 'brands': fuel['curitiba_brands']},
+             # compact: per product, [price, brand index into brandList]
+             'brandList': ['VIBRA', 'IPIRANGA', 'RAIZEN', 'BRANCA', 'OUTRA'],
+             'stations': {p: [[s['v'], (['VIBRA', 'IPIRANGA', 'RAIZEN', 'BRANCA'].index(s['b']) if s['b'] in ['VIBRA', 'IPIRANGA', 'RAIZEN', 'BRANCA'] else 4)]
+                              for s in fuel['curitiba_stations'] if s['p'] == p] for p in ['GASOLINA', 'ETANOL', 'DIESEL S10']},
+             'brands': fuel['curitiba_brands']},
     # Anatomy of a litre, Paraná, Aug 2026 — Petrobras + tax constants to confirm at build time; marked in the UI.
     'litro': {'refinaria': 2.91, 'anidro': 0.68, 'pisCofins': 0.7925, 'icms': 1.57, 'nota': 'refinaria e tributos: valores de referência a confirmar (Petrobras, CONFAZ)'},
 }

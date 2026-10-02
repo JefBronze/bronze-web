@@ -18,9 +18,10 @@ One long bilingual page (PT at `/`, EN at `/en`) that reads like a data-journali
 | 2 | **Petróleo e probabilidade** | What does the market *think* oil will do? | FRED WTI/Brent/Henry Hub (daily); Polymarket WTI "hit $X" event; Kalshi `KXWTI` strike ladder | Spot line + **implied probability distribution** derived from both venues (isotonic-fitted CDF → density), median + 80 % band, Polymarket vs Kalshi overlaid. Disclaimer footnote. |
 | 3 | **Mix na rede** | How green is the grid this hour? | CAISO fuel-source CSV (5-min), NYISO rtfuelmix | Stacked band chart + renewables-share dial; CAISO/NYISO switch |
 | 4 | **O preço da energia no Brasil** (centrepiece, 3 panels) | What does a MWh cost today, from the wholesale market to three different bills? | ONS CMO semi-horário (live, daily), PLD floor/ceiling (CCEE, static per year), bandeira vigente (ANEEL, monthly), tarifas homologadas por distribuidora (ANEEL, build-time snapshot), URPX models | See "Section 4 detail" below |
-| 5 | **Demanda ociosa no Paraná** | How much contracted demand sits idle? | Precomputed aggregates from BDGD/Copel 2025 (11 780 A4 units, from `auditoria-fatura/bdgd_analise.md`) — static JSON | Canvas beeswarm by sector, R$ 122 M/ano headline, sector filter |
-| 6 | **Laboratório OpenADR** | Can compute shed load on a grid signal? | Recorded event trace from the Montréal lab (W vs t, tiers T1–T3) — static JSON | Scrubbable replay of one real event (10–14 W → 0 W, 55 s recovery) |
-| 7 | **Colofão** | How is this built? | — | Stack, caching per source, perf budget, source list with live "última leitura", link to public repo, licence. Footer: Bronze Engenharia de Energia · CNPJ · CREA-PR 194835/D · Curitiba · Montréal · WhatsApp · e-mail |
+| 5 | **Na bomba** (for gas-station owners) | What do gasolina, etanol and diesel cost, where does the price come from, and does ethanol pay off in my state? | ANP monthly station-level survey (build-time snapshot, ~75k rows/month: pump price, product, brand, município), Petrobras refinery price (build-time scrape), tax constants per year (ICMS monofásico R$/L per state, PIS/COFINS R$/L), anhydrous-ethanol blend share, BCB PTAX (live) | See "Section 5 detail" below |
+| 6 | **Demanda ociosa no Paraná** | How much contracted demand sits idle? | Precomputed aggregates from BDGD/Copel 2025 (11 780 A4 units, from `auditoria-fatura/bdgd_analise.md`) — static JSON | Canvas beeswarm by sector, R$ 122 M/ano headline, sector filter |
+| 7 | **Laboratório OpenADR** | Can compute shed load on a grid signal? | Recorded event trace from the Montréal lab (W vs t, tiers T1–T3) — static JSON | Scrubbable replay of one real event (10–14 W → 0 W, 55 s recovery) |
+| 8 | **Colofão** | How is this built? | — | Stack, caching per source, perf budget, source list with live "última leitura", link to public repo, licence. Footer: Bronze Engenharia de Energia · CNPJ · CREA-PR 194835/D · Curitiba · Montréal · WhatsApp · e-mail |
 
 ### Section 4 detail — "O preço da energia no Brasil"
 
@@ -38,6 +39,18 @@ Each bill is a vertical stack (energia · fio · encargos · bandeira · tributo
 
 Data notes: Copel B1 already exists in `Data-Joule/urpx` (reproduces a real bill within R$ 0,04). A4 Verde/Azul are the next URPX models (planned anyway, see memory `urpx-prototype`); tariff values for them come from the ANEEL snapshot, and `auditoria-fatura/sim_verde_azul.py` has the computation logic to port. PLD floor/ceiling per year is a two-number constant from CCEE. ANEEL CKAN (`dadosabertos.aneel.gov.br`) timed out during tonight's probes — treat it as build-time only, never a runtime dependency.
 
+### Section 5 detail — "Na bomba" (added 2026-10-01 at Jeferson's request: something for gas-station owners)
+
+Three panels, R$/litro.
+
+**5a · Etanol compensa?** — the classic 70 % rule, computed per state from the ANP monthly survey: median etanol ÷ median gasolina. A 27-state ranked bar (ratio), with the 0,70 line; states below it are where ethanol wins. August 2026: MT 0,55 · SP 0,56 · MS 0,59 · GO/PR 0,61 … RS 0,75 · AP 0,88 — ethanol pays off in 11 states. Selector for the visitor's state; default PR.
+
+**5b · O preço na sua cidade** — município selector (default Curitiba): median pump price for gasolina, gasolina aditivada, etanol, diesel S10, GNV; distribution as a strip plot of all stations surveyed in the município, coloured by bandeira (branca / Vibra / Ipiranga / Raízen / regional). Curitiba Aug 2026: gasolina 6,89 · etanol 4,69 · diesel S10 6,99; white-flag stations ≈ R$ 0,15 cheaper than the majors. 12-month line per product (ethanol's harvest seasonality shows).
+
+**5c · Anatomia do litro** — the gasolina C price as a vertical stack (same device as the electricity bill in 4c): Petrobras refinery price (gasolina A) · anhydrous ethanol blend share · PIS/COFINS (fixed R$/L) · ICMS monofásico (fixed R$/L, per state) · distribution + resale margin (= pump median − everything above). Diesel S10 as a second stack (biodiesel blend instead of ethanol). Side note: Brent in BRL (FRED × BCB PTAX, live) vs the Petrobras price — the import-parity gap that drives station owners' expectations of the next adjustment.
+
+Data notes: ANP open data lives at `gov.br/anp/.../arquivos/shpc/dsan/{YYYY}/{MM}-dados-abertos-precos-{gasolina-etanol|diesel-gnv|glp}.csv` (`;`-separated, Latin characters, ~9 MB + 4 MB per month, published with ~1-month lag; file names are not perfectly consistent — `scripts/build-data.mjs` must list the index page and match by regex). The `Valor de Compra` column is empty in 2026 files, so dealer margin is derived (5c), never read. Petrobras prices: `precos.petrobras.com.br` (scrape at build time, committed fallback). Tax constants: `data/fuel-taxes-{YYYY}.json`, hand-maintained from the CONFAZ/Receita acts, each with its citation. BCB PTAX: `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='MM-DD-YYYY'&$format=json` (verified key-free, live).
+
 Dropped from `conteudo.md`: About with bio/photo, service blocks, project cards. Kept as one footer line + colophon. Joule Credits / Chainlink still excluded.
 
 ## Data sources (all verified key-free on 2026-10-01)
@@ -53,6 +66,9 @@ Dropped from `conteudo.md`: About with bio/photo, service blocks, project cards.
 | Kalshi | `https://api.elections.kalshi.com/trade-api/v2/markets?series_ticker=KXWTI&status=open` (`floor_strike`, `yes_bid/ask_dollars`, `close_time`) | live | 2 min |
 | ONS CMO semi-horário | `https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/cmo_tm/CMO_SEMIHORARIO_{YYYY}.csv` (`;`-separated: subsistema;nome;datetime;R$/MWh; ~1.8 MB; published daily ~22:00 UTC for D+1) | daily | 1 h, parse only the last 2 days |
 | ANEEL tarifas homologadas + bandeiras | `dadosabertos.aneel.gov.br` CKAN CSV / gov.br bandeiras page — **build-time only** (`scripts/build-data.mjs`), committed fallback in `data/` | monthly | static |
+| ANP preços de combustíveis (mensal, por posto) | `https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/{YYYY}/{MM}-dados-abertos-precos-*.csv` — **build-time only**, aggregated to `data/fuel-{YYYY-MM}.json` (medians per município/UF/product/bandeira + 12-month series) | monthly | static |
+| Petrobras preços de refinaria | `https://precos.petrobras.com.br` — build-time scrape, committed fallback | on change | static |
+| BCB PTAX (USD/BRL) | `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='MM-DD-YYYY'&$format=json` | daily | 6 h |
 | Open-Meteo (optional, section 1 annotation) | `https://api.open-meteo.com/v1/forecast?latitude&longitude&current=temperature_2m` for Curitiba + Montréal | hourly | 30 min |
 
 All fetches are **server-side only**, so the CSP keeps `connect-src 'self'`. Not available without key (skip): Electricity Maps, ENTSO-E, EIA, gridstatus.io, CCEE PLD.

@@ -92,5 +92,22 @@ html = html.replace(
     '              mk(D.sin, 70000, 105000, 60, 300, "#4FB3C6", "#7FD3E2"); mk(D.quebec, 14000, 20000, 180, 420, "#D8B370", "#F0D39A"); return out; })(),\n'
     '            sources: sources\n')
 
+# 6. Brand marks (brand/*.svg, currentColor) inlined: icon-min in the masthead, icon in the cover lockup, favicon in <head>
+import pathlib
+def inline_svg(name, cls):
+    s = pathlib.Path('brand', name).read_text().strip()
+    s = re.sub(r'^<svg[^>]*>', f'<svg class="{cls}" viewBox="%s" aria-hidden="true">' % re.search(r'viewBox="([^"]*)"', s).group(1), s)
+    return s.replace(' />', '></path>').replace('/>', '></path>')
+html = html.replace('<div class="brand"><span class="brandname serif">Bronze Engenharia</span>',
+                    '<div class="brand"><span class="hmark">' + inline_svg('bronze-icon-min.svg', 'msvg') + '</span><span class="brandname serif">Bronze Engenharia</span>')
+html = html.replace('<div class="lock"><span class="lockbar"></span>',
+                    '<div class="lock"><span class="lockmark">' + inline_svg('bronze-icon.svg', 'msvg') + '</span>')
+html = html.replace('        <script src="./helpers.js"></script>',
+                    '        <link rel="icon" type="image/svg+xml" href="./favicon.svg" />\n        <script src="./helpers.js"></script>')
+html = html.replace('          .hojev3{margin-top:0}',
+                    '          .hmark{display:inline-flex;align-items:center;margin-right:10px;color:#D8B370}.hmark .msvg{height:24px;width:auto;display:block}\n'
+                    '          .lockmark{display:inline-flex;color:var(--cv-bronze)}.lockmark .msvg{height:96px;width:auto;display:block}\n'
+                    '          .lock{align-items:center;gap:14px}\n'
+                    '          .hojev3{margin-top:0}')
 open(DST, 'w', encoding='utf-8').write(html)
 print(DST, len(html), 'bytes')

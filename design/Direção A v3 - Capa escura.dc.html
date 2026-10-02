@@ -10,6 +10,7 @@
       <helmet data-dc-atomics>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@400;600&family=Fragment+Mono&display=swap" rel="stylesheet" />
+        <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
         <script src="./helpers.js"></script>
         <script src="./data2.js"></script>
         <style>
@@ -91,6 +92,9 @@
           .streaks{position:absolute;left:0;right:0;bottom:0;height:70%;width:100%;pointer-events:none}
           .scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(11,18,25,0.9) 0%,rgba(11,18,25,0.7) 30%,rgba(11,18,25,0.25) 50%,rgba(11,18,25,0) 62%),linear-gradient(180deg,rgba(11,18,25,0.55) 0%,rgba(11,18,25,0) 40%)}
           .cover .ax{fill:var(--cv-mute)}.cover .axl{fill:#C9CFD2}
+          .hmark{display:inline-flex;align-items:center;margin-right:10px;color:#D8B370}.hmark .msvg{height:24px;width:auto;display:block}
+          .lockmark{display:inline-flex;color:var(--cv-bronze)}.lockmark .msvg{height:96px;width:auto;display:block}
+          .lock{align-items:center;gap:14px}
           .hojev3{margin-top:0}
           @media (max-width:1240px){.rail{display:none}}
           @media (max-width:760px){.coverin{grid-template-columns:1fr;min-height:0}.wm{font-size:28px}.cvnums{justify-self:start;text-align:left}.cvnums .bignums{justify-content:start}.cvnums .stamp{justify-content:flex-start}}
@@ -101,7 +105,7 @@
       <div class="{{ rootClass }}">
         <header class="hdr">
           <div class="wrap hdrin">
-            <div class="brand"><span class="brandname serif">Bronze Engenharia</span><span class="brandsub">de Energia</span></div>
+            <div class="brand"><span class="hmark"><svg class="msvg" viewBox="130 114 480 480" aria-hidden="true"><g transform="translate(-25 0)"><path d="M220.000 146.000L322.000 146.000C388.000 146.000 427.000 175.000 427.000 218.000C427.000 253.000 408.000 278.000 368.000 289.000C460.000 286.000 521.000 337.000 521.000 416.000C521.000 499.000 451.000 548.000 357.000 548.000L220.000 548.000L220.000 544.000L313.000 544.000C400.000 544.000 447.000 491.000 447.000 419.000C447.000 345.000 397.000 296.000 319.000 296.000L220.000 296.000L220.000 291.000L298.000 291.000C337.000 291.000 359.000 262.000 359.000 219.000C359.000 178.000 340.000 150.000 298.000 150.000L220.000 150.000Z" fill="currentColor"></path><path d="M220.000 146.000L220.000 548.000" fill="none" stroke="currentColor" stroke-width="11.0"></path><path d="M234.000 146.000C234.000 153.732 227.732 160.000 220.000 160.000C212.268 160.000 206.000 153.732 206.000 146.000C206.000 138.268 212.268 132.000 220.000 132.000C227.732 132.000 234.000 138.268 234.000 146.000Z" fill="currentColor"></path><path d="M234.000 418.000C234.000 425.732 227.732 432.000 220.000 432.000C212.268 432.000 206.000 425.732 206.000 418.000C206.000 410.268 212.268 404.000 220.000 404.000C227.732 404.000 234.000 410.268 234.000 418.000Z" fill="currentColor"></path><path d="M234.000 548.000C234.000 555.732 227.732 562.000 220.000 562.000C212.268 562.000 206.000 555.732 206.000 548.000C206.000 540.268 212.268 534.000 220.000 534.000C227.732 534.000 234.000 540.268 234.000 548.000Z" fill="currentColor"></path></g></svg></span><span class="brandname serif">Bronze Engenharia</span><span class="brandsub">de Energia</span></div>
             <div class="hr"><a href="#en">EN</a><button class="tog" onClick="{{ toggleTheme }}">{{ themeLabel }}</button></div>
           </div>
         </header>
@@ -125,7 +129,7 @@
           <div class="scrim"></div>
           <div class="coverin">
             <div>
-              <div class="lock"><span class="lockbar"></span><div><div class="wm">BRONZE</div><div class="wms">Engenharia de Energia</div></div></div>
+              <div class="lock"><span class="lockmark"><svg class="msvg" viewBox="130 114 480 480" aria-hidden="true"><g transform="translate(-25 0)"><path d="M448.000 418.000C448.000 477.647 399.647 526.000 340.000 526.000C280.353 526.000 232.000 477.647 232.000 418.000C232.000 358.353 280.353 310.000 340.000 310.000C399.647 310.000 448.000 358.353 448.000 418.000Z" fill="none" stroke="currentColor" stroke-width="5.4"></path><path d="M340.000 146.000L340.000 405.000" fill="none" stroke="currentColor" stroke-width="5.4"></path><path d="M340.000 431.000L340.000 548.000" fill="none" stroke="currentColor" stroke-width="5.4"></path><path d="M186.000 418.000L327.000 418.000" fill="none" stroke="currentColor" stroke-width="8.4"></path><path d="M353.000 418.000L500.000 418.000" fill="none" stroke="currentColor" stroke-width="8.4"></path><path d="M190.000 146.000L316.000 146.000" fill="none" stroke="currentColor" stroke-width="8.4"></path><path d="M220.000 292.000L397.000 292.000" fill="none" stroke="currentColor" stroke-width="6.0"></path><path d="M220.000 146.000L322.000 146.000C388.000 146.000 427.000 175.000 427.000 218.000C427.000 253.000 408.000 278.000 368.000 289.000C460.000 286.000 521.000 337.000 521.000 416.000C521.000 499.000 451.000 548.000 357.000 548.000L220.000 548.000L220.000 544.000L313.000 544.000C400.000 544.000 447.000 491.000 447.000 419.000C447.000 345.000 397.000 296.000 319.000 296.000L220.000 296.000L220.000 291.000L298.000 291.000C337.000 291.000 359.000 262.000 359.000 219.000C359.000 178.000 340.000 150.000 298.000 150.000L220.000 150.000Z" fill="currentColor"></path><path d="M220.000 146.000L220.000 548.000" fill="none" stroke="currentColor" stroke-width="30.0"></path><path d="M234.000 146.000C234.000 153.732 227.732 160.000 220.000 160.000C212.268 160.000 206.000 153.732 206.000 146.000C206.000 138.268 212.268 132.000 220.000 132.000C227.732 132.000 234.000 138.268 234.000 146.000Z" fill="currentColor"></path><path d="M234.000 418.000C234.000 425.732 227.732 432.000 220.000 432.000C212.268 432.000 206.000 425.732 206.000 418.000C206.000 410.268 212.268 404.000 220.000 404.000C227.732 404.000 234.000 410.268 234.000 418.000Z" fill="currentColor"></path><path d="M234.000 548.000C234.000 555.732 227.732 562.000 220.000 562.000C212.268 562.000 206.000 555.732 206.000 548.000C206.000 540.268 212.268 534.000 220.000 534.000C227.732 534.000 234.000 540.268 234.000 548.000Z" fill="currentColor"></path><path d="M353.000 418.000C353.000 425.180 347.180 431.000 340.000 431.000C332.820 431.000 327.000 425.180 327.000 418.000C327.000 410.820 332.820 405.000 340.000 405.000C347.180 405.000 353.000 410.820 353.000 418.000Z" fill="none" stroke="currentColor" stroke-width="15.6"></path></g></svg></span><div><div class="wm">BRONZE</div><div class="wms">Engenharia de Energia</div></div></div>
               <p class="kick">01 · Pulso · ao vivo</p>
               <h1 class="h1 serif">Engenharia de energia, com dados.</h1>
               <p class="lede serif">Um observatório: instrumentos ligados a dados públicos do setor elétrico e de combustíveis, lidos a cada poucos minutos. As linhas de luz são as cargas do Brasil e do Québec nas últimas 24 horas.</p>

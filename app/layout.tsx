@@ -9,7 +9,8 @@ const sans = Source_Sans_3({ subsets: ['latin', 'latin-ext'], weight: ['400', '6
 const serif = Source_Serif_4({ subsets: ['latin', 'latin-ext'], weight: 'variable', style: ['normal', 'italic'], axes: ['opsz'], variable: '--font-serif', display: 'swap' })
 const mono = Fragment_Mono({ subsets: ['latin'], weight: ['400'], variable: '--font-mono', display: 'swap' })
 
-const SITE_URL = 'https://bronze-engenharia.com.br'
+// Canonical host is www (Vercel redirects the bare .com.br and both .com hosts here with 308).
+const SITE_URL = 'https://www.bronze-engenharia.com.br'
 const TITLE = 'Bronze Engenharia de Energia — observatório de energia, com dados'
 const DESCRIPTION =
   'Instrumentos ligados a dados públicos do setor elétrico e de combustíveis no Brasil: carga do SIN, custo marginal, três faturas de um mesmo MWh, mercado livre e geração distribuída, petróleo em reais e preços na bomba. Engenharia registrada no Paraná, CREA-PR 194835/D.'

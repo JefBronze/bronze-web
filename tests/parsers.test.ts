@@ -3,7 +3,9 @@ import { isotonicDecreasing, quantile } from '@/lib/chart'
 import { dec, fmt, hhmm, hhmmText, isoDay } from '@/lib/format'
 import { parseCaiso } from '@/lib/sources/abroad'
 import { parseFred, parseKalshi, parsePoly } from '@/lib/sources/markets'
-import { parseCarga, parseCmo } from '@/lib/sources/ons'
+import { duckStats, netLoad } from '@/lib/derive'
+import type { Observatory } from '@/lib/observatory'
+import { parseAgora, parseBalanco, parseCarga, parseCmo, type AgoraKey, type AgoraPoint } from '@/lib/sources/ons'
 
 describe('format', () => {
   it('groups thousands with a non-breaking space and uses a decimal comma', () => {
@@ -87,5 +89,58 @@ describe('CAISO', () => {
     expect(c.time).toHaveLength(14)
     expect(c.Solar[13]).toBe(13)
     expect(c.Batteries[0]).toBe(-1)
+  })
+})
+
+describe('ONS balanço', () => {
+  // A duck: flat load, a solar hump peaking at noon, constant wind.
+  const day = (d: string, hours = 24) =>
+    Array.from({ length: hours }, (_, h) => {
+      const sol = h >= 6 && h <= 18 ? Math.round(40000 * Math.sin(((h - 6) / 12) * Math.PI)) : 0
+      return `SIN  ;SIN;${d} ${String(h).padStart(2, '0')}:00:00;30000.5;8000;10000;${sol};90000;0`
+    }).join('\n')
+  const csv = `000;cut line from the range\n${day('2026-09-30')}\nNE ;NORDESTE;2026-10-01 00:00:00;1;1;1;1;1;0\n${day('2026-10-01', 20)}`
+  it('trims the padded SIN id and keeps the latest complete day', () => {
+    const b = parseBalanco(csv, '2026-10-03')
+    expect(b.day).toBe('2026-09-30')
+    expect(b.carga).toHaveLength(24)
+    expect(b.hid[0]).toBe(30001)
+    expect(Math.max(...b.sol)).toBe(40000)
+  })
+  it('finds the trough at noon and the climb to the evening', () => {
+    const b = parseBalanco(csv, '2026-10-03')
+    const d = duckStats(b as Observatory['balanco'])
+    expect(d.troughH).toBe(12)
+    expect(d.trough).toBe(90000 - 10000 - 40000)
+    expect(d.peakH).toBeGreaterThanOrEqual(18)
+    expect(d.ramp).toBe(40000)
+    expect(netLoad([100], [10], [20], [5])).toEqual([65])
+  })
+})
+
+describe('ONS Energia Agora', () => {
+  const minutes = Array.from({ length: 12 * 60 + 7 }, (_, i) => `2026-10-03T${String(Math.floor(i / 60)).padStart(2, '0')}:${String(i % 60).padStart(2, '0')}:00-03:00`)
+  const series = (v: (i: number) => number, key: 'geracao' | 'carga' = 'geracao'): AgoraPoint[] => minutes.map((instante, i) => ({ instante, [key]: v(i) }))
+  const raw: Record<AgoraKey, AgoraPoint[]> = {
+    carga: series(() => 80000, 'carga'),
+    eol: series(() => 9000),
+    sol: series((i) => (i > 360 ? 10000 : 0)),
+    hid: series(() => 30000),
+    ter: series(() => 8000),
+    nuc: series(() => 1400).slice(0, -2), // nuclear lags two minutes
+  }
+  it('aligns on common minutes, keeps 5-minute points plus the last, and scales MMGD from the snapshot', () => {
+    const a = parseAgora(raw, { Data: '2026-10-03T12:00:00-03:00', sudesteECentroOeste: { geracao: { mmgd: 9000 } }, nordeste: { geracao: { mmgd: 6000 } } })
+    expect(a.day).toBe('2026-10-03')
+    expect(a.t[1]).toBe('00:05')
+    expect(a.t.at(-1)).toBe('12:04')
+    expect(a.mmgdRatio).toBeCloseTo(1.5)
+    expect(a.mmgd.at(-1)).toBe(15000)
+    expect(a.snap.mmgd).toBe(15000)
+  })
+  it('falls back to a default ratio at night', () => {
+    const a = parseAgora(raw, { Data: '2026-10-03T03:00:00-03:00', sul: { geracao: { mmgd: 0 } } })
+    expect(a.mmgd[0]).toBe(0)
+    expect(a.mmgdRatio).toBe(1.6)
   })
 })

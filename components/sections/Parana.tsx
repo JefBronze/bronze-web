@@ -13,7 +13,7 @@ export default function Parana({ o }: { o: Observatory }) {
     <section className="sec" id="parana" aria-labelledby="parana-h">
       <div className="wrap g2">
         <div>
-          <Kicker n={6}>Demanda ociosa no Paraná</Kicker>
+          <Kicker n={7}>Demanda ociosa no Paraná</Kicker>
           <h2 className="h2" id="parana-h">Quanta demanda contratada fica sem uso?</h2>
           <p className="lede">Empresas de média tensão contratam uma potência e pagam por ela todo mês, usem ou não. A base pública da ANEEL permite medir o que sobra.</p>
           <Lido label="Lido na BDGD 2025">

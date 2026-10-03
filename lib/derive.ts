@@ -34,7 +34,7 @@ function flagSeg(o: Observatory): Seg[] {
   return v > 0 ? [{ name: `bandeira ${FLAG_NAME[f]}`, v, kind: 'band' }] : []
 }
 
-/** The Grupo A reference case used in sections 2c and 3b. */
+/** The Grupo A reference case used in sections 2c and 4b. */
 export const A4_CASE = { mwh: 50, kw: 118, ponta: 0.1 }
 
 export function a4Parts(o: Observatory, modal: 'verde' | 'azul'): Seg[] {
@@ -138,3 +138,65 @@ export function polyRange(high: Pt[], low: Pt[]) {
 }
 
 export const BBL_LITERS = 158.987
+
+// ---------- the duck curve (section 3) -------------------------------------------------------------------
+
+/** Itaipu's installed capacity, MW (ITAIPU Binacional: 20 units × 700 MW). The yardstick for the evening ramp. */
+export const ITAIPU_MW = 14_000
+
+/** Net load = load − wind − solar (solar here includes rooftop MMGD). What the dispatchable fleet must serve. */
+export function netLoad(carga: number[], eol: number[], sol: number[], mmgd?: number[]): number[] {
+  return carga.map((c, i) => c - eol[i] - sol[i] - (mmgd?.[i] ?? 0))
+}
+
+/** Midday trough, evening peak and the fastest 3-hour climb of the hourly net load, and how much of the climb hydro took. */
+export function duckStats(b: Observatory['balanco']) {
+  const net = netLoad(b.carga, b.eol, b.sol)
+  const range = (a: number, z: number) => Array.from({ length: z - a + 1 }, (_, i) => a + i)
+  const troughH = range(9, 15).reduce((a, h) => (net[h] < net[a] ? h : a))
+  const peakH = range(16, 22).reduce((a, h) => (net[h] > net[a] ? h : a))
+  let fast = { from: troughH, mw: 0 }
+  for (let h = troughH; h + 3 <= peakH; h++) if (net[h + 3] - net[h] > fast.mw) fast = { from: h, mw: net[h + 3] - net[h] }
+  const ramp = net[peakH] - net[troughH]
+  return {
+    net,
+    troughH,
+    trough: net[troughH],
+    peakH,
+    peak: net[peakH],
+    ramp,
+    fast,
+    /** Minutes the fastest 3-hour climb takes to add one Itaipu. */
+    itaipuMin: fast.mw > 0 ? Math.round((ITAIPU_MW / fast.mw) * 180) : null,
+    hydroShare: ramp > 0 ? (b.hid[peakH] - b.hid[troughH]) / ramp : 0,
+    solarMax: Math.max(...b.sol),
+  }
+}
+
+export const CUT_REASON: Record<string, string> = {
+  ENE: 'sobra de energia',
+  CNF: 'confiabilidade',
+  REL: 'limite da rede',
+  PAR: 'parecer de acesso',
+}
+
+/** Last closed month of constrained-off cuts: total, by source and reason, Nordeste share, and the share of what could have been generated. */
+export function curtailStats(o: Observatory) {
+  const row = o.curtail.at(-1)!
+  const sum = (r: Record<string, number>) => Object.values(r).reduce((s, v) => s + v, 0)
+  const eol = sum(row.eol.cut)
+  const sol = sum(row.sol.cut)
+  const total = eol + sol
+  const reasons: Record<string, number> = {}
+  for (const f of [row.eol, row.sol]) for (const [k, v] of Object.entries(f.cut)) reasons[k] = (reasons[k] ?? 0) + v
+  return {
+    m: row.m,
+    eol,
+    sol,
+    total,
+    ne: (row.eol.cutNE + row.sol.cutNE) / total,
+    lostShare: total / (total + row.eol.gen + row.sol.gen),
+    reasons,
+    months: o.curtail.map((r) => ({ m: r.m, eol: sum(r.eol.cut), sol: sum(r.sol.cut) })),
+  }
+}

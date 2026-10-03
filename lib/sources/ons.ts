@@ -96,3 +96,129 @@ export async function fetchCmo(now = new Date()): Promise<Cmo> {
   // A suffix range starts mid-line; parseCmo skips anything without a date.
   return parseCmo(text, isoDay(now))
 }
+
+// ---------- balanço de energia (hourly, by source) ------------------------------------------------------
+
+/** Hourly SIN values, MWmed. Solar includes MMGD (rooftop/small-scale); thermal includes nuclear. */
+export type Balanco = { day: string; hid: number[]; ter: number[]; eol: number[]; sol: number[]; carga: number[] }
+// Column positions in `id_subsistema;nom_subsistema;din_instante;val_gerhidraulica;val_gertermica;val_gereolica;val_gersolar;val_carga;val_intercambio`.
+const BAL_COL = { hid: 3, ter: 4, eol: 5, sol: 6, carga: 7 } as const
+type BalKey = keyof typeof BAL_COL
+const BAL_KEYS = Object.keys(BAL_COL) as BalKey[]
+
+/** The file carries a ready-made SIN row per hour (ids are space-padded; `rows` trims them). Latest complete day ≤ preferDay. */
+export function parseBalanco(text: string, preferDay: string): Balanco {
+  const days = new Map<string, Record<BalKey, (number | undefined)[]>>()
+  for (const r of rows(text, ';')) {
+    if (r[0] !== 'SIN' || !/^\d{4}-\d{2}-\d{2}/.test(r[2] ?? '')) continue
+    const day = r[2].slice(0, 10)
+    const h = Number(r[2].slice(11, 13))
+    const d = days.get(day) ?? { hid: [], ter: [], eol: [], sol: [], carga: [] }
+    for (const k of BAL_KEYS) {
+      const v = Number(r[BAL_COL[k]])
+      if (Number.isFinite(v)) d[k][h] = v
+    }
+    days.set(day, d)
+  }
+  const complete = [...days.entries()]
+    .filter(([day, d]) => day <= preferDay && BAL_KEYS.every((k) => Array.from({ length: 24 }, (_, h) => d[k][h]).every((v) => v !== undefined)))
+    .map(([day]) => day)
+    .sort()
+  const day = complete.at(-1)
+  if (!day) throw new Error('Balanço: no complete SIN day')
+  const d = days.get(day)!
+  return { day, ...(Object.fromEntries(BAL_KEYS.map((k) => [k, d[k].map((v) => Math.round(v!))])) as Record<BalKey, number[]>) }
+}
+
+export async function fetchBalanco(now = new Date()): Promise<Balanco> {
+  // Same trick as the CMO: the yearly file passes 3 MB by October; the tail holds the last ~3 days.
+  const text = await getText(
+    `https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/balanco_energia_subsistema_ho/BALANCO_ENERGIA_SUBSISTEMA_${now.getUTCFullYear()}.csv`,
+    3600,
+    { headers: { Range: 'bytes=-40000' }, timeoutMs: 20_000 },
+  )
+  return parseBalanco(text, isoDay(now))
+}
+
+// ---------- "Energia Agora": today, minute by minute ---------------------------------------------------
+
+export const AGORA_SERIES = {
+  carga: 'Carga_SIN_json',
+  eol: 'Geracao_SIN_Eolica_json',
+  sol: 'Geracao_SIN_Solar_json',
+  hid: 'Geracao_SIN_Hidraulica_json',
+  ter: 'Geracao_SIN_Termica_json',
+  nuc: 'Geracao_SIN_Nuclear_json',
+} as const
+export type AgoraKey = keyof typeof AGORA_SERIES
+const AGORA_KEYS = Object.keys(AGORA_SERIES) as AgoraKey[]
+export type AgoraPoint = { instante: string; geracao?: number; carga?: number }
+export type AgoraSnapshot = { Data: string } & Record<string, unknown>
+
+/** Rooftop ÷ plant solar when the sun is too low for the measured ratio to mean anything. */
+export const MMGD_RATIO_DEFAULT = 1.6
+
+export type Agora = {
+  day: string
+  /** "HH:MM" Brasília, every 5 minutes from midnight to the last common reading. */
+  t: string[]
+  /** Load includes what MMGD serves; the plant-solar series does not include MMGD. */
+  carga: number[]
+  eol: number[]
+  sol: number[]
+  hid: number[]
+  ter: number[]
+  nuc: number[]
+  /** Estimated: today's plant-solar profile × (MMGD ÷ plant solar) at the snapshot instant. ONS publishes no MMGD series. */
+  mmgd: number[]
+  mmgdRatio: number
+  /** The snapshot instant, where MMGD is measured, not estimated. */
+  snap: { at: string; mmgd: number }
+  asOf: string
+}
+
+/** Aligns the six minute series on their common minutes, keeps one point every 5 minutes (plus the last), and estimates MMGD. */
+export function parseAgora(series: Record<AgoraKey, AgoraPoint[]>, snapshot: AgoraSnapshot): Agora {
+  const maps = Object.fromEntries(
+    AGORA_KEYS.map((k) => [k, new Map(series[k].map((p) => [p.instante.slice(0, 16), Number(k === 'carga' ? p.carga : p.geracao)]))]),
+  ) as Record<AgoraKey, Map<string, number>>
+  const common = [...maps.carga.keys()].filter((t) => AGORA_KEYS.every((k) => Number.isFinite(maps[k].get(t)))).sort()
+  if (common.length < 60) throw new Error('Energia Agora: too few common minutes')
+  const day = common.at(-1)!.slice(0, 10)
+  const last = common.at(-1)!
+  const keep = common.filter((t) => t.startsWith(day) && (Number(t.slice(14, 16)) % 5 === 0 || t === last))
+  const pick = (k: AgoraKey) => keep.map((t) => Math.round(maps[k].get(t)!))
+
+  let mmgdSnap = 0
+  for (const [k, v] of Object.entries(snapshot)) {
+    const g = k !== 'Data' && v && typeof v === 'object' ? (v as { geracao?: { mmgd?: number } }).geracao : undefined
+    mmgdSnap += g?.mmgd ?? 0
+  }
+  const solAt = maps.sol.get(snapshot.Data.slice(0, 16)) ?? maps.sol.get(last)!
+  const mmgdRatio = solAt > 2000 && mmgdSnap > 0 ? mmgdSnap / solAt : MMGD_RATIO_DEFAULT
+  const sol = pick('sol')
+  return {
+    day,
+    t: keep.map((t) => t.slice(11, 16)),
+    carga: pick('carga'),
+    eol: pick('eol'),
+    sol,
+    hid: pick('hid'),
+    ter: pick('ter'),
+    nuc: pick('nuc'),
+    mmgd: sol.map((v) => Math.round(v * mmgdRatio)),
+    mmgdRatio,
+    snap: { at: snapshot.Data, mmgd: Math.round(mmgdSnap) },
+    asOf: `${last}:00-03:00`,
+  }
+}
+
+export async function fetchAgora(): Promise<Agora> {
+  const base = 'https://tr.ons.org.br/Content'
+  const [snapshot, ...list] = await Promise.all([
+    getJson<AgoraSnapshot>(`${base}/GetBalancoEnergetico/null`, 120),
+    ...AGORA_KEYS.map((k) => getJson<AgoraPoint[]>(`${base}/Get/${AGORA_SERIES[k]}`, 120)),
+  ])
+  const series = Object.fromEntries(AGORA_KEYS.map((k, i) => [k, list[i]])) as Record<AgoraKey, AgoraPoint[]>
+  return parseAgora(series, snapshot as AgoraSnapshot)
+}

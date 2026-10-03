@@ -35,7 +35,7 @@ export default function Bastidores({ o }: { o: Observatory }) {
             <p className="ct">Método</p>
             <div className="li"><span>Next.js · React Server Components</span><span>render no servidor</span></div>
             <div className="li"><span>Gráficos em SVG escrito à mão</span><span>sem biblioteca</span></div>
-            <div className="li"><span>Motor 3D (seção 7): three.js</span><span>+179 kB, só ao chegar lá</span></div>
+            <div className="li"><span>Motor 3D (seção 7): Blender + three.js</span><span>+156 kB e modelo de 1,7 MB, só ao chegar lá</span></div>
             <div className="li"><span>Fontes auto-hospedadas</span><span>CSP estrita</span></div>
             <div className="li"><span>Cada fonte com cache próprio</span><span>2 min → 6 h</span></div>
             <div className="li"><span>Fonte fora do ar</span><span>última leitura, marcada</span></div>
@@ -44,7 +44,7 @@ export default function Bastidores({ o }: { o: Observatory }) {
           <div className="budget">
             <p className="ct">Orçamento · medido no build</p>
             <div><div className="bv">≥ 95</div><div className="bl">Lighthouse, nas quatro notas · meta</div></div>
-            <div><div className="bv">180 kB</div><div className="bl">JavaScript no cliente (gzip): o runtime do Next.js e do React; os gráficos chegam prontos do servidor, sem JS</div></div>
+            <div><div className="bv">179 kB</div><div className="bl">JavaScript no cliente (gzip): o runtime do Next.js e do React; os gráficos chegam prontos do servidor, sem JS</div></div>
             <div><div className="bv">0</div><div className="bl">cookies · rastreadores de terceiros</div></div>
             <Todo>verificação automática no CI: a ligar</Todo>
           </div>

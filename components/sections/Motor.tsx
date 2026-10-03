@@ -1,7 +1,7 @@
 import { clearanceHeight, crankRadius, ENGINE, ottoEfficiency, pinHeight, STROKE_NAME, STROKES, valveLift, type Stroke } from '@/lib/engine'
-import { dec, monthLabel, pct } from '@/lib/format'
+import { dec, fmt, monthLabel, pct } from '@/lib/format'
 import type { Observatory } from '@/lib/observatory'
-import Engine3D from '../Engine3D'
+import Engine3D from '../engine/Engine3D'
 import { Kicker, Lido, Metodo, ParaVoce, Swatch } from '../ui'
 
 const STROKE_FILL: Record<Stroke, string> = { admissao: 'var(--c1)', compressao: 'var(--c2)', combustao: 'var(--c4)', escape: 'var(--mute)' }
@@ -19,6 +19,19 @@ const ENERGY: [string, number, number, string][] = [
   ['chega às rodas', 0.18, 0.25, 'var(--c3)'],
 ]
 const WHEELS = ENERGY[4]
+
+/**
+ * Density (kg/m³) and lower heating value (kcal/kg), Balanço Energético Nacional 2026 (EPE), Anexo VIII.9
+ * "Densidades e poderes caloríficos" (dashboard.epe.gov.br/apps/livro-ben, matriz_densidades_poderes_calorificos.xlsx,
+ * read 2026-10-03). "Gasolina automotiva" in the table is gasolina A (no ethanol).
+ */
+const BEN = {
+  gasolinaA: { dens: 742, pci: 10400 },
+  anidro: { dens: 791.11, pci: 6750 },
+  hidratado: { dens: 809, pci: 6300 },
+}
+const KCAL_MJ = 4.1868e-3
+const mjPerLitre = (f: { dens: number; pci: number }) => (f.dens / 1000) * f.pci * KCAL_MJ
 
 // Four-strokes strip: each panel shows the cylinder at the middle of its stroke.
 const S = 0.9
@@ -86,6 +99,17 @@ export default function Motor({ o }: { o: Observatory }) {
   const litro = (o.fuel.curitiba as Record<string, number>).GASOLINA
   const mes = monthLabel(o.fuel.month.replace(/^(\d{2})\/(\d{4})$/, '$2-$1'))
   const stripH = y(0) + crankRadius * S + 46
+  // Gasolina C = gasolina A + anhydrous ethanol by volume (E32), ignoring the small volume contraction of the blend.
+  const blend = o.litro.blend
+  const mjC = (1 - blend) * mjPerLitre(BEN.gasolinaA) + blend * mjPerLitre(BEN.anidro)
+  const mjE = mjPerLitre(BEN.hidratado)
+  const ratio = mjE / mjC
+  const etanol = (o.fuel.curitiba as Record<string, number>).ETANOL
+  const priceRatio = etanol / litro
+  const fuels = [
+    { name: `gasolina C (E${Math.round(blend * 100)})`, mj: mjC, price: litro, c: 'var(--c4)' },
+    { name: 'etanol hidratado', mj: mjE, price: etanol, c: 'var(--c3)' },
+  ]
 
   return (
     <section className="sec" id="motor" aria-labelledby="motor-h">
@@ -100,7 +124,7 @@ export default function Motor({ o }: { o: Observatory }) {
 
         <div className="inst">
           <div className="instl">
-            <span>7a · um cilindro em corte · 250 cm³ (um quarto de um motor 1.0)</span>
+            <span>7a · motor 1.0 em corte · 4 cilindros, 16 válvulas, comando duplo</span>
             <span>3D</span>
           </div>
           <Engine3D />
@@ -145,9 +169,11 @@ export default function Motor({ o }: { o: Observatory }) {
           </div>
           <Metodo>
             <p>
-              O modelo de 7a e o esquema de 7b são o mesmo motor de exemplo, calculado em <code>lib/engine.ts</code>: diâmetro de {dec(ENGINE.bore, 0)} mm, curso de{' '}
-              {dec(ENGINE.stroke, 1)} mm, biela de {ENGINE.rod} mm, taxa de compressão {ENGINE.r}:1. A posição do pistão sai da geometria biela-manivela. As válvulas
-              abrem só no próprio tempo, sem o cruzamento que motores reais usam, para deixar o ciclo legível.
+              7a é um motor 1.0 de exemplo, de quatro cilindros e 16 válvulas, modelado no Blender por script (<code>scripts/blender/motor.py</code>) e animado
+              no navegador com three.js. 7a e 7b usam a mesma geometria, calculada em <code>lib/engine.ts</code>: diâmetro de {dec(ENGINE.bore, 0)} mm, curso de{' '}
+              {dec(ENGINE.stroke, 1)} mm, biela de {ENGINE.rod} mm, taxa de compressão {ENGINE.r}:1, ordem de ignição 1-3-4-2. A posição de cada pistão sai da
+              geometria biela-manivela; cada came está girado para abrir a sua válvula no ângulo certo. As válvulas abrem só no próprio tempo, sem o cruzamento
+              que motores reais usam, e as partículas do gás são ilustrativas, para deixar o ciclo legível.
             </p>
             <p>
               O diagrama pressão × volume é um ciclo Otto idealizado: admissão e escape perto da pressão atmosférica, compressão e expansão politrópicas (expoente{' '}
@@ -160,6 +186,37 @@ export default function Motor({ o }: { o: Observatory }) {
               de {mes} (seção 6).
             </p>
           </Metodo>
+        </div>
+
+        <div className="inst" style={{ marginTop: 40 }}>
+          <div className="instl">
+            <span>7d · gasolina × etanol · energia em cada litro</span>
+            <span>MJ por litro · Curitiba, {mes}</span>
+          </div>
+          <div className="eflow">
+            {fuels.map((f) => (
+              <div key={f.name} className="efrow">
+                <span className="efn">
+                  {f.name} · R$ {dec(f.price)}/L · <b>R$ {dec((f.price / f.mj) * 100)} por 100 MJ</b>
+                </span>
+                <span className="efbar" aria-hidden>
+                  <i style={{ left: 0, width: `${(f.mj / 32) * 100}%`, background: f.c }} />
+                </span>
+                <span className="efv">{dec(f.mj, 1)} MJ</span>
+              </div>
+            ))}
+          </div>
+          <p className="efnote">
+            Um litro de etanol hidratado tem {pct(ratio)} da energia de um litro de gasolina C. Em Curitiba, em {mes}, o etanol custava {pct(priceRatio)} do preço
+            da gasolina: {priceRatio < ratio ? 'mais barato por unidade de energia' : 'mais caro por unidade de energia'}. A regra prática dos 70 % da seção 6 vem
+            desta conta; com a gasolina E{Math.round(blend * 100)} de hoje, a paridade de energia fica em {pct(ratio)}.
+          </p>
+          <div className="stamp">
+            <span>
+              Densidade e poder calorífico inferior: Balanço Energético Nacional 2026 (EPE), Anexo VIII · gasolina A {fmt(BEN.gasolinaA.dens)} kg/m³ e {fmt(BEN.gasolinaA.pci)} kcal/kg ·
+              anidro {dec(BEN.anidro.dens)} kg/m³ e {fmt(BEN.anidro.pci)} kcal/kg · hidratado {fmt(BEN.hidratado.dens)} kg/m³ e {fmt(BEN.hidratado.pci)} kcal/kg · preços: ANP, mediana de {mes}
+            </span>
+          </div>
           <ParaVoce label={null}>
             Por que está aqui: o motor a combustão é a máquina térmica que quase todo brasileiro usa todo dia. As usinas térmicas que entram quando chove pouco, e
             que puxam a bandeira tarifária da seção 2, seguem o mesmo princípio: queimar combustível, aproveitar parte do calor e rejeitar o resto.

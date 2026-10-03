@@ -39,6 +39,10 @@ node scripts/shoot.mjs http://127.0.0.1:3000/ <out-dir> [light|dark] [width]   #
 
 `proxy.ts` allows only `/` and `/favicon.svg`; everything else renders `app/not-found.tsx` with 404. Security headers and CSP in `next.config.ts` are deliberate (copied from data-joule-web): fonts are self-hosted through `next/font`, all data fetching is server-side, so `connect-src 'self'` holds. Adding a page, file, third-party script, font or image host means changing `proxy.ts` and/or the CSP.
 
+## Domains
+
+Canonical: `www.bronze-engenharia.com.br` (Vercel project `bronze-web`, Production). `bronze-engenharia.com.br`, `bronze-engenharia.com` and `www.bronze-engenharia.com` 308-redirect to it. The .com.br DNS is at GoDaddy (A `@` and CNAME `www` as shown in Vercel → Domains); the .com zone is on Vercel's nameservers.
+
 ## Workflow
 
 Feature branch in a worktree → PR → Vercel preview → merge only when Jeferson says "merge". He sets DNS and environment variables in the dashboards himself. Contact e-mail on the site stays `contato@data-joule.com` until ImprovMX is set up; never publish an `@bronze-engenharia` address.

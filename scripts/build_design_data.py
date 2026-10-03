@@ -22,6 +22,17 @@ for c in caiso_cols:
 
 data = {
     'takenAt': snap['ons_carga']['data']['SECO']['latest']['din_referenciautc'],
+    # When each source's reading in this snapshot was published (used for the stamp when the app falls back to it).
+    'asOf': {
+        'ons': snap['ons_carga']['data']['SECO']['latest']['din_referenciautc'],
+        'hq': snap['hq_demand']['latest']['date'],
+        'fred': snap['fred']['WTI_DCOILWTICO'][-1]['d'],
+        'kalshi': snap['kalshi']['markets'][0]['close'],
+        'polymarket': snap['polymarket']['event'],
+        'caiso': snap['caiso_fuel']['latest']['Time'],
+        'cmo': snap['ons_cmo']['day'],
+        'ptax': '2026-10-01',
+    },
     'sinArea': {a: [round(carga[a]['series_last24'][i]['mw']) for i in range(n)] for a in areas},
     'ptax': 5.2079, 'ptaxDay': '2026-10-01',  # BCB PTAX venda, olinda.bcb.gov.br (verified 2026-10-02)
     'sin': sin, 'sinNow': round(carga['sin_mw_now']), 'sinBy': {a: round(carga[a]['latest']['val_cargaglobal']) for a in areas},
@@ -71,3 +82,6 @@ data = {
 js = 'window.BRONZE2 = ' + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + ';\n'
 open('design/data2.js', 'w').write(js)
 print('design/data2.js', len(js), 'bytes')
+# Same object for the Next.js app: the fallback every live source degrades to (lib/snapshot.ts).
+json.dump(data, open('data/snapshot.json', 'w'), ensure_ascii=False, indent=1)
+print('data/snapshot.json written')

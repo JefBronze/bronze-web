@@ -71,7 +71,7 @@ export default function Mercado({ o }: { o: Observatory }) {
               <span>PR: {acl.prAbr26} migrações em abr/26</span>
             </div>
             <Metodo>
-              Participação por classe: CCEE/Abraceel, consumo de {acl.shareAsOf}. Migrações: boletins mensais da CCEE (InfoMercado). O portal de dados abertos da CCEE bloqueia leitura automática; estes números entram no build a partir do boletim do mês, com data. Elegibilidade: Portaria MME 50/2022 — todo o Grupo A desde 1/1/2024; baixa tensão em discussão <Todo>(calendário a confirmar)</Todo>.
+              Participação por classe: CCEE/Abraceel, consumo de {acl.shareAsOf}. Migrações: boletins mensais da CCEE (InfoMercado). O portal de dados abertos da CCEE bloqueia leitura automática; estes números entram no build a partir do boletim do mês, com data. Elegibilidade: Portaria MME 50/2022 — todo o Grupo A desde 1/1/2024. Baixa tensão: a Lei 15.269/2025 (art. 15, § 17, da Lei 9.074/1995), publicada em 25/11/2025, dá prazo máximo de 24 meses para indústria e comércio (até 25/11/2027) e de 36 meses para os demais, inclusive residências (até 25/11/2028). São prazos máximos, e a abertura depende antes de plano de comunicação, tarifas separadas para os dois ambientes, regras do suprimento de última instância, um produto padrão com preço de referência e regras para a sobrecontratação das distribuidoras.
             </Metodo>
           </div>
           <div className="inst span2">

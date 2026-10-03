@@ -21,7 +21,7 @@ Nenhuma variável de ambiente é obrigatória (veja `.env.example`).
 - `lib/sources/*` — uma função por fonte, com parser puro e testado. Tudo é buscado no servidor; o navegador só fala com o próprio site.
 - `lib/observatory.ts` — junta as fontes em paralelo. Se uma cai, aquele instrumento usa o último snapshot (`data/snapshot.json`) e o carimbo diz "sem sinal agora · última leitura …".
 - `lib/derive.ts` — números que a página afirma em texto (faturas com tributos "por dentro", extremos do CMO, quantis dos mercados).
-- `components/sections/*` — as dez seções; "A curva do pato" (seção 3) foi acrescentada depois da Direção A v4.
+- `components/sections/*` — as onze seções; "A curva do pato" (seção 3) e "Quem gera" (seção 4) foram acrescentadas depois da Direção A v4.
 - `npm run snapshot` — atualiza `design-data.json`, `design/data2.js` e `data/snapshot.json` a partir das fontes reais.
 
 ## Design

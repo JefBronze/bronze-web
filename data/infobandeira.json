@@ -1,0 +1,222 @@
+[
+ {
+  "m": "2025-01",
+  "n": 81,
+  "gsf": 1.0,
+  "pld": 58.6,
+  "gfom": 0,
+  "cor": "verde",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/37300983/81%20-%20InfoBandeira%20Tarif%C3%A1ria_2025_01.pdf/dc2a01c1-9e34-69e0-ae89-4a6c5272a5ea"
+ },
+ {
+  "m": "2025-02",
+  "n": 82,
+  "gsf": 1.06,
+  "pld": 58.6,
+  "gfom": 0,
+  "cor": "verde",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/29391668/82%20-%20InfoBandeira%20Tarif%C3%A1ria_2025_02.pdf/09c8df68-b0c8-83bd-72dc-0000630fea02"
+ },
+ {
+  "m": "2025-03",
+  "n": 83,
+  "gsf": 1.03,
+  "pld": 264.69,
+  "gfom": 0,
+  "cor": "verde",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/29595874/83%20-%20InfoBandeira%20Tarif%C3%A1ria_2025_03_1.pdf/085b1bc0-db98-95ca-ebcf-e32d035d46e2"
+ },
+ {
+  "m": "2025-04",
+  "n": 84,
+  "gsf": 0.94,
+  "pld": 208.03,
+  "gfom": 0,
+  "cor": "verde",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/29744224/84%20-%20InfoBandeira%20Tarif%C3%A1ria_2025_04.pdf/da1330ae-fd30-643d-37ba-053e699e6321"
+ },
+ {
+  "m": "2025-05",
+  "n": 85,
+  "gsf": 0.83,
+  "pld": 241.89,
+  "gfom": 0,
+  "cor": "amarela",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/29918896/85%20-%20InfoBandeira%20Tarif%C3%A1ria_2025_05.pdf/09254bf9-a99b-7351-dfa7-5bac35d57fb7"
+ },
+ {
+  "m": "2025-06",
+  "n": 86,
+  "gsf": 0.75,
+  "pld": 310.35,
+  "gfom": 265,
+  "cor": "vermelha1",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/37295432/86%20-%20InfoBandeira%20Tarif%C3%A1ria_2025_06.pdf/d2abc6e2-fa3e-43f5-02d4-12bfde14c070"
+ },
+ {
+  "m": "2025-07",
+  "n": 87,
+  "gsf": 0.65,
+  "pld": 228.45,
+  "gfom": 0,
+  "cor": "vermelha1",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/37296749/87%20-%20InfoBandeira%20Tarif%C3%A1ria_2025_07.pdf/6cdd47e7-9a8f-15d6-1edf-e281da038e55"
+ },
+ {
+  "m": "2025-08",
+  "n": 88,
+  "gsf": 0.63,
+  "pld": 310.3,
+  "gfom": 0,
+  "cor": "vermelha2",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/30453320/88%20-%20InfoBandeira%20Tarif%C3%A1ria_2025_08.pdf/e2092968-bfb7-5d77-9167-d0317920a943"
+ },
+ {
+  "m": "2025-09",
+  "n": 89,
+  "gsf": 0.69,
+  "pld": 315.54,
+  "gfom": 0,
+  "cor": "vermelha2",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/37300002/89%20-%20InfoBandeira%20Tarif%C3%A1ria_2025_09.pdf/513285c2-e545-61ae-e2c0-66345b52aec9"
+ },
+ {
+  "m": "2025-10",
+  "n": 90,
+  "gsf": 0.69,
+  "pld": 297.32,
+  "gfom": 0,
+  "cor": "vermelha1",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/37302087/90%20-%20InfoBandeira%20Tarif%C3%A1ria_2025_10.pdf/267e3994-3163-627b-cf73-765de2366b54"
+ },
+ {
+  "m": "2025-11",
+  "n": 91,
+  "gsf": 0.72,
+  "pld": 333.39,
+  "gfom": 0,
+  "cor": "vermelha1",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/37301409/91%20-%20InfoBandeira%20Tarif%C3%A1ria_2025_11.pdf/9fa71da8-86a2-327b-3bfd-f29a41221636"
+ },
+ {
+  "m": "2025-12",
+  "n": 92,
+  "gsf": 0.84,
+  "pld": 304.02,
+  "gfom": 0,
+  "cor": "amarela",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/37295204/92%20-%20InfoBandeira%20Tarif%C3%A1ria_2025_12.pdf/77de920b-59b3-447a-010b-a8b7764bc261"
+ },
+ {
+  "m": "2026-01",
+  "n": 93,
+  "gsf": 0.95,
+  "pld": 183.05,
+  "gfom": 0,
+  "cor": "verde",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/37300785/93%20-%20InfoBandeira%20Tarif%C3%A1ria_2026_01.pdf/5528d2b4-b1cd-586a-54b4-97d3d652d17b"
+ },
+ {
+  "m": "2026-02",
+  "n": 94,
+  "gsf": 1.0,
+  "pld": 354.65,
+  "gfom": 0,
+  "cor": "verde",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/37295633/94%20-%20InfoBandeira%20Tarif%C3%A1ria_2026_02.pdf/511c5baa-9e9c-cf54-bbc7-27a3cf60b553"
+ },
+ {
+  "m": "2026-03",
+  "n": 95,
+  "gsf": 1.03,
+  "pld": 427.08,
+  "gfom": 0,
+  "cor": "verde",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/37296629/95%20-%20InfoBandeira%20Tarif%C3%A1ria_2026_03.pdf/f25749d3-9eff-4be9-64df-0b9c95047f09"
+ },
+ {
+  "m": "2026-04",
+  "n": 96,
+  "gsf": 0.97,
+  "pld": 258.01,
+  "gfom": 0,
+  "cor": "verde",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/37303581/96%20-%20InfoBandeira%20Tarif%C3%A1ria_2026_04.pdf/a2076a76-6e15-cfad-4d6c-f766665ef48b"
+ },
+ {
+  "m": "2026-05",
+  "n": 97,
+  "gsf": 0.8,
+  "pld": 237.58,
+  "gfom": 0,
+  "cor": "amarela",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/37303581/97%20-%20InfoBandeira%20Tarif%C3%A1ria_2026_05.pdf/44c53c97-d509-870e-ac08-255d7261f155"
+ },
+ {
+  "m": "2026-06",
+  "n": 98,
+  "gsf": 0.71,
+  "pld": 222.92,
+  "gfom": 0,
+  "cor": "amarela",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/37295609/98%20-%20InfoBandeira%20Tarif%C3%A1ria_2026_06.pdf/e9a89a83-539c-2d13-9977-1a8e965d8f99"
+ },
+ {
+  "m": "2026-07",
+  "n": 99,
+  "gsf": 0.7,
+  "pld": 171.48,
+  "gfom": 0,
+  "cor": "amarela",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/37296686/99%20-%20InfoBandeira%20Tarif%C3%A1ria_2026_07.pdf/29e34ebe-f59e-a642-10bf-18207a389f5b"
+ },
+ {
+  "m": "2026-08",
+  "n": 100,
+  "gsf": 0.72,
+  "pld": 128.67,
+  "gfom": 0,
+  "cor": "amarela",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/35702926/100%20-%20InfoBandeira%20Tarif%C3%A1ria_2026_08.pdf/91ed863f-ea3c-e386-c22c-7fd549a417d4"
+ },
+ {
+  "m": "2026-09",
+  "n": 101,
+  "gsf": 0.76,
+  "pld": 163.44,
+  "gfom": 0,
+  "cor": "amarela",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/36493783/101%20-%20InfoBandeira%20Tarif%C3%A1ria_2026_09.pdf/255ec56a-d438-1f47-19e2-3425bc187452"
+ },
+ {
+  "m": "2026-10",
+  "n": 102,
+  "gsf": 0.82,
+  "pld": 90.19,
+  "gfom": 0,
+  "cor": "verde",
+  "composto": false,
+  "url": "https://www.ccee.org.br/documents/80415/37596255/102%20-%20InfoBandeira%20Tarif%C3%A1ria_2026_10.pdf/7da4b4fc-31fb-7522-b954-c9c04dea68c8"
+ }
+]

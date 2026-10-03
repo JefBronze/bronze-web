@@ -56,6 +56,15 @@ data = {
              'stations': {p: [[s['v'], (['VIBRA', 'IPIRANGA', 'RAIZEN', 'BRANCA'].index(s['b']) if s['b'] in ['VIBRA', 'IPIRANGA', 'RAIZEN', 'BRANCA'] else 4)]
                               for s in fuel['curitiba_stations'] if s['p'] == p] for p in ['GASOLINA', 'ETANOL', 'DIESEL S10']},
              'brands': fuel['curitiba_brands']},
+    # ACL — CCEE InfoMercado / Abraceel (nov-2025 shares; 2025 total; 1T26; abr/26). Build-time; CCEE blocks scripted access.
+    'acl': {'share': {'total': 0.43, 'industria': 0.95, 'comercio': 0.47}, 'shareAsOf': 'nov/2025', 'consumers': 82000,
+            'migr': [['2025', 21700], ['1T/2026', 4827], ['abr/2026', 1213]], 'apiSimplificada1T26': 3387, 'prAbr26': 70, 'varejoShareAbr26': 0.75,
+            'precos': [150, 200, 250], 'nota': 'preço de contrato: cenários; curva de mercado (BBCE/Dcide) não é pública'},
+    # GD — ABGD / ANEEL (jan-2026): 43,5 GW, 3,87 mi sistemas, 7 mi UCs com créditos, PR 3º com >4 GW / ~305 mil usinas. Lei 14.300 art. 27: Fio B.
+    'gd': {'gw': 43.5, 'systems': 3.87e6, 'ucs': 7.0e6, 'municipios': 5565, 'solarShare': 0.99, 'proj2026': 50,
+           'pr': {'gw': 4.0, 'plants': 305000, 'rank': 3},
+           'fioB': [[2023, 0.15], [2024, 0.30], [2025, 0.45], [2026, 0.60], [2027, 0.75], [2028, 0.90], [2029, 1.0]],
+           'nota': 'parcela Fio B da TUSD B1 Copel: a confirmar na REH 3.472'},
     # Anatomy of a litre, Paraná, Aug 2026 — Petrobras + tax constants to confirm at build time; marked in the UI.
     'litro': {'refinaria': 2.91, 'anidro': 0.68, 'pisCofins': 0.7925, 'icms': 1.57, 'nota': 'refinaria e tributos: valores de referência a confirmar (Petrobras, CONFAZ)'},
 }

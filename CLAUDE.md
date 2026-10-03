@@ -24,7 +24,7 @@ node scripts/shoot.mjs http://127.0.0.1:3000/ <out-dir> [light|dark] [width]   #
 - `lib/observatory.ts` — `getObservatory()` runs all sources in parallel. A failed source falls back to `data/snapshot.json` and its `status[key].live` is false; the stamp then reads "sem sinal agora · última leitura …". Never render a blank instrument.
 - `lib/derive.ts` — every number the page states in words (bills with taxes "por dentro", CMO extremes and spreads, Kalshi quantiles, Polymarket range). Sentences are generated from data; do not hard-code readings in copy.
 - `lib/chart.ts` — SVG path helpers ported from `design/helpers.js`, plus `isotonicDecreasing` (the "ajuste isotônico" the Método text promises).
-- `components/sections/*.tsx` — server components, one per section, in page order: Pulso, Preco, Mercado, Petroleo, Bomba, Parana, Fora, Lab, Bastidores. `components/ThemeToggle.tsx` is the only client component.
+- `components/sections/*.tsx` — server components, one per section, in page order: Pulso, Preco, Mercado, Petroleo, Bomba, Parana, Fora, Lab, Bastidores. Client components: `components/ThemeToggle.tsx` and `components/Ticker.tsx` (the "Hoje" strip; each reading opens a short explanation on hover, focus or first tap — the copy lives in `app/page.tsx`).
 - `app/observatory.css` — tokens and every class, global (single page). Light/dark follows `prefers-color-scheme`; the toggle sets `html[data-theme]` and localStorage (applied before paint by the inline script in `app/layout.tsx`).
 
 ## Data rules

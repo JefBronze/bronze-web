@@ -2,7 +2,7 @@ import { a4Parts, aclBill, bill, A4_CASE } from '@/lib/derive'
 import { dec, fmt } from '@/lib/format'
 import type { Observatory } from '@/lib/observatory'
 import Bills from '../Bills'
-import { DJ_URL, Kicker, Lido, Metodo, ParaVoce, Todo } from '../ui'
+import { BRONZE_URL, Kicker, Lido, Metodo, ParaVoce, Todo } from '../ui'
 
 export default function Mercado({ o }: { o: Observatory }) {
   const { acl, gd } = o
@@ -89,8 +89,8 @@ export default function Mercado({ o }: { o: Observatory }) {
             </Metodo>
             <ParaVoce>
               Com {A4_CASE.mwh} MWh/mês, cada R$ 10/MWh de diferença no preço de contrato são R$ {fmt(perTenYear / 1000)} mil por ano. A{' '}
-              <a className="dj" href={DJ_URL}>
-                Data Joule
+              <a className="bz" href={BRONZE_URL}>
+                Bronze Engenharia
               </a>{' '}
               simula a migração com as suas 12 faturas antes de qualquer contrato.
             </ParaVoce>

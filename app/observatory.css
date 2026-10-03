@@ -52,6 +52,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .brand { display: flex; align-items: baseline; gap: 10px; color: var(--ink); }
 .brand:hover { color: var(--ink); text-decoration: none; }
 .brandname { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+/* Data Joule mark + mono wordmark (same as the former data-joule.com landing). */
+.djmark { flex: none; align-self: center; }
+.djword { font-family: var(--mono); font-size: 18px; letter-spacing: -0.04em; line-height: 1; color: var(--ink); }
+.djus { color: var(--dj); }
+@media (max-width: 420px) { .hdr .brandsub { display: none; } }
 .brandsub { font-size: 12px; color: var(--mute); letter-spacing: 0.08em; text-transform: uppercase; }
 .tog { font: inherit; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--line); background: transparent; color: var(--ink2); padding: 6px 10px; border-radius: 999px; cursor: pointer; }
 .tog .to-light { display: none; }
@@ -128,6 +133,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .pv { margin-top: 18px; font-size: 15px; color: var(--ink2); max-width: 40em; border-top: 1px dotted var(--line); padding-top: 10px; }
 .pv b { font-weight: 600; color: var(--ink); }
 .dj { color: var(--dj); }
+.bz { color: var(--c2); }
 .todo { font-family: var(--mono); font-size: 11px; color: var(--c4); letter-spacing: 0.04em; }
 
 .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 22px; }
@@ -182,6 +188,14 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .ax { font-size: 11px; fill: var(--mute); font-family: var(--mono); }
 .axl { font-size: 11px; fill: var(--ink2); font-family: var(--mono); }
 .axa { font-size: 11px; fill: var(--acc); font-family: var(--mono); }
+
+/* privacy page */
+.legal { padding-top: 56px; padding-bottom: 80px; max-width: 760px; }
+.legal p, .legal li { color: var(--ink2); }
+.legal h2 { font-family: var(--serif); font-weight: 400; font-size: 22px; margin: 32px 0 8px; }
+.legal ul { padding-left: 20px; }
+.legal li { margin: 6px 0; }
+.legalmeta { font-size: 13px; color: var(--mute); margin-top: -6px; }
 
 /* 404 */
 .nf { padding: 120px 24px; }

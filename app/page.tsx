@@ -8,7 +8,8 @@ import Parana from '@/components/sections/Parana'
 import Petroleo from '@/components/sections/Petroleo'
 import Preco from '@/components/sections/Preco'
 import Pulso from '@/components/sections/Pulso'
-import { DJ_URL } from '@/components/ui'
+import Link from 'next/link'
+import { BRONZE_URL } from '@/components/ui'
 import { BBL_LITERS, cmoSlotNow, FLAG_NAME, flagNow } from '@/lib/derive'
 import { dec, ddmm, fmt, hhmm, monthLabel } from '@/lib/format'
 import { getObservatory } from '@/lib/observatory'
@@ -29,9 +30,17 @@ export default async function Page() {
       <a className="skip" href="#pulso">Pular para o conteúdo</a>
       <header className="hdr">
         <div className="wrap hdrin">
-          <a className="brand" href="#pulso">
-            <span className="brandname serif">Bronze Engenharia</span>
-            <span className="brandsub">de Energia</span>
+          <a className="brand" href="#pulso" aria-label="Data Joule — início">
+            <svg className="djmark" width={24} height={24} viewBox="0 0 36 36" aria-hidden="true">
+              <rect x="4" y="22" width="6" height="10" fill="var(--ink)" />
+              <rect x="13" y="16" width="6" height="16" fill="var(--ink)" />
+              <rect x="22" y="12" width="6" height="20" fill="var(--ink)" />
+              <rect x="2" y="5" width="32" height="3" fill="var(--dj)" />
+            </svg>
+            <span className="djword">
+              Data<span className="djus">_</span>Joule
+            </span>
+            <span className="brandsub">observatório de energia</span>
           </a>
           <ThemeToggle />
         </div>
@@ -87,7 +96,8 @@ export default async function Page() {
         <Bastidores o={o} />
       </main>
       <footer className="foot wrap">
-        <span>Bronze Engenharia de Energia</span>
+        <span>Data Joule é um projeto da</span>
+        <a className="bz" href={BRONZE_URL}>Bronze Engenharia de Energia</a>
         <span className="sep">·</span>
         <span>CNPJ 19.824.419/0001-96</span>
         <span className="sep">·</span>
@@ -99,7 +109,7 @@ export default async function Page() {
         <span className="sep">·</span>
         <a href="mailto:contato@data-joule.com">contato@data-joule.com</a>
         <span className="sep">·</span>
-        <a className="dj" href={DJ_URL}>Data Joule</a>
+        <Link href="/privacidade">Privacidade</Link>
       </footer>
     </>
   )

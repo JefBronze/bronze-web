@@ -54,7 +54,7 @@ await send('Page.navigate', { url })
 await sleep(2500)
 await evaluate('document.fonts.ready.then(() => true)')
 
-const boxes = await evaluate(`JSON.stringify(Object.fromEntries(['.hdr', '.hoje', '.hojein', '#pulso', '.rail'].map((s) => {
+const boxes = await evaluate(`JSON.stringify(Object.fromEntries(['.hdr', '.hoje', '.track', '#pulso', '.rail'].map((s) => {
   const el = document.querySelector(s); if (!el) return [s, null]
   const r = el.getBoundingClientRect(); const cs = getComputedStyle(el)
   return [s, { top: Math.round(r.top), h: Math.round(r.height), w: Math.round(r.width), display: cs.display }]

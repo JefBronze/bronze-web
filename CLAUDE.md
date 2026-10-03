@@ -4,7 +4,7 @@ Guidance for Claude Code when working in this repository.
 
 ## What this is
 
-bronze-engenharia.com.br: a single-page "observatório de energia" (Next.js 16 App Router, TypeScript, React 19). Nine sections of live instruments built on public data, Brazil first (PT-BR is the canonical copy). Ported from the Claude Design project "Bronze Engenharia", file `Direção A v4 - Brasil primeiro.dc.html` (local copy in `design/`). When the design changes, re-port from that file instead of restyling ad hoc.
+**data-joule.com** — Data Joule, a single-page "observatório de energia" by Bronze Engenharia de Energia (brand swap of Oct 2026: this site moved from bronze-engenharia.com.br to data-joule.com, and the Grupo A audit landing from the `data-joule-web` repo moved to bronze-engenharia.com.br; the "Para você" notes link there). Built as a single page (Next.js 16 App Router, TypeScript, React 19). Nine sections of live instruments built on public data, Brazil first (PT-BR is the canonical copy). Ported from the Claude Design project "Bronze Engenharia", file `Direção A v4 - Brasil primeiro.dc.html` (local copy in `design/`). When the design changes, re-port from that file instead of restyling ad hoc.
 
 ## Commands
 
@@ -37,11 +37,11 @@ node scripts/shoot.mjs http://127.0.0.1:3000/ <out-dir> [light|dark] [width]   #
 
 ## Routing and security
 
-`proxy.ts` allows only `/` and `/favicon.svg`; everything else renders `app/not-found.tsx` with 404. Security headers and CSP in `next.config.ts` are deliberate (copied from data-joule-web): fonts are self-hosted through `next/font`, all data fetching is server-side, so `connect-src 'self'` holds. Adding a page, file, third-party script, font or image host means changing `proxy.ts` and/or the CSP.
+`proxy.ts` allows only `/`, `/privacidade`, the icon files and `/email/logo-*.png` (loaded by Jeferson's e-mail signature from data-joule.com — never remove them); everything else renders `app/not-found.tsx` with 404. Security headers and CSP in `next.config.ts` are deliberate (copied from data-joule-web): fonts are self-hosted through `next/font`, all data fetching is server-side, so `connect-src 'self'` holds. Adding a page, file, third-party script, font or image host means changing `proxy.ts` and/or the CSP.
 
 ## Domains
 
-Canonical: `www.bronze-engenharia.com.br` (Vercel project `bronze-web`, Production). `bronze-engenharia.com.br`, `bronze-engenharia.com` and `www.bronze-engenharia.com` 308-redirect to it. The .com.br DNS is at GoDaddy (A `@` and CNAME `www` as shown in Vercel → Domains); the .com zone is on Vercel's nameservers.
+Canonical: `data-joule.com` (Vercel project `bronze-web`, Production; zone on Vercel DNS, which also carries the mail records for contato@data-joule.com). The bronze-engenharia.com.br / .com domains belong to the `data-joule-web` project after the swap.
 
 ## Workflow
 

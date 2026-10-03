@@ -2,7 +2,17 @@ import { NextRequest, NextResponse } from 'next/server'
 
 // Only these paths are public. Everything else gets the 404 page.
 // Adding a page or a public file means adding its path here.
-const ALLOWED = new Set(['/', '/favicon.svg'])
+// - /email/logo-*.png are loaded by Jeferson's e-mail signature from data-joule.com: keep them here.
+const ALLOWED = new Set([
+  '/',
+  '/privacidade',
+  '/favicon.svg',
+  '/favicon-32.png',
+  '/icon-192.png',
+  '/apple-touch-icon.png',
+  '/email/logo-lockup.png',
+  '/email/logo-mark.png',
+])
 
 export function proxy(req: NextRequest) {
   const path = req.nextUrl.pathname.replace(/\/+$/, '') || '/'

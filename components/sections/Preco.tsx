@@ -4,7 +4,7 @@ import { dec, ddmm, fmt, isoDay, monthLabel } from '@/lib/format'
 import type { Observatory } from '@/lib/observatory'
 import { CMO_SUBS, type Sub } from '@/lib/sources/ons'
 import Bills from '../Bills'
-import { DJ_URL, Kicker, Lido, Metodo, ParaVoce, Stamp, Swatch } from '../ui'
+import { BRONZE_URL, Kicker, Lido, Metodo, ParaVoce, Stamp, Swatch } from '../ui'
 
 const SUB_STROKE: Record<Sub, string> = { SE: 'var(--c1)', S: 'var(--c2)', NE: 'var(--c3)', N: 'var(--c4)' }
 
@@ -145,9 +145,9 @@ export default function Preco({ o }: { o: Observatory }) {
           </Metodo>
           <ParaVoce>
             Se a sua empresa é Grupo A (média tensão), a diferença entre Verde e Azul e a demanda que você contrata mas não usa são dinheiro recuperável. A{' '}
-            <a className="dj" href={DJ_URL}>
-              Data Joule
-            </a>{' '}
+            <a className="bz" href={BRONZE_URL}>
+                Bronze Engenharia
+              </a>{' '}
             lê 12 faturas e devolve o valor em 5 dias úteis.
           </ParaVoce>
         </div>

@@ -1,7 +1,7 @@
 // Server-side fetch with a timeout, a polite User-Agent and Next's data cache.
 // Every source goes through here; nothing is fetched from the browser (CSP connect-src 'self').
 
-const UA = 'bronze-web/0.1 (+https://bronze-engenharia.com.br)'
+const UA = 'data-joule-observatorio/0.1 (+https://data-joule.com)'
 
 export async function getText(url: string, revalidate: number, init: { headers?: Record<string, string>; timeoutMs?: number } = {}): Promise<string> {
   const res = await fetch(url, {

@@ -58,4 +58,5 @@ export function Swatch({ color, dashed }: { color: string; dashed?: boolean }) {
   return <span className={dashed ? 'sw dash' : 'sw'} style={dashed ? { color } : { background: color }} aria-hidden="true" />
 }
 
-export const DJ_URL = 'https://data-joule.com'
+/** The audit service lives on Bronze Engenharia's site (Data Joule is the observatory). */
+export const BRONZE_URL = 'https://www.bronze-engenharia.com.br'

@@ -9,11 +9,12 @@ const sans = Source_Sans_3({ subsets: ['latin', 'latin-ext'], weight: ['400', '6
 const serif = Source_Serif_4({ subsets: ['latin', 'latin-ext'], weight: 'variable', style: ['normal', 'italic'], axes: ['opsz'], variable: '--font-serif', display: 'swap' })
 const mono = Fragment_Mono({ subsets: ['latin'], weight: ['400'], variable: '--font-mono', display: 'swap' })
 
-// Canonical host is www (Vercel redirects the bare .com.br and both .com hosts here with 308).
-const SITE_URL = 'https://www.bronze-engenharia.com.br'
-const TITLE = 'Bronze Engenharia de Energia — observatório de energia, com dados'
+// The observatory is Data Joule at data-joule.com (domain swap of Oct 2026; the audit landing moved to
+// bronze-engenharia.com.br). Data Joule is a brand of Bronze Engenharia de Energia.
+const SITE_URL = 'https://data-joule.com'
+const TITLE = 'Data Joule — observatório de energia, com dados'
 const DESCRIPTION =
-  'Instrumentos ligados a dados públicos do setor elétrico e de combustíveis no Brasil: carga do SIN, custo marginal, três faturas de um mesmo MWh, mercado livre e geração distribuída, petróleo em reais e preços na bomba. Engenharia registrada no Paraná, CREA-PR 194835/D.'
+  'Instrumentos ligados a dados públicos do setor elétrico e de combustíveis no Brasil: carga do SIN, custo marginal, três faturas de um mesmo MWh, mercado livre e geração distribuída, petróleo em reais e preços na bomba. Um projeto da Bronze Engenharia de Energia, CREA-PR 194835/D.'
 
 export const viewport: Viewport = {
   themeColor: [
@@ -26,8 +27,15 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: TITLE,
   description: DESCRIPTION,
-  icons: { icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }] },
-  openGraph: { type: 'website', locale: 'pt_BR', url: SITE_URL, siteName: 'Bronze Engenharia de Energia', title: TITLE, description: DESCRIPTION },
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
+  openGraph: { type: 'website', locale: 'pt_BR', url: SITE_URL, siteName: 'Data Joule', title: TITLE, description: DESCRIPTION },
   alternates: { canonical: '/' },
 }
 

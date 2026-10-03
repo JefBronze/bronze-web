@@ -1,6 +1,6 @@
 # bronze-web
 
-Site da Bronze Engenharia de Energia — **bronze-engenharia.com.br**.
+**Data Joule** — observatório de energia em **data-joule.com**, um projeto da Bronze Engenharia de Energia. (Até outubro de 2026 este site ficava em bronze-engenharia.com.br; os domínios foram trocados com o site de auditoria, repositório `data-joule-web`.)
 
 Um observatório de energia: instrumentos alimentados por dados públicos do setor elétrico e de combustíveis no Brasil (ONS, CCEE, ANEEL, ANP, BCB), com o petróleo e duas redes estrangeiras como referência, desenhados à mão em SVG e renderizados no servidor. Português brasileiro primeiro.
 

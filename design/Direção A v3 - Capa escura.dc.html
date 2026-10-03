@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@400;600&family=Fragment+Mono&display=swap" rel="stylesheet" />
+        <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+        <script src="./helpers.js"></script>
+        <script src="./data2.js"></script>
+        <style>
+          .root{--bg:#F4F1EB;--bg2:#ECE8E0;--ink:#191816;--ink2:#4A463F;--mute:#7A746B;--line:#DDD6CA;--acc:#236B7A;--acc2:#2E8798;--c1:#236B7A;--c2:#8A6737;--c3:#5B7F3A;--c4:#8C3B2E;--c5:#B9B0A2;--c6:#2B2926;--dj:#B5561A;
+            background:var(--bg);color:var(--ink);font-family:"Source Sans 3",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.5;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;min-height:100vh}
+          .root.dark{--bg:#161513;--bg2:#1E1C19;--ink:#ECE7DF;--ink2:#C9C2B7;--mute:#8E877C;--line:#2E2B26;--acc:#6FB3BF;--acc2:#8FCAD4;--c1:#6FB3BF;--c2:#D1A85A;--c3:#9CC46E;--c4:#E07B6A;--c5:#5C564D;--c6:#ECE7DF;--dj:#E8A46C}
+          .root a{color:var(--acc);text-decoration:none}.root a:hover{color:var(--acc2);text-decoration:underline}
+          .serif{font-family:"Source Serif 4",Georgia,serif}.mono{font-family:"Fragment Mono",ui-monospace,monospace}
+          .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+          .hdr{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:3}
+          .hdrin{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+          .brand{display:flex;align-items:baseline;gap:10px}.brandname{font-size:18px;font-weight:600;letter-spacing:-0.01em}.brandsub{font-size:12px;color:var(--mute);letter-spacing:0.08em;text-transform:uppercase}
+          .hr{display:flex;align-items:center;gap:14px;font-size:13px}
+          .tog{font-size:12px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--line);background:transparent;color:var(--ink2);padding:6px 10px;border-radius:999px;cursor:pointer}
+          .hoje{border-bottom:1px solid var(--line);background:var(--bg2)}
+          .hojein{display:flex;flex-wrap:nowrap;gap:28px;padding:9px 0;font-family:"Fragment Mono",monospace;font-size:12px;color:var(--ink2);overflow-x:auto;white-space:nowrap}.hojein a,.hojein span{flex:none}
+          .hojein a{color:var(--ink2)}.hojein b{font-weight:400;color:var(--ink)}.hojein i{font-style:normal;color:var(--mute);margin-right:6px;letter-spacing:0.06em;text-transform:uppercase;font-size:11px}
+          .rail{position:fixed;left:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;font-family:"Fragment Mono",monospace;font-size:11px;z-index:2}
+          .rail a{color:var(--mute);width:26px;height:26px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center}.rail a:hover{color:var(--ink);border-color:var(--ink);text-decoration:none}
+          .sec{padding:72px 0;border-bottom:1px solid var(--line)}
+          .kick{font-family:"Fragment Mono",monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--acc);margin:0 0 12px 0}
+          .h1{font-size:56px;line-height:1.02;letter-spacing:-0.02em;font-weight:400;margin:0 0 18px 0;text-wrap:pretty}
+          .h2{font-size:36px;line-height:1.1;letter-spacing:-0.015em;font-weight:400;margin:0 0 14px 0;text-wrap:pretty;max-width:22em}
+          .lede{font-size:20px;line-height:1.45;color:var(--ink2);margin:0;max-width:34em}
+          .lido{font-size:20px;line-height:1.4;font-style:italic;margin:18px 0 26px 0;max-width:36em;border-left:2px solid var(--acc);padding-left:14px}
+          .lido b{font-style:normal;font-weight:400;font-family:"Fragment Mono",monospace;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--acc);display:block;margin-bottom:4px}
+          .sup{font-size:14px;color:var(--mute);margin:22px 0 0 0}
+          .g2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:start}
+          .g2r{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;align-items:start}
+          .g2e{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start}
+          .g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;align-items:start}
+          .inst{border-top:2px solid var(--ink);padding-top:14px;min-width:0}
+          .instl{font-family:"Fragment Mono",monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mute);display:flex;justify-content:space-between;gap:12px;margin-bottom:10px}
+          .bignums{display:grid;grid-template-columns:1fr 1fr auto;gap:24px;margin-bottom:10px;align-items:end}
+          .bn{display:flex;flex-direction:column;gap:2px}.bnl{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mute)}
+          .bnv{font-size:40px;line-height:1;letter-spacing:-0.02em}.bnu{font-size:14px;color:var(--mute);margin-left:6px}.bnr{font-size:24px;color:var(--ink2)}
+          .svg{display:block;width:100%;height:auto}
+          .stamp{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--mute);margin-top:10px;flex-wrap:wrap}
+          .live{display:inline-flex;align-items:center;gap:6px}.dot{width:7px;height:7px;border-radius:50%;background:var(--acc);display:inline-block}
+          .badge{font-family:"Fragment Mono",monospace;font-size:11px;letter-spacing:0.06em;border:1px solid var(--line);padding:2px 8px;border-radius:999px;color:var(--mute)}
+          .met{margin-top:16px;font-size:14px;color:var(--ink2);max-width:60em}.met summary{cursor:pointer;font-family:"Fragment Mono",monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mute);list-style:none}.met summary::before{content:"+ ";}.met p{margin:8px 0 0 0}
+          .pv{margin-top:18px;font-size:15px;color:var(--ink2);max-width:40em;border-top:1px dotted var(--line);padding-top:10px}.pv b{font-weight:600;color:var(--ink)}
+          .tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:22px}
+          .tile{border-top:1px solid var(--line);padding-top:10px}.tl{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mute)}.tv{font-size:26px;letter-spacing:-0.01em;margin-top:4px}.tu{font-size:13px;color:var(--mute)}
+          .legend{display:flex;gap:16px;font-size:13px;color:var(--ink2);margin-top:12px;flex-wrap:wrap}.sw{width:16px;height:3px;display:inline-block;vertical-align:middle;margin-right:6px}
+          .tabs{display:flex;gap:16px;font-size:14px;margin-bottom:8px}.tabs a{color:var(--mute)}.tabs a.on{color:var(--ink);border-bottom:2px solid var(--ink)}
+          .flags{display:flex;gap:10px;align-items:stretch;margin:10px 0}
+          .flag{flex:1;border:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column;gap:4px;color:var(--mute)}.flag.on{border-color:var(--ink);color:var(--ink)}
+          .flagn{font-size:17px;line-height:1;white-space:nowrap}.flagv{font-family:"Fragment Mono",monospace;font-size:12px}
+          .bills{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:8px}
+          .bill{min-width:0}.billh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px}.billn{font-size:17px}.billt{font-family:"Fragment Mono",monospace;font-size:13px;color:var(--ink2)}
+          .seg{display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:var(--ink2)}.seg i{font-style:normal;display:inline-block;width:10px;height:10px;margin-right:8px;vertical-align:-1px}
+          .ctl{display:flex;gap:18px;font-size:14px;color:var(--ink2);margin-bottom:12px;flex-wrap:wrap}.ctl b{font-weight:600;color:var(--ink)}
+          .rows{display:flex;flex-direction:column}
+          .row{display:grid;grid-template-columns:7em minmax(0,1fr) 4em;gap:10px;align-items:center;font-size:13px;padding:2px 0}
+          .row span:first-child{font-family:"Fragment Mono",monospace;color:var(--ink2)}.row span:last-child{font-family:"Fragment Mono",monospace;text-align:right;color:var(--ink2)}
+          .bar{height:9px;background:var(--c5);position:relative}.bar.win{background:var(--c1)}.bar.me{background:var(--c2)}
+          .sect{display:grid;grid-template-columns:9em minmax(0,1fr) 4em 7em;gap:10px;align-items:center;font-size:14px;padding:6px 0;border-bottom:1px dotted var(--line)}.sect span:nth-child(3),.sect span:nth-child(4){font-family:"Fragment Mono",monospace;text-align:right;font-size:13px;color:var(--ink2)}
+          .colo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px}
+          .ct{font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--mute);margin:0 0 14px 0;padding-bottom:8px;border-bottom:1px solid var(--line)}
+          .li{display:flex;justify-content:space-between;gap:12px;font-size:14px;padding:7px 0;border-bottom:1px dotted var(--line)}.li span:last-child{color:var(--mute)}
+          .budget{display:flex;flex-direction:column;gap:14px}.bv{font-size:34px;letter-spacing:-0.02em;line-height:1}.bl{font-size:13px;color:var(--mute)}
+          .why{font-size:15px;color:var(--ink2);margin:40px 0 0 0;max-width:40em}
+          .foot{padding:20px 0 56px 0;font-size:13px;color:var(--mute);display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}.sep{opacity:0.5}
+          .ax{font-size:11px;fill:var(--mute);font-family:"Fragment Mono",monospace}.axl{font-size:11px;fill:var(--ink2);font-family:"Fragment Mono",monospace}.axa{font-size:11px;fill:var(--acc);font-family:"Fragment Mono",monospace}
+          .todo{font-family:"Fragment Mono",monospace;font-size:11px;color:var(--c4);letter-spacing:0.04em}
+          .root .hdr{background:#0B1219;border-bottom:1px solid rgba(255,255,255,0.08)}.root .hdr .brandname{color:#ECE6DA}.root .hdr .brandsub{color:#9AA3A8}.root .hdr a{color:#C9CFD2}.root .hdr .tog{color:#C9CFD2;border-color:rgba(255,255,255,0.2)}
+          .cover{--cv-ink:#ECE6DA;--cv-mute:#9AA3A8;--cv-teal:#4FB3C6;--cv-bronze:#D8B370;background:#0B1219;background-image:radial-gradient(1100px 520px at 88% 100%,rgba(138,103,55,0.34),transparent 62%),radial-gradient(800px 420px at 8% 0%,rgba(35,107,122,0.30),transparent 60%),linear-gradient(180deg,#0B1219 0%,#101B25 55%,#17202A 100%);color:var(--cv-ink);position:relative;overflow:hidden}
+          .coverin{position:relative;padding:48px 24px 36px 24px;max-width:1040px;margin:0 auto;display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:40px;align-items:start;min-height:600px}
+          .cover .lede{max-width:26em}.cover .lido{max-width:28em}
+          .cvnums{justify-self:end;text-align:right;padding-top:10px}.cvnums .bignums{grid-template-columns:auto auto auto;justify-content:end;gap:32px}.cvnums .stamp{justify-content:flex-end}.cvnums .met{text-align:left}
+          .lock{display:flex;gap:18px;align-items:center;margin-bottom:34px}.lockbar{width:1px;height:64px;background:var(--cv-bronze);opacity:0.7}
+          .wm{font-family:"Source Serif 4",Georgia,serif;font-size:40px;letter-spacing:0.32em;line-height:1;color:var(--cv-bronze);font-weight:400}.wms{font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--cv-ink);margin-top:10px;opacity:0.9}
+          .cover .kick{color:var(--cv-teal)}.cover .h1{color:var(--cv-ink)}.cover .lede{color:#C9CFD2}.cover .sup{color:var(--cv-mute)}
+          .cover .lido{border-left-color:var(--cv-bronze);color:var(--cv-ink)}.cover .lido b{color:var(--cv-bronze)}
+          .cover .bnl,.cover .bnu{color:var(--cv-mute)}.cover .bnv{color:var(--cv-ink)}.cover .bnr{color:#C9CFD2}
+          .cover .stamp{color:var(--cv-mute)}.cover .dot{background:var(--cv-teal)}.cover .badge{border-color:rgba(255,255,255,0.18);color:var(--cv-mute)}
+          .cover .met{color:#C9CFD2}.cover .met summary{color:var(--cv-mute)}
+          .streaks{position:absolute;left:0;right:0;bottom:0;height:70%;width:100%;pointer-events:none}
+          .scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(11,18,25,0.9) 0%,rgba(11,18,25,0.7) 30%,rgba(11,18,25,0.25) 50%,rgba(11,18,25,0) 62%),linear-gradient(180deg,rgba(11,18,25,0.55) 0%,rgba(11,18,25,0) 40%)}
+          .cover .ax{fill:var(--cv-mute)}.cover .axl{fill:#C9CFD2}
+          .hmark{display:inline-flex;align-items:center;margin-right:10px;color:#D8B370}.hmark .msvg{height:24px;width:auto;display:block}
+          .lockmark{display:inline-flex;color:var(--cv-bronze)}.lockmark .msvg{height:96px;width:auto;display:block}
+          .lock{align-items:center;gap:14px}
+          .hojev3{margin-top:0}
+          @media (max-width:1240px){.rail{display:none}}
+          @media (max-width:760px){.coverin{grid-template-columns:1fr;min-height:0}.wm{font-size:28px}.cvnums{justify-self:start;text-align:left}.cvnums .bignums{justify-content:start}.cvnums .stamp{justify-content:flex-start}}
+          @media (max-width:900px){.rail{display:none}}
+          @media (max-width:760px){.g2,.g2r,.g2e,.g3,.colo,.bills,.tiles{grid-template-columns:1fr}.h1{font-size:40px}.h2{font-size:30px}.bignums{grid-template-columns:1fr 1fr}.sec{padding:48px 0}}
+        </style>
+      </helmet>
+      <div class="{{ rootClass }}">
+        <header class="hdr">
+          <div class="wrap hdrin">
+            <div class="brand"><span class="hmark"><svg class="msvg" viewBox="130 114 480 480" aria-hidden="true"><g transform="translate(-25 0)"><path d="M220.000 146.000L322.000 146.000C388.000 146.000 427.000 175.000 427.000 218.000C427.000 253.000 408.000 278.000 368.000 289.000C460.000 286.000 521.000 337.000 521.000 416.000C521.000 499.000 451.000 548.000 357.000 548.000L220.000 548.000L220.000 544.000L313.000 544.000C400.000 544.000 447.000 491.000 447.000 419.000C447.000 345.000 397.000 296.000 319.000 296.000L220.000 296.000L220.000 291.000L298.000 291.000C337.000 291.000 359.000 262.000 359.000 219.000C359.000 178.000 340.000 150.000 298.000 150.000L220.000 150.000Z" fill="currentColor"></path><path d="M220.000 146.000L220.000 548.000" fill="none" stroke="currentColor" stroke-width="11.0"></path><path d="M234.000 146.000C234.000 153.732 227.732 160.000 220.000 160.000C212.268 160.000 206.000 153.732 206.000 146.000C206.000 138.268 212.268 132.000 220.000 132.000C227.732 132.000 234.000 138.268 234.000 146.000Z" fill="currentColor"></path><path d="M234.000 418.000C234.000 425.732 227.732 432.000 220.000 432.000C212.268 432.000 206.000 425.732 206.000 418.000C206.000 410.268 212.268 404.000 220.000 404.000C227.732 404.000 234.000 410.268 234.000 418.000Z" fill="currentColor"></path><path d="M234.000 548.000C234.000 555.732 227.732 562.000 220.000 562.000C212.268 562.000 206.000 555.732 206.000 548.000C206.000 540.268 212.268 534.000 220.000 534.000C227.732 534.000 234.000 540.268 234.000 548.000Z" fill="currentColor"></path></g></svg></span><span class="brandname serif">Bronze Engenharia</span><span class="brandsub">de Energia</span></div>
+            <div class="hr"><a href="#en">EN</a><button class="tog" onClick="{{ toggleTheme }}">{{ themeLabel }}</button></div>
+          </div>
+        </header>
+        <nav class="rail"><a href="#pulso">1</a><a href="#petroleo">2</a><a href="#mix">3</a><a href="#preco">4</a><a href="#bomba">5</a><a href="#parana">6</a><a href="#lab">7</a><a href="#bastidores">8</a></nav>
+
+        <section class="cover" id="pulso" data-screen-label="1 Pulso · capa">
+          <svg class="streaks" viewBox="0 0 1200 420" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <filter id="glow" x="-10%" y="-50%" width="120%" height="200%"><feGaussianBlur stdDeviation="7"></feGaussianBlur></filter>
+              <filter id="glow2" x="-10%" y="-50%" width="120%" height="200%"><feGaussianBlur stdDeviation="2"></feGaussianBlur></filter>
+            </defs>
+            <filter id="glow3" x="-10%" y="-80%" width="120%" height="260%"><feGaussianBlur stdDeviation="22"></feGaussianBlur></filter>
+            <path d="{{ coverSin }}" fill="none" stroke="#2E8798" stroke-width="40" opacity="0.22" filter="url(#glow3)"></path>
+            <path d="{{ coverQc }}" fill="none" stroke="#8A6737" stroke-width="40" opacity="0.28" filter="url(#glow3)"></path>
+            <sc-for list="{{ strands }}" as="s" hint-placeholder-count="14">
+              <path d="{{ s.d }}" fill="none" stroke="{{ s.stroke }}" stroke-width="{{ s.w }}" opacity="{{ s.op }}" filter="{{ s.f }}"></path>
+            </sc-for>
+            <path d="{{ coverSin }}" fill="none" stroke="#E6FAFF" stroke-width="1.2" opacity="0.95"></path>
+            <path d="{{ coverQc }}" fill="none" stroke="#FFF3DA" stroke-width="1.2" opacity="0.95"></path>
+          </svg>
+          <div class="scrim"></div>
+          <div class="coverin">
+            <div>
+              <div class="lock"><span class="lockmark"><svg class="msvg" viewBox="130 114 480 480" aria-hidden="true"><g transform="translate(-25 0)"><path d="M448.000 418.000C448.000 477.647 399.647 526.000 340.000 526.000C280.353 526.000 232.000 477.647 232.000 418.000C232.000 358.353 280.353 310.000 340.000 310.000C399.647 310.000 448.000 358.353 448.000 418.000Z" fill="none" stroke="currentColor" stroke-width="5.4"></path><path d="M340.000 146.000L340.000 405.000" fill="none" stroke="currentColor" stroke-width="5.4"></path><path d="M340.000 431.000L340.000 548.000" fill="none" stroke="currentColor" stroke-width="5.4"></path><path d="M186.000 418.000L327.000 418.000" fill="none" stroke="currentColor" stroke-width="8.4"></path><path d="M353.000 418.000L500.000 418.000" fill="none" stroke="currentColor" stroke-width="8.4"></path><path d="M190.000 146.000L316.000 146.000" fill="none" stroke="currentColor" stroke-width="8.4"></path><path d="M220.000 292.000L397.000 292.000" fill="none" stroke="currentColor" stroke-width="6.0"></path><path d="M220.000 146.000L322.000 146.000C388.000 146.000 427.000 175.000 427.000 218.000C427.000 253.000 408.000 278.000 368.000 289.000C460.000 286.000 521.000 337.000 521.000 416.000C521.000 499.000 451.000 548.000 357.000 548.000L220.000 548.000L220.000 544.000L313.000 544.000C400.000 544.000 447.000 491.000 447.000 419.000C447.000 345.000 397.000 296.000 319.000 296.000L220.000 296.000L220.000 291.000L298.000 291.000C337.000 291.000 359.000 262.000 359.000 219.000C359.000 178.000 340.000 150.000 298.000 150.000L220.000 150.000Z" fill="currentColor"></path><path d="M220.000 146.000L220.000 548.000" fill="none" stroke="currentColor" stroke-width="30.0"></path><path d="M234.000 146.000C234.000 153.732 227.732 160.000 220.000 160.000C212.268 160.000 206.000 153.732 206.000 146.000C206.000 138.268 212.268 132.000 220.000 132.000C227.732 132.000 234.000 138.268 234.000 146.000Z" fill="currentColor"></path><path d="M234.000 418.000C234.000 425.732 227.732 432.000 220.000 432.000C212.268 432.000 206.000 425.732 206.000 418.000C206.000 410.268 212.268 404.000 220.000 404.000C227.732 404.000 234.000 410.268 234.000 418.000Z" fill="currentColor"></path><path d="M234.000 548.000C234.000 555.732 227.732 562.000 220.000 562.000C212.268 562.000 206.000 555.732 206.000 548.000C206.000 540.268 212.268 534.000 220.000 534.000C227.732 534.000 234.000 540.268 234.000 548.000Z" fill="currentColor"></path><path d="M353.000 418.000C353.000 425.180 347.180 431.000 340.000 431.000C332.820 431.000 327.000 425.180 327.000 418.000C327.000 410.820 332.820 405.000 340.000 405.000C347.180 405.000 353.000 410.820 353.000 418.000Z" fill="none" stroke="currentColor" stroke-width="15.6"></path></g></svg></span><div><div class="wm">BRONZE</div><div class="wms">Engenharia de Energia</div></div></div>
+              <p class="kick">01 · Pulso · ao vivo</p>
+              <h1 class="h1 serif">Engenharia de energia, com dados.</h1>
+              <p class="lede serif">Um observatório: instrumentos ligados a dados públicos do setor elétrico e de combustíveis, lidos a cada poucos minutos. As linhas de luz são as cargas do Brasil e do Québec nas últimas 24 horas.</p>
+              <p class="lido serif"><b>Lido hoje</b>Às 23h30 em Brasília, o Brasil pedia {{ ratio }} vezes a potência do Québec — e as duas curvas subiam juntas, uma no fim da tarde quente, a outra no início da noite fria.</p>
+              <p class="sup">Engenharia registrada no Paraná · laboratório em Montréal · CREA-PR 194835/D</p>
+            </div>
+            <div class="cvnums">
+              <div class="bignums">
+                <div class="bn"><span class="bnl">SIN · Brasil</span><span class="bnv mono">{{ sinNow }}<span class="bnu">MW</span></span></div>
+                <div class="bn"><span class="bnl">Hydro-Québec</span><span class="bnv mono">{{ qcNow }}<span class="bnu">MW</span></span></div>
+                <div class="bn"><span class="bnl">razão</span><span class="bnr mono">× {{ ratio }}</span></div>
+              </div>
+              <div class="stamp"><span class="live"><span class="dot"></span>ONS carga verificada · 23:30 BRT · 30 min</span><span>Hydro-Québec demande · 22:00 EDT · 15 min</span><span class="badge">sem evento de ponta HQ · último em {{ hqPeak }}</span></div>
+              <details class="met"><summary>Método</summary><p>Brasil: carga verificada por subsistema (apicarga.ons.org.br), somada; ~30 min de atraso, meia em meia hora. Québec: demanda total (donnees.hydroquebec.com), 15 min. As duas linhas partilham o eixo de tempo em UTC (02:30 → 02:30); a azul-petróleo é o SIN (70–105 GW), a bronze é o Québec (14–20 GW). Curitiba 14,8 °C · Montréal 18,0 °C.</p></details>
+            </div>
+          </div>
+        </section>
+
+        <div class="hoje"><div class="wrap hojein">
+          <a href="#pulso"><i>SIN</i><b>{{ sinNow }} MW</b></a><a href="#pulso"><i>Québec</i><b>{{ qcNow }} MW</b></a><a href="#petroleo"><i>WTI</i><b>US$ {{ wtiNow }}</b></a><a href="#preco"><i>CMO SE/CO</i><b>R$ {{ cmoSE }}/MWh</b></a><a href="#preco"><i>Bandeira</i><b>amarela · jun/26</b></a><a href="#bomba"><i>Gasolina Curitiba</i><b>R$ {{ gasCwb }}/L</b></a><span><i>lido</i><b>01/10 · 23:42 BRT</b></span>
+        </div></div>
+        <section class="sec" id="petroleo" data-screen-label="2 Petróleo e probabilidade">
+          <div class="wrap">
+            <p class="kick">02 · Petróleo e probabilidade</p>
+            <h2 class="h2 serif">O que o mercado acha que o petróleo vai fazer.</h2>
+            <p class="lede serif">Dois mercados de previsão apostam dinheiro em patamares de preço. Fazem perguntas diferentes — e é por isso que ficam em dois painéis.</p>
+            <p class="lido serif"><b>Lido hoje</b>O Kalshi aposta que o WTI fecha o dia 2 perto de $92,9, com 80 % de chance entre $89,7 e $95,7. No Polymarket, outubro deve tocar algum valor entre $85 e $100; $100 tem 55 %.</p>
+            <div class="tiles" style="margin:0 0 26px 0">
+              <div class="tile"><div class="tl">WTI · spot</div><div class="tv mono">{{ wtiNow }}</div><div class="tu">US$/bbl · 29 set · FRED</div></div>
+              <div class="tile"><div class="tl">Brent · spot</div><div class="tv mono">{{ brentNow }}</div><div class="tu">US$/bbl · spread {{ spread }}</div></div>
+              <div class="tile"><div class="tl">Henry Hub · gás</div><div class="tv mono">{{ hhNow }}</div><div class="tu">US$/MMBtu</div></div>
+            </div>
+            <div class="g2e">
+              <div class="inst">
+                <div class="instl"><span>Kalshi · P(fechar acima de X) · 2 out</span><span>distribuição implícita</span></div>
+                <svg class="svg" viewBox="0 0 500 210" role="img" aria-label="Probabilidade de o WTI fechar acima de cada preço, Kalshi">
+                  <rect x="{{ k10x }}" y="20" width="{{ kBandW }}" height="140" fill="var(--c1)" opacity="0.1"></rect>
+                  <line x1="0" y1="90" x2="500" y2="90" stroke="var(--line)" stroke-dasharray="2 4"></line><text class="ax" x="500" y="86" text-anchor="end">50 %</text>
+                  <line x1="0" y1="160" x2="500" y2="160" stroke="var(--line)"></line>
+                  <path d="{{ kalCurve }}" fill="none" stroke="var(--c1)" stroke-width="2"></path>
+                  <line x1="{{ kMedX }}" y1="20" x2="{{ kMedX }}" y2="160" stroke="var(--c1)" stroke-width="1"></line>
+                  <line x1="{{ spotXk }}" y1="20" x2="{{ spotXk }}" y2="160" stroke="var(--mute)" stroke-dasharray="3 3"></line>
+                  <text class="ax" x="0" y="178">$86</text><text class="ax" x="125" y="178" text-anchor="middle">$89</text><text class="ax" x="250" y="178" text-anchor="middle">$92</text><text class="ax" x="375" y="178" text-anchor="middle">$95</text><text class="ax" x="500" y="178" text-anchor="end">$98</text>
+                  <text class="axa" x="{{ kMedX }}" y="200" text-anchor="middle">mediana $92,9 · faixa 80 %: $89,7–$95,7</text>
+                </svg>
+                <div class="stamp"><span class="live"><span class="dot"></span>Kalshi KXWTI · 23:42 BRT · 2 min</span><span>ponto médio bid/ask</span></div>
+              </div>
+              <div class="inst">
+                <div class="instl"><span>Polymarket · P(tocar X em outubro)</span><span>escadas HIGH e LOW</span></div>
+                <svg class="svg" viewBox="0 0 500 210" role="img" aria-label="Probabilidade de o WTI tocar cada nível durante outubro, Polymarket">
+                  <rect x="{{ pLoX }}" y="20" width="{{ pBandW }}" height="140" fill="var(--c2)" opacity="0.12"></rect>
+                  <line x1="0" y1="90" x2="500" y2="90" stroke="var(--line)" stroke-dasharray="2 4"></line><text class="ax" x="500" y="86" text-anchor="end">50 %</text>
+                  <line x1="0" y1="160" x2="500" y2="160" stroke="var(--line)"></line>
+                  <path d="{{ polyHighSteps }}" fill="none" stroke="var(--c2)" stroke-width="2"></path>
+                  <path d="{{ polyLowSteps }}" fill="none" stroke="var(--c2)" stroke-width="2" stroke-dasharray="5 3"></path>
+                  <line x1="{{ spotXp }}" y1="20" x2="{{ spotXp }}" y2="160" stroke="var(--mute)" stroke-dasharray="3 3"></line>
+                  <text class="ax" x="0" y="178">$60</text><text class="ax" x="125" y="178" text-anchor="middle">$75</text><text class="ax" x="250" y="178" text-anchor="middle">$90</text><text class="ax" x="375" y="178" text-anchor="middle">$105</text><text class="ax" x="500" y="178" text-anchor="end">$120</text>
+                  <text class="axa" x="{{ pMidX }}" y="200" text-anchor="middle">faixa provável do mês: $85–$100 · $100 tem 55 %</text>
+                </svg>
+                <div class="legend"><span><span class="sw" style="background:var(--c2)"></span>sobe até X (HIGH)</span><span><span class="sw" style="background:var(--c2);height:0;border-top:2px dashed var(--c2)"></span>cai até X (LOW)</span></div>
+                <div class="stamp"><span class="live"><span class="dot"></span>Polymarket Gamma · 23:42 BRT · 2 min</span><span>evento "What will WTI hit in October 2026?"</span></div>
+              </div>
+            </div>
+            <details class="met"><summary>Método</summary><p>Kalshi: contratos "WTI acima de X no fechamento de 2 out"; usamos o ponto médio bid/ask de cada strike como P(X), forçamos monotonicidade (ajuste isotônico) e lemos mediana e faixa de 80 % onde a curva cruza 0,5, 0,9 e 0,1. Polymarket: contratos "WTI toca X em outubro" para cima (HIGH) e para baixo (LOW); é probabilidade de toque, não distribuição do fechamento — por isso não se sobrepõe à curva do Kalshi. Spot: FRED, diário. Dados informativos; não é recomendação de investimento.</p></details>
+          </div>
+        </section>
+
+        <section class="sec" id="mix" data-screen-label="3 Mix na rede">
+          <div class="wrap g2r">
+            <div class="inst">
+              <div class="tabs"><a href="#mix" class="on">CAISO · Califórnia</a><a href="#mix">NYISO · Nova York</a></div>
+              <svg class="svg" viewBox="0 0 720 250" role="img" aria-label="Geração por fonte na Califórnia ao longo do dia">
+                <sc-for list="{{ caisoBands }}" as="b" hint-placeholder-count="7">
+                  <path d="{{ b.d }}" fill="{{ b.fill }}" opacity="{{ b.op }}"></path>
+                </sc-for>
+                <line x1="0" y1="200" x2="720" y2="200" stroke="var(--line)"></line>
+                <line x1="{{ caisoNowX }}" y1="10" x2="{{ caisoNowX }}" y2="200" stroke="var(--ink)" stroke-dasharray="3 3"></line>
+                <text class="ax" x="0" y="216">00:00</text><text class="ax" x="180" y="216" text-anchor="middle">06:00</text><text class="ax" x="360" y="216" text-anchor="middle">12:00</text><text class="ax" x="540" y="216" text-anchor="middle">18:00</text><text class="ax" x="720" y="216" text-anchor="end">24:00 PDT</text>
+                <text class="axl" x="0" y="12">0–45 GW</text>
+                <text class="axa" x="{{ caisoNowX }}" y="240" text-anchor="end">agora 19:35 · baterias 10,0 GW ▸</text>
+              </svg>
+              <div class="legend"><span><span class="sw" style="background:var(--c6)"></span>gás</span><span><span class="sw" style="background:var(--c5)"></span>importação</span><span><span class="sw" style="background:var(--c1)"></span>hidro</span><span><span class="sw" style="background:var(--c4)"></span>nuclear</span><span><span class="sw" style="background:var(--c2)"></span>baterias</span><span><span class="sw" style="background:var(--c3)"></span>eólica</span><span><span class="sw" style="background:#E0B64A"></span>solar</span></div>
+              <div class="stamp"><span class="live"><span class="dot"></span>CAISO Today's Outlook · 19:35 PDT · 5 min</span><span>NYISO · 22:25 EDT · 5 min</span></div>
+            </div>
+            <div>
+              <p class="kick">03 · Mix na rede</p>
+              <h2 class="h2 serif">Quão limpa está a rede nesta hora?</h2>
+              <p class="lede serif">Uma rede com muito sol tem um problema às 19h: o sol se foi e a carga ainda está alta. A Califórnia resolve com baterias.</p>
+              <p class="lido serif"><b>Lido hoje</b>Às 19h35, as baterias entregavam 10,0 GW — mais do que a hidrelétrica e a nuclear juntas. Ao meio-dia, o solar sozinho era 20,7 GW e carregava 9,5 GW nas baterias.</p>
+              <div class="tiles" style="grid-template-columns:1fr 1fr">
+                <div class="tile"><div class="tl">renováveis agora</div><div class="tv mono">{{ renShareNow }} %</div><div class="tu">eólica, geotérmica, biomassa, PCH</div></div>
+                <div class="tile"><div class="tl">renováveis ao meio-dia</div><div class="tv mono">{{ renShareNoon }} %</div><div class="tu">solar 20,7 GW</div></div>
+              </div>
+              <details class="met"><summary>Método</summary><p>Fonte: caiso.com/outlook, CSV de 5 em 5 min, hora local da Califórnia. As bandas empilham só valores positivos; baterias carregando (valor negativo) aparecem como consumo e não entram na pilha. Participação renovável = (eólica + solar + geotérmica + biomassa + biogás + PCH) ÷ geração total positiva.</p></details>
+              <p class="pv">É este tipo de sinal — preço, carga, estresse — que o nosso laboratório OpenADR escuta na seção 7.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="sec" id="preco" data-screen-label="4 O preço da energia no Brasil">
+          <div class="wrap">
+            <p class="kick">04 · O preço da energia no Brasil</p>
+            <h2 class="h2 serif">Quanto custa um MWh hoje — do modelo de despacho até três faturas diferentes.</h2>
+            <p class="lido serif"><b>Lido hoje</b>Ontem o custo marginal no Sudeste caiu a R$ 0,01 ao meio-dia, com o sol, e bateu R$ 365 às 18h30. No Norte, à meia-noite, o MWh custava 2,5 vezes o do Sul. Na fatura de uma casa em Curitiba, o mesmo MWh sai por R$ 978.</p>
+            <div class="g3">
+              <div class="inst" style="grid-column:span 2">
+                <div class="instl"><span>4a · atacado · CMO semi-horário · {{ cmoDay }}</span><span>R$/MWh</span></div>
+                <svg class="svg" viewBox="0 0 680 220" role="img" aria-label="Custo marginal de operação por subsistema, ontem, 48 meias-horas">
+                  <line x1="0" y1="{{ pldPisoY }}" x2="680" y2="{{ pldPisoY }}" stroke="var(--c5)" stroke-dasharray="2 4"></line>
+                  <text class="ax" x="680" y="{{ pldPisoY }}" text-anchor="end" dy="-3">piso PLD 58,6</text>
+                  <text class="ax" x="680" y="12" text-anchor="end">teto PLD 779 · fora da escala</text>
+                  <path d="{{ cmoNp }}" fill="none" stroke="var(--c4)" stroke-width="1.5"></path>
+                  <path d="{{ cmoNEp }}" fill="none" stroke="var(--c3)" stroke-width="1.5"></path>
+                  <path d="{{ cmoSp }}" fill="none" stroke="var(--c2)" stroke-width="1.5"></path>
+                  <path d="{{ cmoSEp }}" fill="none" stroke="var(--c1)" stroke-width="2"></path>
+                  <line x1="0" y1="190" x2="680" y2="190" stroke="var(--line)"></line>
+                  <text class="ax" x="0" y="206">00:00</text><text class="ax" x="170" y="206" text-anchor="middle">06:00</text><text class="ax" x="340" y="206" text-anchor="middle">12:00</text><text class="ax" x="510" y="206" text-anchor="middle">18:00</text><text class="ax" x="680" y="206" text-anchor="end">23:30 BRT</text>
+                  <text class="axl" x="0" y="12">0–400 R$/MWh</text>
+                </svg>
+                <div class="legend"><span><span class="sw" style="background:var(--c1)"></span>SE/CO {{ cmoSE }}</span><span><span class="sw" style="background:var(--c2)"></span>S {{ cmoS }}</span><span><span class="sw" style="background:var(--c3)"></span>NE {{ cmoNE }}</span><span><span class="sw" style="background:var(--c4)"></span>N {{ cmoN }}</span><span class="badge">faixa PLD: {{ pldNota }}</span></div>
+                <div class="stamp"><span class="live"><span class="dot"></span>ONS · CMO_SEMIHORARIO_2026.csv · publicado 22:00 UTC · diário</span></div>
+              </div>
+              <div class="inst">
+                <div class="instl"><span>4b · bandeira do mês</span><span>R$/kWh</span></div>
+                <div class="flags">
+                  <div class="flag"><span class="flagn serif">Verde</span><span class="flagv">0</span></div>
+                  <div class="flag on"><span class="flagn serif">Amarela</span><span class="flagv">0,01885</span></div>
+                  <div class="flag"><span class="flagn serif">Verm. 1</span><span class="flagv">0,04463</span></div>
+                  <div class="flag"><span class="flagn serif">Verm. 2</span><span class="flagv">0,07877</span></div>
+                </div>
+                <div class="stamp"><span>jun/2026 · amarela · fatura de referência</span><span class="todo">histórico de 24 meses: a verificar na ANEEL</span></div>
+                <details class="met"><summary>Método</summary><p>Valores da bandeira em R$/kWh antes de tributos (REH 3.472/2025, modelo URPX da Copel). O mês vigente será lido da ANEEL no build; a faixa de 24 meses só mostra meses verificados.</p></details>
+              </div>
+            </div>
+            <div class="inst" style="margin-top:40px">
+              <div class="instl"><span>4c · três faturas, um MWh · Copel · REH 3.472/2025</span><span>R$/MWh, mesmo eixo de 4a</span></div>
+              <div class="ctl"><span>distribuidora <b>Copel</b></span><span>B1: <b>282 kWh</b> (fatura de referência)</span><span>A4: <b>50 MWh/mês · 118 kW · 10 % na ponta</b></span><span>bandeira <b>amarela</b></span></div>
+              <div class="bills">
+                <sc-for list="{{ bills }}" as="bill" hint-placeholder-count="3">
+                  <div class="bill">
+                    <div class="billh"><span class="billn serif">{{ bill.name }}</span><span class="billt">R$ {{ bill.total }}/MWh</span></div>
+                    <svg class="svg" viewBox="0 0 300 120" role="img" aria-label="Fatura decomposta">
+                      <sc-for list="{{ bill.segs }}" as="s" hint-placeholder-count="6">
+                        <rect x="{{ s.x }}" y="30" width="{{ s.w }}" height="60" fill="{{ s.fill }}" opacity="{{ s.op }}"></rect>
+                      </sc-for>
+                      <line x1="0" y1="90" x2="300" y2="90" stroke="var(--ink)"></line>
+                      <line x1="{{ bill.cmoX }}" y1="22" x2="{{ bill.cmoX }}" y2="98" stroke="var(--c4)" stroke-dasharray="3 3"></line>
+                      <text class="ax" x="0" y="110">0</text><text class="ax" x="300" y="110" text-anchor="end">1 000 R$/MWh</text>
+                      <text class="ax" x="{{ bill.cmoXl }}" y="14">CMO 48</text>
+                    </svg>
+                    <sc-for list="{{ bill.segs }}" as="s" hint-placeholder-count="6">
+                      <div class="seg"><span><i style="{{ s.istyle }}"></i>{{ s.name }}</span><span class="mono">{{ s.v }}</span></div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+              <div class="stamp"><span>B1 reproduz a fatura real de jun/2026 com diferença de R$ 0,04 (275,91 calculado vs 275,87 impresso)</span><span class="todo">A4 Azul: TUSD energia assumida = TUSD fora-ponta Verde; a confirmar</span></div>
+              <details class="met"><summary>Método</summary><p>Tarifas homologadas antes de tributos: B1 TE 0,27575 + TUSD 0,36667 R$/kWh; A4 Verde TUSD demanda 20,78 R$/kW, TUSD energia ponta 1 211,56 / fora 120,91 R$/MWh, TE ponta 413,69 / fora 257,51; A4 Azul demanda ponta 44,93 / fora 20,78 R$/kW. Tributos "por dentro": preço ÷ [(1 − ICMS) × (1 − PIS − COFINS)] com ICMS 19 %, PIS 1,5536 %, COFINS 7,1339 % (alíquotas do mês). CIP municipal fora da base. Modelo em URPX (padrão aberto de tarifas da LF Energy). O tracejado marca o CMO do SE/CO de ontem à mesma hora: a fatia que vem do atacado.</p></details>
+              <p class="pv"><b>Para você.</b> Se a sua empresa é Grupo A (média tensão), a diferença entre Verde e Azul e a demanda que você contrata mas não usa são dinheiro recuperável. A <a href="#dj" style="color:var(--dj)">Data Joule</a> lê 12 faturas e devolve o valor em 5 dias úteis.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="sec" id="bomba" data-screen-label="5 Na bomba">
+          <div class="wrap">
+            <p class="kick">05 · Na bomba</p>
+            <h2 class="h2 serif">Quanto custam gasolina, etanol e diesel — e o etanol compensa no seu estado?</h2>
+            <p class="lido serif"><b>Lido em agosto</b>O etanol compensou em {{ below070 }} estados. No Paraná, a razão etanol/gasolina foi 0,61; em Curitiba, a bandeira branca vendeu a gasolina R$ 0,15 mais barata que as três grandes.</p>
+            <div class="g2e">
+              <div class="inst">
+                <div class="instl"><span>5a · etanol ÷ gasolina por estado · ago/2026</span><span>compensa abaixo de 0,70</span></div>
+                <div class="rows">
+                  <sc-for list="{{ ratioRows }}" as="r" hint-placeholder-count="27">
+                    <div class="row"><span>{{ r.uf }}</span><span><span class="{{ r.cls }}" style="{{ r.style }}"></span></span><span>{{ r.v }}</span></div>
+                  </sc-for>
+                </div>
+                <div class="stamp"><span>ANP · levantamento por posto · ago/2026 · mensal</span><span>mediana de {{ nStations }} coletas em Curitiba</span></div>
+              </div>
+              <div>
+                <div class="inst">
+                  <div class="instl"><span>5b · Curitiba · todos os postos pesquisados</span><span>R$/litro</span></div>
+                  <svg class="svg" viewBox="0 0 500 170" role="img" aria-label="Preços de venda por posto em Curitiba, gasolina, etanol e diesel S10">
+                    <text class="axl" x="0" y="26">gasolina</text><text class="axl" x="0" y="76">etanol</text><text class="axl" x="0" y="126">diesel S10</text>
+                    <sc-for list="{{ dots }}" as="d" hint-placeholder-count="200">
+                      <circle cx="{{ d.x }}" cy="{{ d.y }}" r="3" fill="{{ d.fill }}" opacity="0.55"></circle>
+                    </sc-for>
+                    <line x1="{{ medGx }}" y1="12" x2="{{ medGx }}" y2="36" stroke="var(--ink)" stroke-width="2"></line>
+                    <line x1="{{ medEx }}" y1="62" x2="{{ medEx }}" y2="86" stroke="var(--ink)" stroke-width="2"></line>
+                    <line x1="{{ medDx }}" y1="112" x2="{{ medDx }}" y2="136" stroke="var(--ink)" stroke-width="2"></line>
+                    <line x1="80" y1="150" x2="500" y2="150" stroke="var(--line)"></line>
+                    <text class="ax" x="80" y="164">R$ 4,00</text><text class="ax" x="290" y="164" text-anchor="middle">6,00</text><text class="ax" x="500" y="164" text-anchor="end">8,00</text>
+                  </svg>
+                  <div class="legend"><span><span class="sw" style="background:var(--c2)"></span>Vibra</span><span><span class="sw" style="background:var(--c1)"></span>Ipiranga</span><span><span class="sw" style="background:var(--c4)"></span>Raízen</span><span><span class="sw" style="background:var(--c5)"></span>branca · outras</span><span>| mediana: gasolina {{ gasCwb }} · etanol {{ etaCwb }} · diesel S10 {{ dieCwb }}</span></div>
+                </div>
+                <div class="inst" style="margin-top:28px">
+                  <div class="instl"><span>5c · anatomia do litro · gasolina C · PR</span><span>R$/litro</span></div>
+                  <svg class="svg" viewBox="0 0 500 60" role="img" aria-label="Composição do preço do litro de gasolina">
+                    <sc-for list="{{ litro }}" as="s" hint-placeholder-count="5">
+                      <rect x="{{ s.x }}" y="8" width="{{ s.w }}" height="30" fill="{{ s.fill }}" opacity="{{ s.op }}"></rect>
+                    </sc-for>
+                    <text class="ax" x="0" y="54">0</text><text class="ax" x="500" y="54" text-anchor="end">R$ {{ gasCwb }}</text>
+                  </svg>
+                  <sc-for list="{{ litro }}" as="s" hint-placeholder-count="5">
+                    <div class="seg"><span><i style="{{ s.istyle }}"></i>{{ s.name }}</span><span class="mono">{{ s.v }}</span></div>
+                  </sc-for>
+                  <div class="stamp"><span class="todo">refinaria e tributos: valores de referência, a confirmar no build (Petrobras, CONFAZ)</span></div>
+                </div>
+              </div>
+            </div>
+            <details class="met"><summary>Método</summary><p>ANP, arquivo mensal por posto (≈75 mil coletas; lag de ~30 dias). Razão por estado = mediana do etanol ÷ mediana da gasolina comum; 0,70 é a regra prática para motores flex. A coluna "valor de compra" vem vazia em 2026, por isso a margem em 5c é derivada: preço na bomba − refinaria − anidro − PIS/COFINS − ICMS monofásico. Brent em reais = FRED × PTAX (BCB) para a nota de defasagem.</p></details>
+            <p class="pv"><b>Para você.</b> Dono de posto: a anatomia do litro do seu estado, com a defasagem Petrobras–Brent, uma vez por mês, por e-mail. Sem custo.</p>
+          </div>
+        </section>
+
+        <section class="sec" id="parana" data-screen-label="6 Demanda ociosa no Paraná">
+          <div class="wrap g2">
+            <div>
+              <p class="kick">06 · Demanda ociosa no Paraná</p>
+              <h2 class="h2 serif">Quanta demanda contratada fica sem uso?</h2>
+              <p class="lede serif">Empresas de média tensão contratam uma potência e pagam por ela todo mês, usem ou não. A base pública da ANEEL permite medir o que sobra.</p>
+              <p class="lido serif"><b>Lido na BDGD 2025</b>Nas 11 780 unidades A4 da Copel, 16 % da demanda de pico fica sem uso num mês típico: R$ 122,6 milhões por ano. Escolas deixam 30 %; hospitais, 21 %.</p>
+              <details class="met"><summary>Método</summary><p>BDGD V11 (ano-base 2025), tabela UCMT: DEM_01..12 medidos, unidades A4 ativas, sem GD, pico ≥ 30 kW; meses 1–11 (DEM_12 anômalo). Ociosa = 1 − (demanda média mensal ÷ pico anual). Valor = kW ociosos × 20,78 R$/kW (TUSD demanda Verde, REH 3.472/2025, antes de tributos) × 12.</p></details>
+            </div>
+            <div class="inst">
+              <div class="instl"><span>parcela ociosa por setor · mediana</span><span>R$/ano</span></div>
+              <sc-for list="{{ sectors }}" as="s" hint-placeholder-count="6">
+                <div class="sect"><span>{{ s.n }}</span><span><span class="{{ s.cls }}" style="{{ s.style }}"></span></span><span>{{ s.pct }}</span><span>{{ s.brl }}</span></div>
+              </sc-for>
+              <div class="instl" style="margin-top:22px"><span>distribuição · todas as 11 780 unidades</span><span>percentis</span></div>
+              <svg class="svg" viewBox="0 0 560 60" role="img" aria-label="Percentis da parcela ociosa">
+                <line x1="0" y1="30" x2="560" y2="30" stroke="var(--line)"></line>
+                <rect x="{{ p25x }}" y="18" width="{{ p2575w }}" height="24" fill="var(--c1)" opacity="0.18"></rect>
+                <line x1="{{ p50x }}" y1="12" x2="{{ p50x }}" y2="48" stroke="var(--c1)" stroke-width="2"></line>
+                <line x1="{{ p10x }}" y1="22" x2="{{ p10x }}" y2="38" stroke="var(--ink)"></line><line x1="{{ p90x }}" y1="22" x2="{{ p90x }}" y2="38" stroke="var(--ink)"></line>
+                <text class="ax" x="0" y="58">0 %</text><text class="ax" x="280" y="58" text-anchor="middle">25 %</text><text class="ax" x="560" y="58" text-anchor="end">50 %</text>
+              </svg>
+              <div class="legend"><span>p10 6,4 % · p25 9,8 % · <b>p50 16,4 %</b> · p75 27,1 % · p90 38,5 %</span></div>
+              <div class="stamp"><span>ANEEL · BDGD V11 · Copel · ano-base 2025</span><span>concluído set/2026</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="sec" id="lab" data-screen-label="7 Laboratório OpenADR">
+          <div class="wrap g2r">
+            <div class="inst">
+              <div class="instl"><span>carga do nó de inferência por nível · W</span><span>medições de 06/06/2026</span></div>
+              <svg class="svg" viewBox="0 0 720 200" role="img" aria-label="Degraus de redução de carga por nível de resposta da demanda">
+                <path d="{{ labSteps }}" fill="none" stroke="var(--c1)" stroke-width="2"></path>
+                <path d="{{ labRestore }}" fill="none" stroke="var(--c2)" stroke-width="2" stroke-dasharray="5 3"></path>
+                <line x1="0" y1="160" x2="720" y2="160" stroke="var(--line)"></line>
+                <path d="{{ labArea }}" fill="var(--c1)" opacity="0.08"></path>
+                <path d="{{ labDrops }}" fill="none" stroke="var(--c1)" stroke-width="1" stroke-dasharray="2 3"></path>
+                <text class="ax" x="55" y="178" text-anchor="middle">T0 · 10,5 W</text><text class="ax" x="175" y="178" text-anchor="middle">T1 · ~9 W</text><text class="ax" x="295" y="178" text-anchor="middle">T2 · 7,1 W</text><text class="ax" x="415" y="178" text-anchor="middle">T3 · 3,8 W</text><text class="ax" x="535" y="178" text-anchor="middle">T4 · ~0 W</text><text class="ax" x="720" y="178" text-anchor="end">retorno em 55 s</text>
+                <text class="axl" x="0" y="12">0–12 W</text>
+              </svg>
+              <div class="stamp"><span>OpenADR 3.0 VEN · Raspberry Pi 5 ×2 · tomada inteligente</span><span class="todo">degraus a partir de medições pontuais; a série temporal gravada entra quando exportada do VPS</span></div>
+            </div>
+            <div>
+              <p class="kick">07 · Laboratório OpenADR</p>
+              <h2 class="h2 serif">Computação consegue reduzir carga a um sinal da rede?</h2>
+              <p class="lede serif">Em Montréal, dois Raspberry Pi 5 — um nó de inferência de IA e um gateway OpenADR 3.0 — recebem eventos de resposta da demanda e reduzem a carga em níveis medidos na tomada.</p>
+              <p class="lido serif"><b>Medido</b>De ~10,5 W em operação normal a ~0 W no nível máximo, com retorno à operação em 55 segundos. Sinais que o gateway escuta: Hydro-Québec, ONS, NYISO, CAISO, ISO-NE. Integração com carregadores de VE via OCPP.</p>
+              <details class="met"><summary>Método</summary><p>Cinco níveis: T0 normal, T1 governor conservador, T2 powersave, T3 processo suspenso, T4 corte na tomada. Potência medida por tomada inteligente. Evento auto-encerra ao fim da duração + 15 s. Código aberto (Apache 2.0).</p></details>
+            </div>
+          </div>
+        </section>
+
+        <section class="sec" id="bastidores" data-screen-label="8 Bastidores">
+          <div class="wrap">
+            <p class="kick">08 · Bastidores</p>
+            <h2 class="h2 serif">Como isto é feito.</h2>
+            <div class="colo">
+              <div>
+                <p class="ct">Método</p>
+                <div class="li"><span>Next.js · React Server Components</span><span>render no servidor</span></div>
+                <div class="li"><span>Gráficos em SVG escrito à mão</span><span>sem biblioteca</span></div>
+                <div class="li"><span>Fontes auto-hospedadas</span><span>CSP estrita</span></div>
+                <div class="li"><span>Cada fonte com cache próprio</span><span>2 min → 1 dia</span></div>
+                <div class="li"><span>Código de cada gráfico</span><span>link no repositório</span></div>
+                <div class="li"><span>Repositório público</span><span>MIT</span></div>
+              </div>
+              <div class="budget">
+                <p class="ct">Orçamento · verificado no CI</p>
+                <div><div class="bv mono">≥ 95</div><div class="bl">Lighthouse, nas quatro notas</div></div>
+                <div><div class="bv mono">≤ 90 kB</div><div class="bl">JavaScript no cliente</div></div>
+                <div><div class="bv mono">0</div><div class="bl">scripts de terceiros · cookies</div></div>
+              </div>
+              <div>
+                <p class="ct">Fontes · última leitura</p>
+                <sc-for list="{{ sources }}" as="s" hint-placeholder-count="12">
+                  <div class="li"><span>{{ s.name }}</span><span class="mono">{{ s.last }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+            <p class="why serif">Por que Curitiba e Montréal: a engenharia é registrada no Paraná, onde estão os clientes de média tensão e as bases da ANEEL; o laboratório fica em Montréal, onde a Hydro-Québec publica demanda e eventos de ponta em tempo quase real.</p>
+          </div>
+        </section>
+        <footer class="wrap foot">
+          <span>Bronze Engenharia de Energia</span><span class="sep">·</span><span>CNPJ 19.824.419/0001-96</span><span class="sep">·</span><span>CREA-PR 194835/D</span><span class="sep">·</span><span>Curitiba · Montréal</span><span class="sep">·</span><a href="#wa">WhatsApp</a><span class="sep">·</span><a href="#mail">contato@data-joule.com</a><span class="sep">·</span><a href="#priv">Privacidade</a><span class="sep">·</span><a href="#dj" style="color:var(--dj)">Data Joule</a>
+        </footer>
+      </div>
+    </x-dc>
+    <script type="text/x-dc" data-dc-script data-props='{}'>
+      class Component extends DCLogic {
+        constructor(p) { super(p); this.state = { dark: false }; }
+        renderVals() {
+          var D = window.BRONZE2, C = window.BRONZE_CHART, self = this;
+          var cols = { gas: "var(--c6)", imp: "var(--c5)", hid: "var(--c1)", nuc: "var(--c4)", bat: "var(--c2)", eol: "var(--c3)", sol: "#E0B64A", vib: "var(--c2)", ipi: "var(--c1)", rai: "var(--c4)", bra: "var(--c5)" };
+          // --- 2 Kalshi / Polymarket
+          var kMin = 86, kMax = 98, kMed = C.quantile(D.kalshi, 0.5), k90 = C.quantile(D.kalshi, 0.9), k10 = C.quantile(D.kalshi, 0.1);
+          var kx = function (v) { return C.x(v, kMin, kMax, 0, 500); };
+          var pMin = 60, pMax = 120, px = function (v) { return C.x(v, pMin, pMax, 0, 500); };
+          var high = D.polyHigh.filter(function (p) { return p[0] <= pMax; });
+          var low = D.polyLow.slice().reverse().filter(function (p) { return p[0] >= pMin; }); // decreasing price for the LOW ladder
+          var lowSteps = low.map(function (p) { return [p[0], p[1]]; }).sort(function (a, b) { return a[0] - b[0]; });
+          // --- 3 CAISO stack
+          var cz = D.caiso, hid = cz["Large Hydro"].map(function (v, i) { return v + cz["Small hydro"][i]; });
+          var oth = cz["Geothermal"].map(function (v, i) { return v + cz["Biomass"][i] + cz["Biogas"][i] + cz["Coal"][i] + cz["Other"][i]; });
+          var series = [{ key: "gas", values: cz["Natural Gas"] }, { key: "imp", values: cz["Imports"] }, { key: "hid", values: hid }, { key: "nuc", values: cz["Nuclear"] }, { key: "bat", values: cz["Batteries"] }, { key: "eol", values: cz["Wind"] }, { key: "sol", values: cz["Solar"] }, { key: "oth", values: oth }];
+          var bands = C.stack(series, 0, 720, 20, 200, 45000).map(function (b) { return { d: b.d, fill: cols[b.key] || "var(--c3)", op: b.key === "oth" ? "0.5" : "0.85" }; });
+          var last = cz.time.length - 1, noon = cz.time.indexOf("12:00");
+          function renShare(i) { var r = cz["Wind"][i] + Math.max(0, cz["Solar"][i]) + oth[i] - cz["Coal"][i] - cz["Other"][i] + cz["Small hydro"][i]; var tot = series.reduce(function (a, s) { return a + Math.max(0, s.values[i]); }, 0); return Math.round(100 * r / tot); }
+          // --- 4 CMO + bills
+          var cmoY = function (vals) { return C.line(vals, 0, 680, 20, 190, 0, 400); };
+          var pldY = C.scale(0, 400, 190, 20);
+          var gross = (1 - D.b1.icms) * (1 - D.b1.pis - D.b1.cofins);
+          function bill(name, parts, kwh) { // parts: [name, R$/MWh before tax, key]
+            var pre = parts.reduce(function (a, p) { return a + p[1]; }, 0), tax = pre / gross - pre;
+            var segs = parts.concat([["tributos", tax, "tax"]]);
+            if (kwh) segs.push(["CIP", D.b1.cip / kwh * 1000, "cip"]);
+            var total = segs.reduce(function (a, s) { return a + s[1]; }, 0), x = 0;
+            var fills = { te: "var(--c1)", fio: "var(--c2)", dem: "var(--c3)", band: "#E0B64A", tax: "var(--c4)", cip: "var(--c5)" };
+            var out = segs.map(function (s) { var w = s[1] / 1000 * 300; var o = { name: s[0], v: C.dec(s[1], 0), x: x.toFixed(1), w: w.toFixed(1), fill: fills[s[2]], op: "0.85", istyle: "background:" + fills[s[2]] }; x += w; return o; });
+            var cmoX = D.cmoNow.SE / 1000 * 300;
+            return { name: name, total: C.dec(total, 0), segs: out, cmoX: cmoX.toFixed(1), cmoXl: (cmoX + 5).toFixed(1) };
+          }
+          var b1 = bill("B1 residencial", [["energia (TE)", D.b1.te * 1000, "te"], ["fio (TUSD)", D.b1.tusd * 1000, "fio"], ["bandeira amarela", D.b1.bandeira.amarela * 1000, "band"]], D.b1.refKwh);
+          var mwh = 50, kw = 118, pp = 0.10, v = D.a4.verde, az = D.a4.azul;
+          var verde = bill("A4 Verde", [["energia (TE)", pp * v.teP + (1 - pp) * v.teFP, "te"], ["fio (TUSD energia)", pp * v.tusdP + (1 - pp) * v.tusdFP, "fio"], ["demanda", kw * v.demanda / mwh, "dem"], ["bandeira amarela", D.b1.bandeira.amarela * 1000, "band"]]);
+          var azul = bill("A4 Azul", [["energia (TE)", pp * az.teP + (1 - pp) * az.teFP, "te"], ["fio (TUSD energia)", az.tusdE, "fio"], ["demanda P + FP", kw * (az.demandaP + az.demandaFP) / mwh, "dem"], ["bandeira amarela", D.b1.bandeira.amarela * 1000, "band"]]);
+          // --- 5 fuel
+          var fx = function (v) { return C.x(v, 4, 8, 80, 500); };
+          var rowsY = { GASOLINA: 24, ETANOL: 74, "DIESEL S10": 124 };
+          var bcols = [cols.vib, cols.ipi, cols.rai, cols.bra, cols.bra], dots = [], nSt = 0;
+          Object.keys(rowsY).forEach(function (p) { (D.fuel.stations[p] || []).forEach(function (s, i) { nSt++; dots.push({ x: fx(s[0]).toFixed(1), y: (rowsY[p] + ((i * 7) % 19) - 9).toFixed(1), fill: bcols[s[1]] }); }); });
+          var ratioRows = D.fuel.ratio.map(function (r) { return { uf: r.uf, v: C.dec(r.ratio, 2), cls: r.uf === "PR" ? "bar me" : (r.ratio < 0.7 ? "bar win" : "bar"), style: "display:block;width:" + Math.round((r.ratio - 0.45) / 0.5 * 100) + "%" }; });
+          var L = D.litro, gas = D.fuel.curitiba.GASOLINA, lit = [["refinaria (gasolina A × 73 %)", L.refinaria * 0.73, "var(--c6)"], ["etanol anidro (27 %)", L.anidro, "var(--c3)"], ["PIS/COFINS", L.pisCofins, "var(--c4)"], ["ICMS monofásico", L.icms, "#E0B64A"]];
+          var litSum = lit.reduce(function (a, s) { return a + s[1]; }, 0); lit.push(["distribuição + revenda (derivada)", gas - litSum, "var(--c2)"]);
+          var lx = 0, litro = lit.map(function (s) { var w = s[1] / gas * 500; var o = { name: s[0], v: C.dec(s[1]), x: lx.toFixed(1), w: w.toFixed(1), fill: s[2], op: "0.85", istyle: "background:" + s[2] }; lx += w; return o; });
+          // --- 6 BDGD
+          var sectors = D.bdgd.sectors.map(function (s) { return { n: s.n, pct: C.dec(s.idle * 100, 1) + " %", brl: C.dec(s.brl / 1e6, 1) + " mi", cls: s.n === "Todas A4" ? "bar me" : "bar win", style: "display:block;width:" + Math.round(s.idle / 0.35 * 100) + "%" }; });
+          var pxp = function (p) { return (p / 0.5 * 560).toFixed(1); };
+          // --- 7 lab steps
+          var ly = C.scale(0, 12, 160, 20), steps = "", tiers = D.lab.tiers;
+          var drops = "", area = "M0 160";
+          tiers.forEach(function (t, i) { var x0 = i * 120, x1 = x0 + 110, y = ly(t[1]).toFixed(1); steps += "M" + x0 + " " + y + "H" + x1; area += "L" + x0 + " " + y + "L" + x1 + " " + y; if (i < tiers.length - 1) drops += "M" + x1 + " " + y + "L" + (x1 + 10) + " " + ly(tiers[i + 1][1]).toFixed(1); });
+          area += "L590 160Z";
+          var restore = "M600 " + ly(0.2).toFixed(1) + "L660 " + ly(10.5).toFixed(1) + "H720";
+          var sources = [["ONS · carga verificada", "23:30 BRT"], ["Hydro-Québec · demande", "22:00 EDT"], ["ONS · CMO semi-horário", "01 out"], ["FRED · WTI, Brent, Henry Hub", "29 set"], ["Polymarket · Gamma API", "23:42 BRT"], ["Kalshi · KXWTI", "23:42 BRT"], ["CAISO · fuel source", "19:35 PDT"], ["NYISO · fuel mix", "22:25 EDT"], ["ANP · preços por posto", "ago/2026"], ["ANEEL · BDGD V11", "2025"], ["BCB · PTAX", "01 out"], ["Open-Meteo", "23:00"]].map(function (s) { return { name: s[0], last: s[1] }; });
+          return {
+            rootClass: this.state.dark ? "root dark" : "root",
+            themeLabel: this.state.dark ? "Claro" : "Escuro",
+            toggleTheme: function () { self.setState({ dark: !self.state.dark }); },
+            sinNow: C.fmt(D.sinNow), qcNow: C.fmt(D.quebecNow), ratio: C.dec(D.sinNow / D.quebecNow, 1), hqPeak: D.hqPeakLast.split("-").reverse().join("/"),
+            sinArea: C.area(D.sin, 0, 720, 20, 112, 70000, 105000), sinLine: C.line(D.sin, 0, 720, 20, 112, 70000, 105000),
+            qcArea: C.area(D.quebec, 0, 705, 142, 214, 14000, 20000), qcLine: C.line(D.quebec, 0, 705, 142, 214, 14000, 20000),
+            wtiNow: C.dec(D.wtiNow), brentNow: C.dec(D.brentNow), hhNow: C.dec(D.hhNow), spread: C.dec(D.brentNow - D.wtiNow),
+            kalCurve: C.curve(D.kalshi.filter(function (p) { return p[0] >= kMin && p[0] <= kMax; }), kMin, kMax, 0, 500, 20, 160),
+            kMedX: kx(kMed).toFixed(1), k10x: kx(k90).toFixed(1), kBandW: (kx(k10) - kx(k90)).toFixed(1), spotXk: kx(D.wtiNow).toFixed(1),
+            polyHighSteps: C.steps(high, pMin, pMax, 0, 500, 20, 160), polyLowSteps: C.steps(lowSteps, pMin, pMax, 0, 500, 20, 160),
+            pLoX: px(85).toFixed(1), pBandW: (px(100) - px(85)).toFixed(1), pMidX: px(92.5).toFixed(1), spotXp: px(D.wtiNow).toFixed(1),
+            caisoBands: bands, caisoNowX: C.x(last, 0, cz.time.length - 1, 0, 720).toFixed(1), renShareNow: renShare(last), renShareNoon: renShare(noon),
+            cmoSE: C.dec(D.cmoNow.SE, 1), cmoS: C.dec(D.cmoNow.S, 1), cmoNE: C.dec(D.cmoNow.NE, 1), cmoN: C.dec(D.cmoNow.N, 1), cmoDay: D.cmoDay.split("-").reverse().join("/"),
+            cmoSEp: cmoY(D.cmo.SE), cmoSp: cmoY(D.cmo.S), cmoNEp: cmoY(D.cmo.NE), cmoNp: cmoY(D.cmo.N),
+            pldTetoY: pldY(Math.min(400, D.pld.teto)).toFixed(1), pldPisoY: pldY(D.pld.piso).toFixed(1), pldBandH: (pldY(D.pld.piso) - pldY(Math.min(400, D.pld.teto))).toFixed(1), pldNota: D.pld.nota,
+            bills: [b1, verde, azul],
+            below070: D.fuel.below070, nStations: nSt, gasCwb: C.dec(D.fuel.curitiba.GASOLINA), etaCwb: C.dec(D.fuel.curitiba.ETANOL), dieCwb: C.dec(D.fuel.curitiba["DIESEL S10"]),
+            medGx: fx(D.fuel.curitiba.GASOLINA).toFixed(1), medEx: fx(D.fuel.curitiba.ETANOL).toFixed(1), medDx: fx(D.fuel.curitiba["DIESEL S10"]).toFixed(1),
+            dots: dots, ratioRows: ratioRows, litro: litro,
+            sectors: sectors, p10x: pxp(D.bdgd.pct.p10), p25x: pxp(D.bdgd.pct.p25), p2575w: (pxp(D.bdgd.pct.p75) - pxp(D.bdgd.pct.p25)).toFixed(1), p50x: pxp(D.bdgd.pct.p50), p90x: pxp(D.bdgd.pct.p90),
+            labSteps: steps, labRestore: restore, labDrops: drops, labArea: area,
+            coverSin: C.smooth(D.sin, -40, 1240, 60, 300, 70000, 105000, 0.9), coverQc: C.smooth(D.quebec, -40, 1240, 180, 420, 14000, 20000, 0.9),
+            strands: (function () { var out = []; var mk = function (vals, yMin, yMax, top, bot, col, colHi) {
+              [[-30, 0.10, 1], [-18, 0.18, 1], [-9, 0.30, 1.2], [0, 0.85, 3.2, "url(#glow2)", colHi], [8, 0.32, 1.2], [18, 0.18, 1], [30, 0.10, 1]].forEach(function (k) {
+                out.push({ d: C.smooth(vals, -40, 1240, top + k[0], bot + k[0], yMin, yMax, 0.9), stroke: k[4] || col, w: String(k[2]), op: String(k[1]), f: k[3] || "none" }); }); };
+              mk(D.sin, 70000, 105000, 60, 300, "#4FB3C6", "#7FD3E2"); mk(D.quebec, 14000, 20000, 180, 420, "#D8B370", "#F0D39A"); return out; })(),
+            sources: sources
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

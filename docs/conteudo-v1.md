@@ -133,7 +133,7 @@ Jeferson Bronze — Energy engineer, CREA-PR 194835/D. [Education] [Experience] 
 ## 7. Contato
 
 **PT/EN**
-[E-mail: contato@bronze-engenharia.com.br — depende de configurar o ImprovMX; até lá, contato@data-joule.com]
+[E-mail: contato@data-joule.com]
 [LinkedIn: URL do seu perfil]
 WhatsApp: +1 438 979 6085
 

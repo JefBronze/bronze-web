@@ -3,11 +3,13 @@
 // (data/snapshot.json, refreshed by `npm run snapshot`) and its stamp says so. The page never renders a blank tile.
 import snap from '@/data/snapshot.json'
 import { isotonicDecreasing, type Pt } from './chart'
+import { isoDay } from './format'
 import { AREAS, fetchAgora, fetchBalanco, fetchCarga, fetchCmo, type Agora, type Area, type Balanco, type Carga, type Cmo, type Sub } from './sources/ons'
 import { fetchFred, fetchKalshi, fetchPoly, fetchPtax, type FredSeries, type Kalshi, type Poly, type Ptax } from './sources/markets'
+import { fetchCvu, fetchTermicas, fetchUsinaDia, type Cvu, type TermicasDia, type UsinaDia } from './sources/geracao'
 import { fetchCaiso, fetchHq, fetchWeather, type Caiso, type Hq, type Weather } from './sources/abroad'
 
-export type SourceKey = 'ons' | 'cmo' | 'balanco' | 'agora' | 'fred' | 'ptax' | 'kalshi' | 'poly' | 'hq' | 'caiso' | 'weather'
+export type SourceKey = 'ons' | 'cmo' | 'balanco' | 'agora' | 'usinas' | 'termicas' | 'cvu' | 'fred' | 'ptax' | 'kalshi' | 'poly' | 'hq' | 'caiso' | 'weather'
 export type Status = { live: boolean; asOf: string }
 
 export type Observatory = {
@@ -18,6 +20,13 @@ export type Observatory = {
   balanco: Balanco
   /** Today, minute by minute (5-min points). Null when the real-time feed is down: the section then shows only the full day. */
   agora: Agora | null
+  /** Yesterday's generation per plant (CEG). Null when the ONS file can't be read: the map then shows capacity only. */
+  usinaDia: UsinaDia | null
+  /** Yesterday's thermal generation by dispatch reason. Null on failure: 4b says so. */
+  termicas: TermicasDia | null
+  cvu: Cvu | null
+  /** Marginal cost on the day of the thermal reading. */
+  cmoTermicas: Cmo | null
   wti: FredSeries
   brent: FredSeries
   hh: FredSeries
@@ -41,6 +50,8 @@ export type Observatory = {
   gd: typeof snap.gd
   duckHist: typeof snap.duckHist
   curtail: typeof snap.curtail
+  usinas: typeof snap.usinas
+  gatilho: typeof snap.gatilho
 }
 
 const HALF_HOUR = 30 * 60_000
@@ -92,11 +103,15 @@ async function attempt<T>(fn: () => Promise<T>): Promise<T | null> {
 }
 
 export async function getObservatory(now = new Date()): Promise<Observatory> {
-  const [carga, cmo, balanco, agora, wti, brent, hh, ptax, kalshi, poly, hq, caiso, weather] = await Promise.all([
+  const today = isoDay(now)
+  const cegs = new Set(snap.usinas.plants.map((p) => p.ceg))
+  const [carga, cmo, balanco, agora, usinaDia, termicas, wti, brent, hh, ptax, kalshi, poly, hq, caiso, weather] = await Promise.all([
     attempt(() => fetchCarga(now)),
     attempt(() => fetchCmo(now)),
     attempt(() => fetchBalanco(now)),
     attempt(fetchAgora),
+    attempt(() => fetchUsinaDia(today, cegs, now)),
+    attempt(() => fetchTermicas(today, now)),
     attempt(() => fetchFred('DCOILWTICO')),
     attempt(() => fetchFred('DCOILBRENTEU')),
     attempt(() => fetchFred('DHHNGSP')),
@@ -107,6 +122,10 @@ export async function getObservatory(now = new Date()): Promise<Observatory> {
     attempt(fetchCaiso),
     attempt(fetchWeather),
   ])
+  const [cvu, cmoTermicas] = await Promise.all([
+    attempt(() => fetchCvu(termicas?.day ?? today)),
+    termicas ? attempt(() => fetchCmo(now, termicas.day)) : Promise.resolve(null),
+  ])
   const fred = wti && brent && hh ? { wti, brent, hh } : FALLBACK.fred()
   const o = {
     renderedAt: now.toISOString(),
@@ -114,6 +133,11 @@ export async function getObservatory(now = new Date()): Promise<Observatory> {
     cmo: cmo ?? FALLBACK.cmo(),
     balanco: balanco ?? FALLBACK.balanco(),
     agora,
+    usinaDia,
+    termicas,
+    cvu,
+    // Only when it is the dispatch day itself: comparing a plant's cost with another day's marginal cost says nothing.
+    cmoTermicas: cmoTermicas && termicas && cmoTermicas.day === termicas.day ? cmoTermicas : null,
     ...fred,
     ptax: ptax ?? FALLBACK.ptax(),
     kalshi: kalshi ?? FALLBACK.kalshi(),
@@ -127,6 +151,9 @@ export async function getObservatory(now = new Date()): Promise<Observatory> {
     cmo: { live: !!cmo, asOf: o.cmo.day },
     balanco: { live: !!balanco, asOf: o.balanco.day },
     agora: { live: !!agora, asOf: agora?.asOf ?? now.toISOString() },
+    usinas: { live: !!usinaDia, asOf: usinaDia?.day ?? now.toISOString() },
+    termicas: { live: !!termicas, asOf: termicas?.day ?? now.toISOString() },
+    cvu: { live: !!cvu, asOf: cvu?.from ?? now.toISOString() },
     fred: { live: !!(wti && brent && hh), asOf: o.brent.at(-1)!.d },
     ptax: { live: !!ptax, asOf: o.ptax.day },
     kalshi: { live: !!kalshi, asOf: kalshi ? now.toISOString() : snap.takenAt },
@@ -150,5 +177,7 @@ export async function getObservatory(now = new Date()): Promise<Observatory> {
     gd: snap.gd,
     duckHist: snap.duckHist,
     curtail: snap.curtail,
+    usinas: snap.usinas,
+    gatilho: snap.gatilho,
   }
 }

@@ -142,6 +142,18 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .reasons { display: flex; gap: 2px; margin-top: 14px; font-family: var(--mono); font-size: 11px; color: var(--ink2); }
 .reasons span { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex-basis: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .reasons i { display: block; height: 8px; }
+/* section 4: ranking rows (name, value, bar of capacity with yesterday's generation inside) and the map */
+.ranking { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.ranking li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; font-size: 13px; color: var(--ink2); }
+.ranking i { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--mute); }
+.rk-n { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rk-v { font-family: var(--mono); font-size: 12px; }
+.rk-v.hot { color: var(--c4); }
+.rk-bar { grid-column: 1 / -1; height: 7px; }
+.rk-bar > span { display: block; height: 100%; border: 1px solid; box-sizing: border-box; }
+.rk-bar > span > span { display: block; height: 100%; }
+.nosignal { font-size: 14px; color: var(--mute); padding: 48px 0; }
+.mapa { max-height: 640px; }
 .badge { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; border: 1px solid var(--line); padding: 2px 8px; border-radius: 999px; color: var(--mute); }
 .met { margin-top: 16px; font-size: 14px; color: var(--ink2); max-width: 60em; }
 .met summary { cursor: pointer; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute); list-style: none; }

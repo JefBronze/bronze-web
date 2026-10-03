@@ -109,6 +109,11 @@ data = {
         'paridade': {'data': '2026-09-28', 'gasolina': {'pct': 32, 'rl': 0.95}, 'diesel': {'pct': 102, 'rl': 3.34}},
     },
 }
+# Section 3, "A curva do pato": built by scripts/intermitentes.py from ONS open data (balanço + restrição constrained-off).
+inter = json.load(open('data/intermitentes.json'))
+data['balanco'] = inter['balanco']
+data['duckHist'] = inter['duckHist']
+data['curtail'] = inter['curtail']
 js = 'window.BRONZE2 = ' + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + ';\n'
 open('design/data2.js', 'w').write(js)
 print('design/data2.js', len(js), 'bytes')

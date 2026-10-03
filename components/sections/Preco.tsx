@@ -120,14 +120,14 @@ export default function Preco({ o }: { o: Observatory }) {
               </span>
             </div>
             <Metodo>
-              Acréscimos da bandeira em R$/kWh antes de tributos, fixados pela REH ANEEL 3.306/2024 e ainda vigentes. A bandeira de cada mês é a anunciada pela ANEEL no fim do mês anterior; o histórico foi conferido em notícias datadas de cada anúncio e em tabelas de distribuidoras, porque as páginas da ANEEL e da CCEE não permitem leitura automática. As faturas de 2c e 3b usam a bandeira do mês corrente.
+              Acréscimos da bandeira em R$/kWh antes de tributos, fixados pela REH ANEEL 3.306/2024 e ainda vigentes. A bandeira de cada mês é a anunciada pela ANEEL no fim do mês anterior; o histórico foi conferido em notícias datadas de cada anúncio e em tabelas de distribuidoras, porque as páginas da ANEEL e da CCEE não permitem leitura automática. As faturas de 2c e 4b usam a bandeira do mês corrente.
             </Metodo>
           </div>
         </div>
         <div className="inst" style={{ marginTop: 40 }}>
           <div className="instl">
             <span>2c · três faturas, um MWh · Copel · {o.b1.reh}</span>
-            <span>R$/MWh, mesma régua em 3b</span>
+            <span>R$/MWh, mesma régua em 4b</span>
           </div>
           <div className="ctl">
             <span>distribuidora <b>Copel</b></span>

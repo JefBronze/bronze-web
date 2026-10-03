@@ -10,7 +10,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "snapshot": "python3 scripts/snapshot.py && python3 scripts/build_design_data.py"
+    "snapshot": "python3 scripts/snapshot.py && python3 scripts/intermitentes.py && python3 scripts/build_design_data.py"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

@@ -10,6 +10,9 @@ export default function Bastidores({ o }: { o: Observatory }) {
   const sources: [string, string, boolean][] = [
     ['ONS · carga verificada', `${hhmm(o.carga.asOf)} BRT`, s.ons.live],
     ['ONS · CMO semi-horário', ddmm(`${o.cmo.day}T12:00:00Z`), s.cmo.live],
+    ['ONS · Energia Agora', o.agora ? `${o.agora.t.at(-1)} BRT` : 'sem sinal', s.agora.live],
+    ['ONS · balanço de energia', ddmm(`${o.balanco.day}T15:00:00Z`), s.balanco.live],
+    ['ONS · restrição de eólica e solar', o.curtail.at(-1)!.m, true],
     ['FRED · Brent, WTI, Henry Hub', brDate(o.brent.at(-1)!.d), s.fred.live],
     ['BCB · PTAX', brDate(o.ptax.day), s.ptax.live],
     ['Kalshi · KXWTI', at('kalshi'), s.kalshi.live],
@@ -25,7 +28,7 @@ export default function Bastidores({ o }: { o: Observatory }) {
   return (
     <section className="sec" id="bastidores" aria-labelledby="bastidores-h">
       <div className="wrap">
-        <Kicker n={9}>Bastidores</Kicker>
+        <Kicker n={10}>Bastidores</Kicker>
         <h2 className="h2" id="bastidores-h">Como isto é feito.</h2>
         <div className="colo">
           <div>

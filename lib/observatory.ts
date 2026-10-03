@@ -3,17 +3,21 @@
 // (data/snapshot.json, refreshed by `npm run snapshot`) and its stamp says so. The page never renders a blank tile.
 import snap from '@/data/snapshot.json'
 import { isotonicDecreasing, type Pt } from './chart'
-import { AREAS, fetchCarga, fetchCmo, type Area, type Carga, type Cmo, type Sub } from './sources/ons'
+import { AREAS, fetchAgora, fetchBalanco, fetchCarga, fetchCmo, type Agora, type Area, type Balanco, type Carga, type Cmo, type Sub } from './sources/ons'
 import { fetchFred, fetchKalshi, fetchPoly, fetchPtax, type FredSeries, type Kalshi, type Poly, type Ptax } from './sources/markets'
 import { fetchCaiso, fetchHq, fetchWeather, type Caiso, type Hq, type Weather } from './sources/abroad'
 
-export type SourceKey = 'ons' | 'cmo' | 'fred' | 'ptax' | 'kalshi' | 'poly' | 'hq' | 'caiso' | 'weather'
+export type SourceKey = 'ons' | 'cmo' | 'balanco' | 'agora' | 'fred' | 'ptax' | 'kalshi' | 'poly' | 'hq' | 'caiso' | 'weather'
 export type Status = { live: boolean; asOf: string }
 
 export type Observatory = {
   renderedAt: string
   carga: Carga
   cmo: Cmo
+  /** Latest complete day of the hourly balance (D-2): the full duck. */
+  balanco: Balanco
+  /** Today, minute by minute (5-min points). Null when the real-time feed is down: the section then shows only the full day. */
+  agora: Agora | null
   wti: FredSeries
   brent: FredSeries
   hh: FredSeries
@@ -35,6 +39,8 @@ export type Observatory = {
   litro: typeof snap.litro
   acl: typeof snap.acl
   gd: typeof snap.gd
+  duckHist: typeof snap.duckHist
+  curtail: typeof snap.curtail
 }
 
 const HALF_HOUR = 30 * 60_000
@@ -58,6 +64,7 @@ function snapHq(): Hq {
 const FALLBACK = {
   ons: snapCarga,
   cmo: (): Cmo => ({ day: snap.cmoDay, bySub: snap.cmo as Record<Sub, number[]> }),
+  balanco: (): Balanco => snap.balanco,
   fred: () => ({
     wti: [{ d: snap.asOf.fred, v: snap.wtiNow }],
     brent: [{ d: snap.asOf.fred, v: snap.brentNow }],
@@ -85,9 +92,11 @@ async function attempt<T>(fn: () => Promise<T>): Promise<T | null> {
 }
 
 export async function getObservatory(now = new Date()): Promise<Observatory> {
-  const [carga, cmo, wti, brent, hh, ptax, kalshi, poly, hq, caiso, weather] = await Promise.all([
+  const [carga, cmo, balanco, agora, wti, brent, hh, ptax, kalshi, poly, hq, caiso, weather] = await Promise.all([
     attempt(() => fetchCarga(now)),
     attempt(() => fetchCmo(now)),
+    attempt(() => fetchBalanco(now)),
+    attempt(fetchAgora),
     attempt(() => fetchFred('DCOILWTICO')),
     attempt(() => fetchFred('DCOILBRENTEU')),
     attempt(() => fetchFred('DHHNGSP')),
@@ -103,6 +112,8 @@ export async function getObservatory(now = new Date()): Promise<Observatory> {
     renderedAt: now.toISOString(),
     carga: carga ?? FALLBACK.ons(),
     cmo: cmo ?? FALLBACK.cmo(),
+    balanco: balanco ?? FALLBACK.balanco(),
+    agora,
     ...fred,
     ptax: ptax ?? FALLBACK.ptax(),
     kalshi: kalshi ?? FALLBACK.kalshi(),
@@ -114,6 +125,8 @@ export async function getObservatory(now = new Date()): Promise<Observatory> {
   const status: Record<SourceKey, Status> = {
     ons: { live: !!carga, asOf: o.carga.asOf },
     cmo: { live: !!cmo, asOf: o.cmo.day },
+    balanco: { live: !!balanco, asOf: o.balanco.day },
+    agora: { live: !!agora, asOf: agora?.asOf ?? now.toISOString() },
     fred: { live: !!(wti && brent && hh), asOf: o.brent.at(-1)!.d },
     ptax: { live: !!ptax, asOf: o.ptax.day },
     kalshi: { live: !!kalshi, asOf: kalshi ? now.toISOString() : snap.takenAt },
@@ -135,5 +148,7 @@ export async function getObservatory(now = new Date()): Promise<Observatory> {
     litro: snap.litro,
     acl: snap.acl,
     gd: snap.gd,
+    duckHist: snap.duckHist,
+    curtail: snap.curtail,
   }
 }

@@ -6,26 +6,28 @@ import Fora from '@/components/sections/Fora'
 import Lab from '@/components/sections/Lab'
 import Mercado from '@/components/sections/Mercado'
 import Parana from '@/components/sections/Parana'
+import Pato from '@/components/sections/Pato'
 import Petroleo from '@/components/sections/Petroleo'
 import Preco from '@/components/sections/Preco'
 import Pulso from '@/components/sections/Pulso'
 import Link from 'next/link'
 import { BRONZE_URL } from '@/components/ui'
-import { BBL_LITERS, cmoSlotNow, FLAG_NAME, flagNow } from '@/lib/derive'
-import { dec, ddmm, fmt, hhmm, monthLabel } from '@/lib/format'
+import { BBL_LITERS, cmoSlotNow, curtailStats, FLAG_NAME, flagNow } from '@/lib/derive'
+import { dec, ddmm, fmt, hhmm, monthLabel, pct } from '@/lib/format'
 import { getObservatory } from '@/lib/observatory'
 
 // The page is rebuilt in the background at most every 5 minutes; each source also keeps its own cache (lib/sources).
 export const revalidate = 300
 
 const WHATSAPP = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '14389796085').replace(/\D/g, '')
-const SECTIONS = ['pulso', 'preco', 'mercado', 'petroleo', 'bomba', 'parana', 'fora', 'lab', 'bastidores']
+const SECTIONS = ['pulso', 'preco', 'pato', 'mercado', 'petroleo', 'bomba', 'parana', 'fora', 'lab', 'bastidores']
 
 export default async function Page() {
   const o = await getObservatory()
   const cmoSE = o.cmo.bySub.SE[cmoSlotNow(o) ?? 47]
   const brentL = (o.brent.at(-1)!.v * o.ptax.venda) / BBL_LITERS
   const fuel = o.fuel.curitiba as Record<string, number>
+  const cut = curtailStats(o)
   const ticker: TickItem[] = [
     {
       href: '#pulso',
@@ -44,6 +46,12 @@ export default async function Page() {
       label: 'Bandeira',
       value: `${FLAG_NAME[flagNow(o)]} · ${monthLabel(o.bandeira.mes)}`,
       tip: 'Bandeira tarifária: sinal mensal da ANEEL sobre o custo de gerar energia. Na verde não há acréscimo. Na amarela e nas vermelhas, cada 100 kWh da conta de luz fica mais caro, porque falta água nos reservatórios e entram usinas térmicas, mais caras.',
+    },
+    {
+      href: '#pato',
+      label: 'Cortes eól.+sol.',
+      value: `${dec(cut.total / 1e6, 1)} TWh · ${monthLabel(cut.m)}`,
+      tip: `Energia eólica e solar que o ONS mandou deixar de gerar em ${monthLabel(cut.m)}, ${pct(cut.lostShare)} do que essas usinas poderiam ter produzido. Acontece quando sobra energia ao meio-dia, falta rede para escoar ou a operação exige folga. ${pct(cut.ne)} dos cortes foram no Nordeste.`,
     },
     {
       href: '#mercado',
@@ -121,6 +129,7 @@ export default async function Page() {
       <main>
         <Pulso o={o} />
         <Preco o={o} />
+        <Pato o={o} />
         <Mercado o={o} />
         <Petroleo o={o} />
         <Bomba o={o} />

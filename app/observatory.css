@@ -137,6 +137,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--acc); display: inline-block; flex: none; }
 .dot.off { background: transparent; border: 1px solid var(--c4); }
 .stale { color: var(--c4); }
+/* section 3: four live numbers, and the share of each curtailment reason as one proportional bar */
+.bignums.bn4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.reasons { display: flex; gap: 2px; margin-top: 14px; font-family: var(--mono); font-size: 11px; color: var(--ink2); }
+.reasons span { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex-basis: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.reasons i { display: block; height: 8px; }
 .badge { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; border: 1px solid var(--line); padding: 2px 8px; border-radius: 999px; color: var(--mute); }
 .met { margin-top: 16px; font-size: 14px; color: var(--ink2); max-width: 60em; }
 .met summary { cursor: pointer; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute); list-style: none; }
@@ -220,10 +225,15 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   .span2 { grid-column: auto; }
   .h1 { font-size: 40px; }
   .h2 { font-size: 30px; }
-  .bignums { grid-template-columns: 1fr 1fr; }
+  .bignums, .bignums.bn4 { grid-template-columns: 1fr 1fr; }
+  .reasons { flex-direction: column; }
+  .reasons span { flex-basis: auto; flex-direction: row; align-items: center; gap: 8px; }
+  .reasons i { width: 24px; flex: none; }
   .bnv { font-size: 32px; }
   .sec { padding: 48px 0; }
   .wrap { padding-left: 16px; padding-right: 16px; } /* sides only: the masthead keeps its 12 px top/bottom */
   .sect { grid-template-columns: 7em minmax(0, 1fr) 3.5em; }
   .sect > span:nth-child(4) { display: none; }
 }
+/* chart labels drawn over lines or bands: a background-coloured outline keeps them legible */
+.halo { paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }

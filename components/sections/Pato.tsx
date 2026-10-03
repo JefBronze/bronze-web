@@ -2,7 +2,7 @@ import { scale } from '@/lib/chart'
 import { CUT_REASON, curtailStats, duckStats, ITAIPU_MW, netLoad, slotText } from '@/lib/derive'
 import { dec, ddmm, fmt, monthLabel, pct } from '@/lib/format'
 import type { Observatory } from '@/lib/observatory'
-import { BRONZE_URL, Kicker, Lido, Metodo, ParaVoce, Stamp, Swatch, Todo } from '../ui'
+import { BRONZE_URL, Kicker, Lido, Metodo, ParaVoce, Stamp, Swatch } from '../ui'
 
 const W = 680
 /** Width of the half-column charts (3b, 3c): narrower viewBox, same 11 px labels. */
@@ -314,12 +314,13 @@ export default function Pato({ o }: { o: Observatory }) {
               3b e 3c usam o balanço de energia por subsistema (horário, MW médios); térmica inclui nuclear. Fundo = menor carga líquida entre 9h e 15h; rampa = maior valor entre 16h e 22h menos o fundo; média dos dias do mês. A comparação com Itaipu usa {fmt(ITAIPU_MW)} MW de capacidade instalada.
             </p>
             <p>
-              3d soma, para cada meia-hora com restrição, a geração não realizada apurada pelo ONS (referência menos verificada) em todas as usinas eólicas e solares despachadas pelo ONS; MWh = MW médios × 0,5 h. Motivos: <b>ENE</b>, sobra de energia no sistema; <b>CNF</b>, confiabilidade elétrica; <b>REL</b>, limite de rede (indisponibilidade externa). Pela Lei 15.269/2025 e a Portaria MME 140/2026, só cortes de REL e CNF entram no ressarcimento; o corte por sobra de energia fica com o gerador. A geração distribuída também passou a sofrer cortes em 2026, ainda sem regra de compensação <Todo>conferir data e ato</Todo>.
+              3d soma, para cada meia-hora com restrição, a geração não realizada apurada pelo ONS (referência menos verificada) em todas as usinas eólicas e solares despachadas pelo ONS; MWh = MW médios × 0,5 h. Motivos: <b>ENE</b>, sobra de energia no sistema; <b>CNF</b>, confiabilidade elétrica; <b>REL</b>, limite de rede (indisponibilidade externa). Pela Lei 15.269/2025 e a Portaria MME 140/2026, só cortes de REL e CNF entram no ressarcimento; o corte por sobra de energia fica com o gerador. Fora desta conta, desde 07/06/2026 o ONS também pede às distribuidoras que cortem usinas Tipo III, as pequenas usinas fora da Rede Básica que o ONS não despacha, pelo Plano Emergencial de Gestão de Excedentes de Energia na Rede de Distribuição, aprovado pela diretoria da ANEEL em 18/11/2025. No primeiro acionamento foi cerca de 1 GW, das 10h às 14h. A micro e minigeração distribuída (telhados e pequenas usinas de compensação) ainda não é cortada: regras para isso estão na Consulta Pública ANEEL 9/2026, aberta em abril de 2026 e ainda sem decisão.
             </p>
           </Metodo>
           <ParaVoce>
-            Tem usina eólica ou solar, ou uma carteira de geração distribuída? O ONS publica os cortes usina por usina, e a mesma conta de 3d separa o
-            que foi por rede ou confiabilidade (ressarcível) do que foi por sobra de energia. Para ver os números da sua usina, fale com a{' '}
+            Tem usina eólica ou solar despachada pelo ONS? Ele publica os cortes usina por usina, e a mesma conta de 3d separa o que foi por rede
+            ou confiabilidade (ressarcível) do que foi por sobra de energia. Tem geração distribuída? Ela ainda não é cortada, mas a Consulta
+            Pública ANEEL 9/2026 pode mudar isso. Para ver os números da sua usina, fale com a{' '}
             <a className="bz" href={BRONZE_URL}>Bronze Engenharia</a>: <a href="mailto:contato@data-joule.com">contato@data-joule.com</a>.
           </ParaVoce>
         </div>

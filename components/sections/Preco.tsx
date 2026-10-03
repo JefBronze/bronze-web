@@ -137,7 +137,7 @@ export default function Preco({ o }: { o: Observatory }) {
           </div>
           <Bills bills={[b1, verde, azul]} cmo={cmoRef} />
           <div className="stamp">
-            <span>Tarifas da {o.b1.reh} (revisão de 24/06/2026, efeito médio +20,51 %), sem tributos, conforme a tabela oficial da Copel</span>
+            <span>Tarifas da {o.b1.reh} (revisão de 24/06/2026, efeito médio +20,51 %), tarifas de aplicação sem tributos, Tabelas 1 e 2 do anexo</span>
             <span>o modelo reproduziu a fatura real de jun/2026 (ainda na REH 3.472/2025) com diferença de R$ {dec(Math.abs(o.b1.refCalc - o.b1.refTotal))}</span>
           </div>
           <Metodo>

@@ -4372,7 +4372,11 @@
     1.0
    ]
   ],
-  "nota": "parcela Fio B da TUSD B1 Copel: a confirmar na REH 3.472"
+  "copelB1": {
+   "reh": "REH ANEEL nº 3.592/2026, Tabela 4",
+   "credTusd2026": 0.7184,
+   "credTusd2027": 0.648
+  }
  },
  "litro": {
   "month": "08/2026",

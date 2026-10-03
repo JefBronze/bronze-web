@@ -60,7 +60,8 @@ data = {
     'caiso': caiso, 'caisoTime': snap['caiso_fuel']['latest']['Time'],
     'nyiso': snap['nyiso_fuel']['latest'],
     # Copel B1 residencial convencional, REH ANEEL nº 3.592/2026 (6ª revisão periódica, in force 24/06/2026–23/06/2027),
-    # "sem imposto" row of Copel's official tariff panels (copel.com, tarifas de energia elétrica). Verified 2026-10-03.
+    # Tarifas de aplicação, Tabelas 1 (Grupo A) and 2 (Grupo B) of the REH annex; checked against the annex text and
+    # Copel's "sem imposto" panels on 2026-10-03 (identical).
     # The model reproduced the real June 2026 bill (still under REH 3.472/2025) within R$ 0,04: refTotal/refCalc.
     'b1': {'reh': 'REH ANEEL nº 3.592/2026', 'te': 0.31085, 'tusd': 0.45717, 'bandeira': {'verde': 0, 'amarela': 0.01885, 'vermelha1': 0.04463, 'vermelha2': 0.07877},
            'icms': 0.19, 'pis': 0.015536, 'cofins': 0.071339, 'cip': 23.78, 'refKwh': 282, 'refTotal': 275.87, 'refCalc': 275.91},
@@ -88,7 +89,10 @@ data = {
     'gd': {'gw': 43.5, 'systems': 3.87e6, 'ucs': 7.0e6, 'municipios': 5565, 'solarShare': 0.99, 'proj2026': 50,
            'pr': {'gw': 4.0, 'plants': 305000, 'rank': 3},
            'fioB': [[2023, 0.15], [2024, 0.30], [2025, 0.45], [2026, 0.60], [2027, 0.75], [2028, 0.90], [2029, 1.0]],
-           'nota': 'parcela Fio B da TUSD B1 Copel: a confirmar na REH 3.472'},
+           # Copel B1 residencial, REH ANEEL 3.592/2026 Tabela 4 (SCEE, GD II): share of the TUSD credited on compensated
+           # energy is 71,84 % (24/06–31/12/2026) and 64,80 % (2027). Uncredited 28,16 % = 60 % × Fio B and 35,20 % = 75 % × Fio B,
+           # so Fio B = 46,93 % of the B1 TUSD in both columns (consistent).
+           'copelB1': {'reh': 'REH ANEEL nº 3.592/2026, Tabela 4', 'credTusd2026': 0.7184, 'credTusd2027': 0.6480}},
     # Anatomy of a litre, Paraná, Aug 2026 — Petrobras + tax constants to confirm at build time; marked in the UI.
     # Gasolina C in Curitiba, August 2026 (same month as the ANP pump median). Verified 2026-10-03.
     # Per-litre-of-gasolina-A items are scaled by (1 - blend) in the page; ICMS is already per litre of gasolina C.

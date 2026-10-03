@@ -1,4 +1,4 @@
-# bronze-web
+# data-joule-web
 
 **Data Joule** — observatório de energia em **data-joule.com**, um projeto da Bronze Engenharia de Energia. (Até outubro de 2026 este site ficava em bronze-engenharia.com.br; os domínios foram trocados com o site de auditoria, repositório `data-joule-web`.)
 

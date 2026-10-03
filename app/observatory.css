@@ -154,6 +154,24 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .rk-bar > span > span { display: block; height: 100%; }
 .nosignal { font-size: 14px; color: var(--mute); padding: 48px 0; }
 .mapa { max-height: 640px; }
+/* section 4: the plant card opened from the map */
+.mapabox { position: relative; }
+.mapa [data-plant] { cursor: pointer; outline: none; }
+.mapa g[data-plant]:hover circle:first-child, .mapa g[data-plant]:focus-visible circle:first-child { stroke-width: 2.5; fill-opacity: 0.3; }
+.mapa text { pointer-events: none; }
+.plantcard { position: fixed; z-index: 20; background: var(--bg); color: var(--ink2); border: 1px solid var(--line); box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12); padding: 12px 14px; font-size: 13px; line-height: 1.4; pointer-events: none; }
+.pc-n { display: block; color: var(--ink); font-size: 15px; margin-bottom: 8px; }
+.plantcard dl { margin: 0; display: grid; gap: 4px; }
+.plantcard dl div { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; }
+.plantcard dt { color: var(--mute); font-size: 12px; }
+.plantcard dd { margin: 0; text-align: right; font-family: var(--mono); font-size: 12px; color: var(--ink); }
+.pc-bar { display: flex; height: 7px; margin: 10px 0 6px; }
+.pc-bar span { display: block; height: 100%; }
+.pc-mot { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; font-size: 12px; }
+.pc-mot li { display: flex; align-items: center; gap: 6px; }
+.pc-mot i { width: 8px; height: 8px; flex: none; }
+.pc-mot span { margin-left: auto; font-family: var(--mono); }
+.pc-nota { margin: 8px 0 0; font-size: 12px; color: var(--mute); }
 .badge { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; border: 1px solid var(--line); padding: 2px 8px; border-radius: 999px; color: var(--mute); }
 .met { margin-top: 16px; font-size: 14px; color: var(--ink2); max-width: 60em; }
 .met summary { cursor: pointer; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute); list-style: none; }

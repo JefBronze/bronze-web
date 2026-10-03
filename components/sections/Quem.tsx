@@ -1,8 +1,10 @@
 import { scale, stack } from '@/lib/chart'
-import { FLAG_FILL, FLAG_NAME, MOTIVO_FILL, MOTIVO_NAME, termicaStats, usinasDia, vu, type Flag, type Usina } from '@/lib/derive'
+import { FLAG_FILL, FLAG_NAME, SUB_SHORT, MOTIVO_FILL, MOTIVO_NAME, termicaStats, usinasDia, vu, type Flag, type Usina } from '@/lib/derive'
 import { dec, ddmm, fmt, monthLabel, pct } from '@/lib/format'
 import type { Observatory } from '@/lib/observatory'
 import { MOTIVOS } from '@/lib/sources/geracao'
+import type { Sub } from '@/lib/sources/ons'
+import MapaHover, { type PlantCard } from '../MapaHover'
 import { BRONZE_URL, Kicker, Lido, Metodo, ParaVoce, Stamp, Swatch } from '../ui'
 
 const TIPO_FILL: Record<string, string> = { hid: 'var(--c1)', eol: 'var(--c3)', sol: 'var(--sol)', ter: 'var(--c5)', nuc: 'var(--c5)', out: 'var(--c5)' }
@@ -33,22 +35,107 @@ function plantTitle(p: Usina) {
   return `${p.nome} (${p.uf}) · ${TIPO_NAME[p.tipo] ?? p.comb.toLowerCase()} · ${fmt(p.mw)} MW${gen}${mot}${aprox}`
 }
 
+/** The pop-up for one plant: capacity, yesterday's average and peak, and for thermal plants the dispatch reasons and CVU. */
+function plantCard(o: Observatory, p: Usina, cmoMed: Record<Sub, number> | null): PlantCard {
+  const linhas: [string, string][] = [['capacidade', `${fmt(p.mw)} MW`]]
+  if (p.med !== null && o.usinaDia) {
+    const pico = o.usinaDia.peak[p.ceg] ?? 0
+    linhas.push([`média de ontem, ${day(o.usinaDia.day)}`, `${fmt(p.med)} MW`])
+    linhas.push(['pico de ontem', `${fmt(pico)} MW`])
+    linhas.push(['fator de capacidade', pct(Math.min(1, p.med / p.mw))])
+  } else {
+    linhas.push(['ontem', 'sem leitura do ONS agora'])
+  }
+  const thermal = p.tipo === 'ter' || p.tipo === 'nuc'
+  const t = thermal ? o.termicas?.plants.find((x) => x.ceg === p.ceg) : undefined
+  let motivos: PlantCard['motivos']
+  if (thermal && o.termicas) {
+    if (t && t.mwh > 0) {
+      motivos = MOTIVOS.filter((m) => t.byMotivo[m] > 0).map((m) => ({ nome: MOTIVO_NAME[m], fill: MOTIVO_FILL[m], share: t.byMotivo[m] / t.mwh, mwh: `${fmt(t.byMotivo[m])} MWh` }))
+    } else {
+      linhas.push(['despacho', 'parada ontem'])
+    }
+    const cvu = t?.cod && o.cvu ? o.cvu.byCod[t.cod] : undefined
+    if (cvu !== undefined) {
+      const cmo = cmoMed?.[p.sub as Sub]
+      linhas.push(['custo variável (CVU)', `R$ ${fmt(cvu)}/MWh`])
+      if (cmo !== undefined) linhas.push([`custo marginal ${SUB_SHORT[p.sub as Sub] ?? p.sub}, mesmo dia`, `R$ ${fmt(cmo)}/MWh`])
+    }
+  }
+  const tipo = TIPO_NAME[p.tipo] ?? p.comb.toLowerCase()
+  const comb = thermal && p.comb && p.tipo !== 'nuc' ? ` · ${p.comb.toLowerCase()}` : ''
+  return {
+    nome: `${p.nome} (${p.uf})`,
+    sub: `${tipo}${comb}`,
+    linhas,
+    motivos,
+    nota: p.loc.startsWith('municipio') ? `Posição aproximada: centro do município de ${p.loc.slice(10)}.` : undefined,
+  }
+}
+
+/**
+ * Plants on the same site (GNA I and II, Angra 1 and 2, the Parnaíba complex…) share one coordinate, and some
+ * neighbours sit close enough that the smaller circle covers the larger one's centre (Termo Norte II at Santo
+ * Antônio). Drawn as-is, one would hide the other. Such clusters are spread on a small ring around their centre.
+ */
+function spreadOnce(plants: Usina[]): Usina[] {
+  const n = plants.length
+  const parent = plants.map((_, i) => i)
+  const find = (i: number): number => (parent[i] === i ? i : (parent[i] = find(parent[i])))
+  for (let i = 0; i < n; i++)
+    for (let j = i + 1; j < n; j++) {
+      const d = Math.hypot(plants[i].x - plants[j].x, plants[i].y - plants[j].y)
+      if (d < Math.max(radius(plants[i].mw), radius(plants[j].mw)) * 0.8 + 2) parent[find(j)] = find(i)
+    }
+  const groups = new Map<number, number[]>()
+  plants.forEach((_, i) => groups.set(find(i), [...(groups.get(find(i)) ?? []), i]))
+  const out = [...plants]
+  for (const g of groups.values()) {
+    if (g.length < 2) continue
+    const cx = g.reduce((a, i) => a + plants[i].x, 0) / g.length
+    const cy = g.reduce((a, i) => a + plants[i].y, 0) / g.length
+    const ring = Math.max(...g.map((i) => radius(plants[i].mw))) + 1.5
+    g.forEach((i, k) => {
+      const a = Math.PI + (2 * Math.PI * k) / g.length // first (largest) to the left, the rest around
+      out[i] = { ...plants[i], x: cx + ring * Math.cos(a), y: cy + ring * Math.sin(a) }
+    })
+  }
+  return out
+}
+
+/** Spreading one cluster can push it onto a neighbour (Rio's thermal plants): repeat until nothing changes. */
+function spread(plants: Usina[]): Usina[] {
+  let cur = plants
+  for (let k = 0; k < 6; k++) {
+    const next = spreadOnce(cur)
+    if (next.every((p, i) => p.x === cur[i].x && p.y === cur[i].y)) return next
+    cur = next
+  }
+  return cur
+}
+
 function Mapa({ o, plants }: { o: Observatory; plants: Usina[] }) {
   const { w, h, ufs } = o.usinas.map
-  const order = [...plants].sort((a, b) => b.mw - a.mw)
+  const order = spread([...plants].sort((a, b) => b.mw - a.mw))
+  const cmoMed = termicaStats(o)?.cmoMed ?? null
+  const cards = order.map((p) => plantCard(o, p, cmoMed))
   return (
-    <svg className="svg mapa" viewBox={`0 0 ${w} ${h}`} role="img" aria-label={`Mapa do Brasil com as ${plants.length} maiores usinas e as térmicas de 300 MW ou mais, em tamanho proporcional à capacidade.`}>
+    <MapaHover cards={cards}>
+    <svg className="svg mapa" viewBox={`0 0 ${w} ${h}`} role="group" aria-label={`Mapa do Brasil com as ${plants.length} maiores usinas e as térmicas de 300 MW ou mais, em tamanho proporcional à capacidade.`}>
       {ufs.map((u) => (
         <path key={u.uf} d={u.d} fill="var(--bg2)" stroke="var(--line)" strokeWidth={0.8} />
       ))}
-      {order.map((p) => {
+      {/* Small plants are 2–3 px wide: larger invisible targets, under every visible circle so a drawn circle always wins. */}
+      {order.map((p, i) => (
+        <circle key={`hit-${p.ceg || p.nome}`} data-plant={i} cx={p.x} cy={p.y} r={Math.max(radius(p.mw), 7)} fill="transparent" />
+      ))}
+      {order.map((p, i) => {
         const r = radius(p.mw)
         const thermal = p.tipo === 'ter' || p.tipo === 'nuc'
         const color = thermal ? (p.motivo ? MOTIVO_FILL[p.motivo] : 'var(--c5)') : TIPO_FILL[p.tipo]
         const share = p.med === null ? null : Math.min(1, p.med / p.mw)
         return (
-          <g key={p.ceg || p.nome}>
-            <title>{plantTitle(p)}</title>
+          <g key={p.ceg || p.nome} data-plant={i} tabIndex={0} aria-label={plantTitle(p)}>
             <circle cx={p.x} cy={p.y} r={r} fill={color} fillOpacity={0.14} stroke={color} strokeWidth={1} strokeDasharray={thermal && !p.motivo ? '2 2' : undefined} />
             {share !== null && share > 0 && <circle cx={p.x} cy={p.y} r={r * Math.sqrt(share)} fill={color} fillOpacity={0.9} />}
           </g>
@@ -66,6 +153,7 @@ function Mapa({ o, plants }: { o: Observatory; plants: Usina[] }) {
           )
         })}
     </svg>
+    </MapaHover>
   )
 }
 
@@ -157,7 +245,7 @@ export default function Quem({ o }: { o: Observatory }) {
               <span><Swatch color="var(--c2)" />térmica por custo</span>
               <span><Swatch color="var(--dj)" />partida e parada</span>
               <span><Swatch color="var(--c5)" dashed />térmica parada</span>
-              <span className="badge">miolo cheio = geração de ontem</span>
+              <span className="badge">miolo cheio = geração de ontem · passe o mouse ou toque numa usina</span>
             </div>
             <Stamp status={o.status.usinas} source="ONS · capacidade de geração + GERACAO_USINA-2" when={ontem ? day(ontem) : '—'} cadence="diário, D-1" />
           </div>
@@ -298,7 +386,7 @@ export default function Quem({ o }: { o: Observatory }) {
           <Stamp status={{ live: true, asOf: g.m }} source={`CCEE · InfoBandeira nº ${meses[0].n}–${g.n}`} when={monthLabel(g.m)} cadence="mensal, atualizado à mão" />
           <Metodo>
             <p>
-              <b>4a.</b> Capacidade efetiva por unidade geradora, do cadastro do ONS, somada por usina (código CEG); as duas metades de Itaipu (50 e 60 Hz) contam como uma usina. Ficam no mapa as {o.usinas.plants.length} maiores usinas e toda térmica ou nuclear de 300 MW ou mais. A área do círculo é proporcional à capacidade; o miolo cheio, à geração média de ontem (arquivo horário de geração por usina do ONS). Posições: Wikidata; usinas no mesmo terreno de outra (GNA II, Angra 1 e 2, Maranhão III a V) usam o ponto do complexo; as poucas sem registro usam o centro do município e dizem isso ao passar o mouse. Contornos dos estados: malha do IBGE.
+              <b>4a.</b> Capacidade efetiva por unidade geradora, do cadastro do ONS, somada por usina (código CEG); as duas metades de Itaipu (50 e 60 Hz) contam como uma usina. Ficam no mapa as {o.usinas.plants.length} maiores usinas e toda térmica ou nuclear de 300 MW ou mais. A área do círculo é proporcional à capacidade; o miolo cheio, à geração média de ontem (arquivo horário de geração por usina do ONS). Posições: Wikidata; usinas no mesmo terreno de outra (GNA II, Angra 1 e 2, Maranhão III a V) usam o ponto do complexo; usinas no mesmo ponto, ou tão perto que uma cobriria a outra, aparecem lado a lado em volta dele; as poucas sem registro usam o centro do município e dizem isso ao passar o mouse. Contornos dos estados: malha do IBGE.
             </p>
             <p>
               <b>4b.</b> Geração verificada das térmicas despachadas centralizadamente pelo ONS (inclui Angra), dividida pelo motivo do despacho: <b>inflexibilidade</b>, a geração mínima declarada pelo dono da usina (contratos de combustível com consumo obrigatório, exigências técnicas); <b>ordem de custo</b>, a parte despachada porque o custo variável (CVU) estava abaixo do custo marginal; <b>partida e parada</b> (unit commitment), geração para manter a usina pronta; <b>restrição elétrica</b>, necessidade local da rede; <b>segurança energética</b>, despacho fora da ordem de custo decidido pelo CMSE para poupar água. Os motivos somam a geração verificada. CVU da semana operativa do PMO que contém o dia; custo marginal médio do mesmo dia, por subsistema.

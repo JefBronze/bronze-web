@@ -4,7 +4,7 @@ Guidance for Claude Code when working in this repository.
 
 ## What this is
 
-**data-joule.com** — Data Joule, a single-page "observatório de energia" by Bronze Engenharia de Energia (brand swap of Oct 2026: this site moved from bronze-engenharia.com.br to data-joule.com, and the Grupo A audit landing from the `data-joule-web` repo moved to bronze-engenharia.com.br; the "Para você" notes link there). Built as a single page (Next.js 16 App Router, TypeScript, React 19). Ten sections of live instruments built on public data, Brazil first (PT-BR is the canonical copy). Ported from the Claude Design project "Bronze Engenharia", file `Direção A v4 - Brasil primeiro.dc.html` (local copy in `design/`). When the design changes, re-port from that file instead of restyling ad hoc.
+**data-joule.com** — Data Joule, a single-page "observatório de energia" by Bronze Engenharia de Energia (brand swap of Oct 2026: this site moved from bronze-engenharia.com.br to data-joule.com, and the Grupo A audit landing from the `data-joule-web` repo moved to bronze-engenharia.com.br; the "Para você" notes link there). Built as a single page (Next.js 16 App Router, TypeScript, React 19). Eleven sections of live instruments built on public data, Brazil first (PT-BR is the canonical copy). Ported from the Claude Design project "Bronze Engenharia", file `Direção A v4 - Brasil primeiro.dc.html` (local copy in `design/`). When the design changes, re-port from that file instead of restyling ad hoc.
 
 ## Commands
 
@@ -24,7 +24,7 @@ node scripts/shoot.mjs http://127.0.0.1:3000/ <out-dir> [light|dark] [width]   #
 - `lib/observatory.ts` — `getObservatory()` runs all sources in parallel. A failed source falls back to `data/snapshot.json` and its `status[key].live` is false; the stamp then reads "sem sinal agora · última leitura …". Never render a blank instrument.
 - `lib/derive.ts` — every number the page states in words (bills with taxes "por dentro", CMO extremes and spreads, Kalshi quantiles, Polymarket range). Sentences are generated from data; do not hard-code readings in copy.
 - `lib/chart.ts` — SVG path helpers ported from `design/helpers.js`, plus `isotonicDecreasing` (the "ajuste isotônico" the Método text promises).
-- `components/sections/*.tsx` — server components, one per section, in page order: Pulso, Preco, Pato ("A curva do pato": net load, the evening ramp, curtailment), Mercado, Petroleo, Bomba, Parana, Fora, Lab, Bastidores. Client components: `components/ThemeToggle.tsx` and `components/Ticker.tsx` (the "Hoje" strip; each reading opens a short explanation on hover, focus or first tap — the copy lives in `app/page.tsx`).
+- `components/sections/*.tsx` — server components, one per section, in page order: Pulso, Preco, Pato ("A curva do pato": net load, the evening ramp, curtailment), Mercado, Petroleo, Bomba, Motor ("O motor por dentro": a one-cylinder engine in 3D with a synced p–V diagram), Parana, Fora, Lab, Bastidores. Client components: `components/ThemeToggle.tsx` and `components/Ticker.tsx` (the "Hoje" strip; each reading opens a short explanation on hover, focus or first tap — the copy lives in `app/page.tsx`).
 - `app/observatory.css` — tokens and every class, global (single page). Light/dark follows `prefers-color-scheme`; the toggle sets `html[data-theme]` and localStorage (applied before paint by the inline script in `app/layout.tsx`).
 
 ## Data rules
@@ -48,3 +48,5 @@ Canonical: `data-joule.com` (Vercel project `bronze-web`, Production; zone on Ve
 ## Workflow
 
 Feature branch in a worktree → PR → Vercel preview → merge only when Jeferson says "merge". He sets DNS and environment variables in the dashboards himself. Contact e-mail on the site stays `contato@data-joule.com` until ImprovMX is set up; never publish an `@bronze-engenharia` address.
+
+- Motor 3D (`components/Engine3D.tsx`): the only client-side 3D. three.js is imported dynamically when the section nears the viewport, so it stays out of the initial bundle (~179 kB gzip on demand; initial JS measured 180 kB). Geometry is built in code from `lib/engine.ts` (pure, tested in `tests/engine.test.ts`); colours read the CSS tokens and follow the theme. Without WebGL it shows a note and 7b still explains the cycle.

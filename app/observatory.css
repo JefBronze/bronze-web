@@ -237,3 +237,34 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 }
 /* chart labels drawn over lines or bands: a background-coloured outline keeps them legible */
 .halo { paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
+
+/* section 7: the engine in 3D, its p–V diagram, controls, and the energy-flow ranges */
+.enginev { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 24px; align-items: start; }
+.engine3d { position: relative; min-height: 300px; background: var(--bg2); border-radius: 4px; overflow: hidden; }
+.engine3d canvas { display: block; width: 100%; cursor: grab; }
+.engine3d canvas:active { cursor: grabbing; }
+.engineph { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; padding: 24px; text-align: center; font-family: var(--mono); font-size: 12px; color: var(--mute); }
+.enginehud { position: absolute; top: 12px; left: 14px; right: 14px; display: flex; justify-content: space-between; gap: 12px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; pointer-events: none; }
+.engineang { color: var(--mute); }
+.enginetx { position: absolute; left: 14px; right: 14px; bottom: 10px; margin: 0; font-size: 14px; color: var(--ink2); pointer-events: none; max-width: 520px; }
+.enginepvl { margin: 4px 0 0; font-family: var(--mono); font-size: 12px; color: var(--ink2); }
+.enginectl { margin-top: 14px; align-items: center; }
+.eseg { display: inline-flex; gap: 4px; }
+.ebtn { font: inherit; font-family: var(--mono); font-size: 12px; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink2); cursor: pointer; }
+.ebtn[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.ebtn:focus-visible { outline: 2px solid var(--c1); outline-offset: 2px; }
+.enote { font-size: 13px; color: var(--mute); flex: 1 1 260px; }
+.eflow { display: grid; gap: 10px; margin: 6px 0 4px; }
+.efrow { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr) 88px; gap: 14px; align-items: center; font-size: 14px; color: var(--ink2); }
+.efbar { position: relative; height: 12px; background: var(--bg2); }
+.efbar i { position: absolute; top: 0; bottom: 0; }
+.efv { font-family: var(--mono); font-size: 13px; text-align: right; color: var(--ink); }
+@media (max-width: 760px) {
+  .enginev { grid-template-columns: 1fr; }
+  .engine3d { display: flex; flex-direction: column; }
+  .enginehud { position: static; order: 0; padding: 12px 14px 0; }
+  .engine3d canvas { order: 1; }
+  .enginetx { position: static; order: 2; padding: 0 14px 12px; }
+  .efrow { grid-template-columns: 1fr 72px; }
+  .efbar { grid-column: 1 / -1; grid-row: 2; }
+}

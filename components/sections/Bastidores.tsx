@@ -28,14 +28,14 @@ export default function Bastidores({ o }: { o: Observatory }) {
   return (
     <section className="sec" id="bastidores" aria-labelledby="bastidores-h">
       <div className="wrap">
-        <Kicker n={11}>Bastidores</Kicker>
+        <Kicker n={12}>Bastidores</Kicker>
         <h2 className="h2" id="bastidores-h">Como isto é feito.</h2>
         <div className="colo">
           <div>
             <p className="ct">Método</p>
             <div className="li"><span>Next.js · React Server Components</span><span>render no servidor</span></div>
             <div className="li"><span>Gráficos em SVG escrito à mão</span><span>sem biblioteca</span></div>
-            <div className="li"><span>Motor 3D (seção 7): Blender + three.js</span><span>+156 kB e modelo de 1,7 MB, só ao chegar lá</span></div>
+            <div className="li"><span>Motores 3D (seções 7 e 8): Blender + three.js</span><span>carregados só ao chegar lá</span></div>
             <div className="li"><span>Fontes auto-hospedadas</span><span>CSP estrita</span></div>
             <div className="li"><span>Cada fonte com cache próprio</span><span>2 min → 6 h</span></div>
             <div className="li"><span>Fonte fora do ar</span><span>última leitura, marcada</span></div>

@@ -6,6 +6,7 @@ import Fora from '@/components/sections/Fora'
 import Lab from '@/components/sections/Lab'
 import Mercado from '@/components/sections/Mercado'
 import Motor from '@/components/sections/Motor'
+import Eletrico from '@/components/sections/Eletrico'
 import Parana from '@/components/sections/Parana'
 import Pato from '@/components/sections/Pato'
 import Petroleo from '@/components/sections/Petroleo'
@@ -21,7 +22,7 @@ import { getObservatory } from '@/lib/observatory'
 export const revalidate = 300
 
 const WHATSAPP = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '14389796085').replace(/\D/g, '')
-const SECTIONS = ['pulso', 'preco', 'pato', 'mercado', 'petroleo', 'bomba', 'motor', 'parana', 'fora', 'lab', 'bastidores']
+const SECTIONS = ['pulso', 'preco', 'pato', 'mercado', 'petroleo', 'bomba', 'motor', 'eletrico', 'parana', 'fora', 'lab', 'bastidores']
 
 export default async function Page() {
   const o = await getObservatory()
@@ -135,6 +136,7 @@ export default async function Page() {
         <Petroleo o={o} />
         <Bomba o={o} />
         <Motor o={o} />
+        <Eletrico o={o} />
         <Parana o={o} />
         <Fora o={o} />
         <Lab o={o} />

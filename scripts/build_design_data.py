@@ -22,6 +22,8 @@ for c in caiso_cols:
 
 data = {
     'takenAt': snap['ons_carga']['data']['SECO']['latest']['din_referenciautc'],
+    'sinArea': {a: [round(carga[a]['series_last24'][i]['mw']) for i in range(n)] for a in areas},
+    'ptax': 5.2079, 'ptaxDay': '2026-10-01',  # BCB PTAX venda, olinda.bcb.gov.br (verified 2026-10-02)
     'sin': sin, 'sinNow': round(carga['sin_mw_now']), 'sinBy': {a: round(carga[a]['latest']['val_cargaglobal']) for a in areas},
     'quebec': [x['mw'] for x in snap['hq_demand']['series_last24']], 'quebecNow': snap['hq_demand']['latest']['valeurs_demandetotal'],
     'hqPeakLast': snap['hq_demand']['peak_events_latest'][0]['datedebut'][:10],

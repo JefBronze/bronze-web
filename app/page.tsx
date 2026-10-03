@@ -1,4 +1,5 @@
 import ThemeToggle from '@/components/ThemeToggle'
+import Ticker, { type TickItem } from '@/components/Ticker'
 import Bastidores from '@/components/sections/Bastidores'
 import Bomba from '@/components/sections/Bomba'
 import Fora from '@/components/sections/Fora'
@@ -24,6 +25,68 @@ export default async function Page() {
   const o = await getObservatory()
   const cmoSE = o.cmo.bySub.SE[cmoSlotNow(o) ?? 47]
   const brentL = (o.brent.at(-1)!.v * o.ptax.venda) / BBL_LITERS
+  const fuel = o.fuel.curitiba as Record<string, number>
+  const ticker: TickItem[] = [
+    {
+      href: '#pulso',
+      label: 'SIN',
+      value: `${fmt(o.carga.sinNow)} MW`,
+      tip: 'Carga do Sistema Interligado Nacional: a potência que o Brasil inteiro está consumindo agora, somando Sudeste/Centro-Oeste, Sul, Nordeste e Norte. Dado verificado do ONS, a cada meia hora.',
+    },
+    {
+      href: '#preco',
+      label: 'CMO SE/CO',
+      value: `R$ ${dec(cmoSE, 1)}/MWh`,
+      tip: `Custo Marginal de Operação no Sudeste/Centro-Oeste: quanto custaria gerar mais 1 MWh nesta meia hora, segundo o modelo de despacho do ONS. Quando sobra água e sol, ele pode chegar a zero. É a base do preço de curto prazo (PLD), que não cai abaixo do piso de R$ ${dec(o.pld.piso)}/MWh.`,
+    },
+    {
+      href: '#preco',
+      label: 'Bandeira',
+      value: `${FLAG_NAME[flagNow(o)]} · ${monthLabel(o.bandeira.mes)}`,
+      tip: 'Bandeira tarifária: sinal mensal da ANEEL sobre o custo de gerar energia. Na verde não há acréscimo. Na amarela e nas vermelhas, cada 100 kWh da conta de luz fica mais caro, porque falta água nos reservatórios e entram usinas térmicas, mais caras.',
+    },
+    {
+      href: '#mercado',
+      label: 'Mercado livre',
+      value: `${Math.round(o.acl.share.total * 100)} % do consumo`,
+      tip: `Parcela do consumo de energia do país comprada no mercado livre (ACL): empresas que negociam a energia direto com geradores e comercializadoras, fora da tarifa da distribuidora. Dado da CCEE, ${o.acl.shareAsOf}.`,
+    },
+    {
+      href: '#mercado',
+      label: 'Geração distribuída',
+      value: `${dec(o.gd.gw, 1)} GW`,
+      tip: 'Potência instalada em pequenas usinas junto ao consumo, quase toda solar em telhados. A energia que sobra vira crédito que abate a conta de luz (Lei 14.300). Dado da ANEEL.',
+    },
+    {
+      href: '#petroleo',
+      label: 'Brent',
+      value: `R$ ${dec(brentL)}/L`,
+      tip: 'Petróleo Brent, a referência internacional, convertido em reais por litro (dólares por barril × dólar ÷ 159 litros). É o óleo cru, antes de refino, impostos e margens.',
+    },
+    {
+      href: '#petroleo',
+      label: 'Dólar',
+      value: `R$ ${dec(o.ptax.venda, 4)}`,
+      tip: 'Dólar PTAX de venda, a cotação oficial do Banco Central. Pesa no preço do petróleo e dos combustíveis.',
+    },
+    {
+      href: '#bomba',
+      label: 'Gasolina Curitiba',
+      value: `R$ ${dec(fuel.GASOLINA)}/L`,
+      tip: `Preço mediano da gasolina comum nos postos de Curitiba, no levantamento da ANP de ${o.fuel.month}. Metade dos postos cobra menos que isso, metade cobra mais.`,
+    },
+    {
+      href: '#bomba',
+      label: 'Etanol Curitiba',
+      value: `R$ ${dec(fuel.ETANOL)}/L`,
+      tip: `Preço mediano do etanol hidratado nos postos de Curitiba (ANP, ${o.fuel.month}). Pela regra prática, compensa abastecer com etanol quando ele custa até 70 % do preço da gasolina.`,
+    },
+    {
+      label: 'lido',
+      value: `${ddmm(o.renderedAt)} · ${hhmm(o.renderedAt)} BRT`,
+      tip: 'Hora em que esta página foi montada com as leituras mais recentes. Ela se atualiza sozinha a cada poucos minutos; cada instrumento mostra a hora da própria fonte.',
+    },
+  ]
 
   return (
     <>
@@ -46,36 +109,7 @@ export default async function Page() {
         </div>
       </header>
       <div className="hoje" aria-label="Leituras de agora">
-        <div className="ticker">
-          <div className="track">
-            {/* Two identical groups: the track slides by exactly one group, so the loop has no seam.
-                The copy is hidden from assistive tech and the tab order. */}
-            {[false, true].map((copy) => (
-              <div className="tgroup" key={String(copy)} aria-hidden={copy || undefined}>
-                {[
-                  ['#pulso', 'SIN', `${fmt(o.carga.sinNow)} MW`],
-                  ['#preco', 'CMO SE/CO', `R$ ${dec(cmoSE, 1)}/MWh`],
-                  ['#preco', 'Bandeira', `${FLAG_NAME[flagNow(o)]} · ${monthLabel(o.bandeira.mes)}`],
-                  ['#mercado', 'Mercado livre', `${Math.round(o.acl.share.total * 100)} % do consumo`],
-                  ['#mercado', 'Geração distribuída', `${dec(o.gd.gw, 1)} GW`],
-                  ['#petroleo', 'Brent', `R$ ${dec(brentL)}/L`],
-                  ['#petroleo', 'Dólar', `R$ ${dec(o.ptax.venda, 4)}`],
-                  ['#bomba', 'Gasolina Curitiba', `R$ ${dec((o.fuel.curitiba as Record<string, number>).GASOLINA)}/L`],
-                  ['#bomba', 'Etanol Curitiba', `R$ ${dec((o.fuel.curitiba as Record<string, number>).ETANOL)}/L`],
-                ].map(([href, label, value]) => (
-                  <a key={label} href={href} tabIndex={copy ? -1 : undefined}>
-                    <i>{label}</i>
-                    <b>{value}</b>
-                  </a>
-                ))}
-                <span>
-                  <i>lido</i>
-                  <b>{ddmm(o.renderedAt)} · {hhmm(o.renderedAt)} BRT</b>
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Ticker items={ticker} />
       </div>
       <nav className="rail" aria-label="Seções">
         {SECTIONS.map((id, i) => (

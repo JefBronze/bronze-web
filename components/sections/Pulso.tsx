@@ -23,7 +23,7 @@ export default function Pulso({ o }: { o: Observatory }) {
       <div className="wrap g2">
         <div>
           <Kicker n={1}>Pulso · ao vivo</Kicker>
-          <h1 className="h1" id="pulso-h">Energia, com dados.</h1>
+          <h1 className="h1" id="pulso-h">A energia do Brasil, lida agora.</h1>
           <p className="lede">
             Este site é um observatório do setor elétrico e dos combustíveis no Brasil: instrumentos ligados a dados públicos, lidos a cada poucos minutos. Cada número cita a fonte e a hora.
           </p>

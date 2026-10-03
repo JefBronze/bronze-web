@@ -20,19 +20,33 @@ export function bill(o: Observatory, name: string, parts: Seg[], cipKwh?: number
   return { name, total: segs.reduce((s, p) => s + p.v, 0), segs }
 }
 
+export type Flag = 'verde' | 'amarela' | 'vermelha1' | 'vermelha2'
+export const FLAG_NAME: Record<Flag, string> = { verde: 'verde', amarela: 'amarela', vermelha1: 'vermelha 1', vermelha2: 'vermelha 2' }
+export const FLAG_FILL: Record<Flag, string> = { verde: 'var(--c3)', amarela: 'var(--sol)', vermelha1: 'var(--c4)', vermelha2: '#5E1F17' }
+
+/** The flag in force this month, and its surcharge as a bill segment (none when green: it adds nothing). */
+export function flagNow(o: Observatory): Flag {
+  return o.bandeira.vigente as Flag
+}
+function flagSeg(o: Observatory): Seg[] {
+  const f = flagNow(o)
+  const v = o.b1.bandeira[f] * 1000
+  return v > 0 ? [{ name: `bandeira ${FLAG_NAME[f]}`, v, kind: 'band' }] : []
+}
+
 /** The Grupo A reference case used in sections 2c and 3b. */
 export const A4_CASE = { mwh: 50, kw: 118, ponta: 0.1 }
 
 export function a4Parts(o: Observatory, modal: 'verde' | 'azul'): Seg[] {
   const { mwh, kw, ponta: pp } = A4_CASE
-  const band = { name: 'bandeira amarela', v: o.b1.bandeira.amarela * 1000, kind: 'band' as const }
+  const band = flagSeg(o)
   if (modal === 'verde') {
     const v = o.a4.verde
     return [
       { name: 'energia (TE)', v: pp * v.teP + (1 - pp) * v.teFP, kind: 'te' },
       { name: 'fio (TUSD energia)', v: pp * v.tusdP + (1 - pp) * v.tusdFP, kind: 'fio' },
       { name: 'demanda', v: (kw * v.demanda) / mwh, kind: 'dem' },
-      band,
+      ...band,
     ]
   }
   const a = o.a4.azul
@@ -40,7 +54,7 @@ export function a4Parts(o: Observatory, modal: 'verde' | 'azul'): Seg[] {
     { name: 'energia (TE)', v: pp * a.teP + (1 - pp) * a.teFP, kind: 'te' },
     { name: 'fio (TUSD energia)', v: a.tusdE, kind: 'fio' },
     { name: 'demanda P + FP', v: (kw * (a.demandaP + a.demandaFP)) / mwh, kind: 'dem' },
-    band,
+    ...band,
   ]
 }
 
@@ -51,7 +65,7 @@ export function b1Bill(o: Observatory): Bill {
     [
       { name: 'energia (TE)', v: o.b1.te * 1000, kind: 'te' },
       { name: 'fio (TUSD)', v: o.b1.tusd * 1000, kind: 'fio' },
-      { name: 'bandeira amarela', v: o.b1.bandeira.amarela * 1000, kind: 'band' },
+      ...flagSeg(o),
     ],
     o.b1.refKwh,
   )

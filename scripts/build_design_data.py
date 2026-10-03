@@ -45,15 +45,29 @@ data = {
     'polyLow': sorted([[float(l['question'].split('$')[1].split(' ')[0]), l['p_yes']] for l in snap['polymarket']['ladder'] if 'LOW' in l['question']]),
     'kalshi': [[m['strike'], round((float(m['yes_bid']) + float(m['yes_ask'])) / 2, 4)] for m in snap['kalshi']['markets'] if m['close'] == snap['kalshi']['markets'][0]['close']],
     'cmo': cmo, 'cmoNow': {k: v[-1] for k, v in cmo.items()}, 'cmoDay': snap['ons_cmo']['day'],
-    'pld': {'piso': 58.57, 'teto': 779.27, 'nota': 'limites PLD 2026 — a confirmar na CCEE'},
+    # PLD 2026 limits: Despacho ANEEL nº 3.850/2025 (published 23/12/2025), via Cenário Energia and Canal Solar (consistent).
+    'pld': {'ano': 2026, 'piso': 57.31, 'tetoEstrutural': 785.27, 'tetoHorario': 1611.04, 'ato': 'Despacho ANEEL nº 3.850/2025'},
+    # Bandeira tarifária: surcharges REH ANEEL 3.306/2024 (gov.br/aneel); monthly flags from ANEEL announcements as reported
+    # by the press and distributor tables (ANEEL/CCEE pages block automated reads). Verified 2026-10-03.
+    'bandeira': {
+        'vigente': 'verde', 'mes': '2026-10',
+        'hist': [['2024-10', 'vermelha2'], ['2024-11', 'amarela'], ['2024-12', 'verde'], ['2025-01', 'verde'], ['2025-02', 'verde'],
+                 ['2025-03', 'verde'], ['2025-04', 'verde'], ['2025-05', 'amarela'], ['2025-06', 'vermelha1'], ['2025-07', 'vermelha1'],
+                 ['2025-08', 'vermelha2'], ['2025-09', 'vermelha2'], ['2025-10', 'vermelha1'], ['2025-11', 'vermelha1'], ['2025-12', 'amarela'],
+                 ['2026-01', 'verde'], ['2026-02', 'verde'], ['2026-03', 'verde'], ['2026-04', 'verde'], ['2026-05', 'amarela'],
+                 ['2026-06', 'amarela'], ['2026-07', 'amarela'], ['2026-08', 'amarela'], ['2026-09', 'amarela'], ['2026-10', 'verde']],
+    },
     'caiso': caiso, 'caisoTime': snap['caiso_fuel']['latest']['Time'],
     'nyiso': snap['nyiso_fuel']['latest'],
-    # Copel B1 residencial convencional, REH 3.472/2025 (urpx/copel-b1-residencial-convencional.jsonld; fatura 06/2026)
-    'b1': {'te': 0.27575, 'tusd': 0.36667, 'bandeira': {'verde': 0, 'amarela': 0.01885, 'vermelha1': 0.04463, 'vermelha2': 0.07877},
+    # Copel B1 residencial convencional, REH ANEEL nº 3.592/2026 (6ª revisão periódica, in force 24/06/2026–23/06/2027),
+    # Tarifas de aplicação, Tabelas 1 (Grupo A) and 2 (Grupo B) of the REH annex; checked against the annex text and
+    # Copel's "sem imposto" panels on 2026-10-03 (identical).
+    # The model reproduced the real June 2026 bill (still under REH 3.472/2025) within R$ 0,04: refTotal/refCalc.
+    'b1': {'reh': 'REH ANEEL nº 3.592/2026', 'te': 0.31085, 'tusd': 0.45717, 'bandeira': {'verde': 0, 'amarela': 0.01885, 'vermelha1': 0.04463, 'vermelha2': 0.07877},
            'icms': 0.19, 'pis': 0.015536, 'cofins': 0.071339, 'cip': 23.78, 'refKwh': 282, 'refTotal': 275.87, 'refCalc': 275.91},
-    # Copel A4, REH 3.472/2025, before tax (auditoria-fatura/bdgd_analise.md:71-73). R$/kW and R$/MWh.
-    'a4': {'verde': {'demanda': 20.78, 'tusdP': 1211.56, 'tusdFP': 120.91, 'teP': 413.69, 'teFP': 257.51},
-           'azul': {'demandaP': 44.93, 'demandaFP': 20.78, 'tusdE': 120.91, 'teP': 413.69, 'teFP': 257.51, 'nota': 'TUSD energia Azul assumida = TUSD FP Verde; a confirmar'}},
+    # Copel A4 (2,3–25 kV), REH ANEEL nº 3.592/2026, before tax, same source. R$/kW and R$/MWh.
+    'a4': {'verde': {'demanda': 25.33, 'tusdP': 1463.39, 'tusdFP': 146.59, 'teP': 475.55, 'teFP': 295.75},
+           'azul': {'demandaP': 54.13, 'demandaFP': 25.33, 'tusdE': 146.59, 'teP': 475.55, 'teFP': 295.75}},
     # BDGD V11 Copel 2025 (auditoria-fatura/bdgd_analise.md)
     'bdgd': {'units': 11780, 'idleShare': 0.164, 'brlYear': 122.6e6, 'pct': {'p10': 0.064, 'p25': 0.098, 'p50': 0.164, 'p75': 0.271, 'p90': 0.385, 'p95': 0.461},
              'sectors': [{'n': 'Educação', 'u': 468, 'idle': 0.296, 'brl': 6.0e6}, {'n': 'Hospitais', 'u': 241, 'idle': 0.206, 'brl': 2.5e6},
@@ -75,9 +89,25 @@ data = {
     'gd': {'gw': 43.5, 'systems': 3.87e6, 'ucs': 7.0e6, 'municipios': 5565, 'solarShare': 0.99, 'proj2026': 50,
            'pr': {'gw': 4.0, 'plants': 305000, 'rank': 3},
            'fioB': [[2023, 0.15], [2024, 0.30], [2025, 0.45], [2026, 0.60], [2027, 0.75], [2028, 0.90], [2029, 1.0]],
-           'nota': 'parcela Fio B da TUSD B1 Copel: a confirmar na REH 3.472'},
+           # Copel B1 residencial, REH ANEEL 3.592/2026 Tabela 4 (SCEE, GD II): share of the TUSD credited on compensated
+           # energy is 71,84 % (24/06–31/12/2026) and 64,80 % (2027). Uncredited 28,16 % = 60 % × Fio B and 35,20 % = 75 % × Fio B,
+           # so Fio B = 46,93 % of the B1 TUSD in both columns (consistent).
+           'copelB1': {'reh': 'REH ANEEL nº 3.592/2026, Tabela 4', 'credTusd2026': 0.7184, 'credTusd2027': 0.6480}},
     # Anatomy of a litre, Paraná, Aug 2026 — Petrobras + tax constants to confirm at build time; marked in the UI.
-    'litro': {'refinaria': 2.91, 'anidro': 0.68, 'pisCofins': 0.7925, 'icms': 1.57, 'nota': 'refinaria e tributos: valores de referência a confirmar (Petrobras, CONFAZ)'},
+    # Gasolina C in Curitiba, August 2026 (same month as the ANP pump median). Verified 2026-10-03.
+    # Per-litre-of-gasolina-A items are scaled by (1 - blend) in the page; ICMS is already per litre of gasolina C.
+    'litro': {
+        'month': '08/2026',
+        'blend': 0.32,           # anhydrous share, E32: Resolução CNPE nº 9/2026 (DOU 30/07/2026), from 2026-08-01
+        'refinariaA': 2.61,      # R$/L gasolina A, Petrobras average to distributors, note of 28/05/2026 (net of the MP 1.358/2026 discount)
+        'anidro': 2.4750,        # R$/L anhydrous, CEPEA/ESALQ São Paulo, Aug 2026 average (weekly indicators average 2,4751), ex-tax, ex-freight
+        'pisCofinsA': 0.7925,    # R$/L gasolina A, Decreto 5.059/2004 art. 2 I (in force until 2026-09-09; Decreto 13.116 cut it to 0,16 from 10/09)
+        'cideA': 0.10,           # R$/L gasolina A, Decreto 5.060/2004 art. 1 I (Decreto 8.395/2015)
+        'pisCofinsAnidro': 0.1922,  # R$/L anhydrous, CEPEA Nota 2 (LC 214/2024, since 2025-05-01)
+        'icms': 1.57,            # R$/L gasolina C, ad rem: Convênio ICMS 112/2025, from 2026-01-01
+        # Abicom price gap versus import parity, 2026-09-28 (secondary: press coverage; abicom.com.br blocks automated reads).
+        'paridade': {'data': '2026-09-28', 'gasolina': {'pct': 32, 'rl': 0.95}, 'diesel': {'pct': 102, 'rl': 3.34}},
+    },
 }
 js = 'window.BRONZE2 = ' + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + ';\n'
 open('design/data2.js', 'w').write(js)

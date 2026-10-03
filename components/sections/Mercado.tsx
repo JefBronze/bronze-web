@@ -14,6 +14,11 @@ export default function Mercado({ o }: { o: Observatory }) {
   const yearNow = Number(o.renderedAt.slice(0, 4))
   const iNow = Math.max(0, fioB.findIndex(([y]) => y === yearNow))
   const fy = (share: number) => (120 - share * 106).toFixed(1)
+  // Copel B1 Fio B, derived from the REH's own SCEE table: uncredited TUSD share ÷ the law's Fio B fraction for 2026.
+  const fioBShare = (1 - gd.copelB1.credTusd2026) / 0.6
+  const fioBkWh = fioBShare * o.b1.tusd
+  const full = (o.b1.te + o.b1.tusd) * 1000
+  const credit = (o.b1.te + o.b1.tusd * gd.copelB1.credTusd2026) * 1000
   const fioPath = fioB.map(([, s], i) => `${i ? 'L' : 'M'}${i * 80} ${fy(s)}H${i * 80 + 80}`).join('')
   const rows: [string, number, string][] = [
     ['indústria', acl.share.industria, 'bar win'],
@@ -136,11 +141,13 @@ export default function Mercado({ o }: { o: Observatory }) {
               <text className="axa" x={iNow * 80 + 40} y={10} textAnchor="middle">{`${fioB[iNow][0]} · ${pc(fioB[iNow][1])} %`}</text>
             </svg>
             <div className="stamp">
-              <span>Lei 14.300/2022, art. 27 · sistemas conectados a partir de 7/1/2023</span>
-              <Todo>parcela Fio B da TUSD Copel B1: a confirmar</Todo>
+              <span>Lei 14.300/2022, art. 27 · pedidos de acesso a partir de 7/1/2023</span>
+              <span>
+                Copel B1: Fio B = {dec(fioBShare * 100, 1)} % da TUSD (R$ {dec(fioBkWh, 3)}/kWh) · em {fioB[iNow][0]} o kWh injetado vale R$ {dec(credit / 1000, 3)} em vez de R$ {dec(full / 1000, 3)}, sem tributos
+              </span>
             </div>
             <Metodo>
-              Cada kWh injetado vira crédito igual à tarifa cheia menos a fração do Fio B do ano. Para um telhado conectado hoje: crédito = TE + TUSD − {pc(fioB[iNow][1])} % × Fio B; em 2029, − 100 %. Sistemas anteriores a 7/1/2023 mantêm o regime antigo até 2045. O valor em R$/kWh entra quando a parcela Fio B da REH 3.472 for conferida.
+              Cada kWh compensado vira crédito igual à tarifa cheia menos a fração do Fio B do ano (remuneração, depreciação e operação da rede de distribuição). Para um telhado com pedido de acesso hoje: crédito = TE + TUSD − {pc(fioB[iNow][1])} % × Fio B. Os degraus 15, 30, 45, 60, 75 e 90 % (2023 a 2028) estão no art. 27; a partir de 2029 vale a regra do art. 17, definida pela ANEEL com diretrizes do CNPE, que o gráfico mostra como 100 % do Fio B por referência. Sistemas com pedido anterior a 7/1/2023 mantêm o regime antigo até 2045. Minigeração acima de 500 kW de fonte não despachável em autoconsumo remoto ou geração compartilhada paga 100 % do Fio B e 40 % do Fio A até 2028 (art. 27, § 1º). Na Copel, a {gd.copelB1.reh} credita {dec(gd.copelB1.credTusd2026 * 100, 2)} % da TUSD B1 em 2026 e {dec(gd.copelB1.credTusd2027 * 100, 2)} % em 2027; a parte não creditada é 60 % e 75 % do Fio B, o que dá Fio B = {dec(fioBShare * 100, 2)} % da TUSD nos dois anos. Com TE {dec(o.b1.te * 1000, 2)} e TUSD {dec(o.b1.tusd * 1000, 2)} R$/MWh, o crédito do kWh injetado em 2026 é TE + {dec(gd.copelB1.credTusd2026 * 100, 2)} % da TUSD.
             </Metodo>
             <ParaVoce>Telhado comercial em Curitiba: a conta de quanto o sol compensa muda a cada ano até 2029 — e muda de novo se você migrar para o livre. As duas decisões se calculam juntas.</ParaVoce>
           </div>

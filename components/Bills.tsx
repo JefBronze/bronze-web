@@ -1,10 +1,12 @@
 import { SEG_FILL, type Bill } from '@/lib/derive'
 import { dec, fmt } from '@/lib/format'
 
-/** Horizontal bill stacks on a shared 0–1 000 R$/MWh axis, so bills in different sections compare by eye. */
+/** One fixed R$/MWh axis for every bill on the page (2c and 3b), so bills in different sections compare by eye. */
+export const BILL_AXIS_MAX = 1200
+
 export default function Bills({ bills, cmo }: { bills: Bill[]; cmo?: number }) {
   const W = 300
-  const scale = (v: number) => (v / 1000) * W
+  const scale = (v: number) => (Math.min(v, BILL_AXIS_MAX) / BILL_AXIS_MAX) * W
   return (
     <div className="bills">
       {bills.map((b) => {
@@ -29,7 +31,7 @@ export default function Bills({ bills, cmo }: { bills: Bill[]; cmo?: number }) {
                 </>
               )}
               <text className="ax" x={0} y={110}>0</text>
-              <text className="ax" x={W} y={110} textAnchor="end">1 000 R$/MWh</text>
+              <text className="ax" x={W} y={110} textAnchor="end">{`${fmt(BILL_AXIS_MAX)} R$/MWh`}</text>
             </svg>
             {b.segs.map((s) => (
               <div className="seg" key={s.name}>

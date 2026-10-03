@@ -1,7 +1,7 @@
 import { x as sx } from '@/lib/chart'
 import { dec } from '@/lib/format'
 import type { Observatory } from '@/lib/observatory'
-import { Kicker, Lido, Metodo, ParaVoce, Swatch, Todo } from '../ui'
+import { Kicker, Lido, Metodo, ParaVoce, Swatch } from '../ui'
 
 const BRAND_FILL = ['var(--c2)', 'var(--c1)', 'var(--c4)', 'var(--c5)', 'var(--c5)'] // Vibra, Ipiranga, Raízen, branca, outras
 const PRODUCTS = [
@@ -29,13 +29,18 @@ export default function Bomba({ o }: { o: Observatory }) {
   const mes = f.month.replace(/^(\d{2})\/(\d{4})$/, (_, m, y) => `${['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'][Number(m) - 1]}/${y}`)
   const L = o.litro
   const gasCwb = cwb.GASOLINA
+  const shareA = 1 - L.blend
+  const pctA = Math.round(shareA * 100)
+  const pctE = Math.round(L.blend * 100)
+  // Every component in R$ per litre of gasolina C: federal taxes are levied per litre of gasolina A
+  // (or of anhydrous), so they are scaled by each one's share of the blend.
   const parts: [string, number, string][] = [
-    ['refinaria (gasolina A × 73 %)', L.refinaria * 0.73, 'var(--c6)'],
-    ['etanol anidro (27 %)', L.anidro, 'var(--c3)'],
-    ['PIS/COFINS', L.pisCofins, 'var(--c4)'],
+    [`Petrobras · gasolina A (${pctA} %)`, L.refinariaA * shareA, 'var(--c6)'],
+    [`etanol anidro (${pctE} %)`, L.anidro * L.blend, 'var(--c3)'],
+    ['PIS/COFINS + CIDE', (L.pisCofinsA + L.cideA) * shareA + L.pisCofinsAnidro * L.blend, 'var(--c4)'],
     ['ICMS monofásico', L.icms, 'var(--sol)'],
   ]
-  parts.push(['distribuição + revenda (derivada)', gasCwb - parts.reduce((s, p) => s + p[1], 0), 'var(--c2)'])
+  parts.push(['distribuição, frete e revenda (resto)', gasCwb - parts.reduce((s, p) => s + p[1], 0), 'var(--c2)'])
   let acc = 0
 
   return (
@@ -100,7 +105,7 @@ export default function Bomba({ o }: { o: Observatory }) {
             </div>
             <div className="inst" style={{ marginTop: 28 }}>
               <div className="instl">
-                <span>5c · anatomia do litro · gasolina C · Curitiba</span>
+                <span>5c · anatomia do litro · gasolina C · Curitiba · {L.month}</span>
                 <span>R$/litro</span>
               </div>
               <svg className="svg" viewBox="0 0 500 60" role="img" aria-label={`Composição do litro de gasolina a R$ ${dec(gasCwb)}: ${parts.map(([n, v]) => `${n} ${dec(v)}`).join(', ')}.`}>
@@ -123,13 +128,13 @@ export default function Bomba({ o }: { o: Observatory }) {
                 </div>
               ))}
               <div className="stamp">
-                <Todo>refinaria e tributos: valores de referência, a confirmar no build (Petrobras, CONFAZ)</Todo>
+                <span>Petrobras · CEPEA/ESALQ · Decretos 5.059 e 5.060/2004 · Convênio ICMS 112/2025 · Res. CNPE 9/2026 (E{pctE})</span>
               </div>
             </div>
           </div>
         </div>
         <Metodo>
-          ANP, arquivo mensal por posto (cerca de 75 mil coletas, com cerca de 30 dias de atraso). Razão por estado = mediana do etanol ÷ mediana da gasolina comum; 0,70 é a regra prática para motores flex. A coluna &quot;valor de compra&quot; vem vazia em 2026, por isso a margem em 5c é derivada: preço na bomba − refinaria − anidro − PIS/COFINS − ICMS monofásico. Brent em reais: seção 4.
+          ANP, arquivo mensal por posto (cerca de 75 mil coletas, com cerca de 30 dias de atraso). Razão por estado = mediana do etanol ÷ mediana da gasolina comum; 0,70 é a regra prática para motores flex. A coluna &quot;valor de compra&quot; vem vazia em 2026, por isso o último bloco de 5c é derivado: preço na bomba − componentes. Componentes de {L.month}, por litro de gasolina C (E{pctE}, Res. CNPE 9/2026): gasolina A da Petrobras a R$ {dec(L.refinariaA)}/L × {pctA} % (preço médio às distribuidoras, já com o desconto da MP 1.358/2026); etanol anidro a R$ {dec(L.anidro, 4)}/L × {pctE} % (indicador CEPEA/ESALQ, média de agosto, sem frete); PIS/COFINS de R$ {dec(L.pisCofinsA, 4)} e CIDE de R$ {dec(L.cideA)} por litro de gasolina A (Decretos 5.059 e 5.060/2004) × {pctA} %, mais PIS/COFINS de R$ {dec(L.pisCofinsAnidro, 4)}/L do anidro × {pctE} %; ICMS monofásico de R$ {dec(L.icms)} por litro de gasolina C (Convênio ICMS 112/2025). O resto inclui frete até o Paraná, margens de distribuição e revenda e a diferença entre o preço médio nacional da Petrobras e o praticado na região — por isso não é &quot;margem&quot;. Desde 10/09/2026 a gasolina A subiu para cerca de R$ 3,05/L e o PIS/COFINS caiu para R$ 0,16/L até 09/10 (Decreto 13.116/2026); a decomposição acompanha o mês do levantamento da ANP. Brent em reais: seção 4.
         </Metodo>
         <ParaVoce>Dono de posto: a anatomia do litro do seu estado, com a defasagem Petrobras–Brent, uma vez por mês, por e-mail. Sem custo.</ParaVoce>
       </div>

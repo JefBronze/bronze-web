@@ -1,10 +1,10 @@
 import { line, scale } from '@/lib/chart'
-import { a4Parts, atSlot, b1Bill, bill, cmoSlotNow, cmoStats, slotText, SUB_NAME, SUB_SHORT, A4_CASE } from '@/lib/derive'
-import { dec, ddmm, fmt, isoDay } from '@/lib/format'
+import { a4Parts, atSlot, b1Bill, bill, cmoSlotNow, cmoStats, flagNow, slotText, SUB_NAME, SUB_SHORT, A4_CASE, FLAG_FILL, FLAG_NAME, type Flag } from '@/lib/derive'
+import { dec, ddmm, fmt, isoDay, monthLabel } from '@/lib/format'
 import type { Observatory } from '@/lib/observatory'
 import { CMO_SUBS, type Sub } from '@/lib/sources/ons'
 import Bills from '../Bills'
-import { DJ_URL, Kicker, Lido, Metodo, ParaVoce, Stamp, Swatch, Todo } from '../ui'
+import { DJ_URL, Kicker, Lido, Metodo, ParaVoce, Stamp, Swatch } from '../ui'
 
 const SUB_STROKE: Record<Sub, string> = { SE: 'var(--c1)', S: 'var(--c2)', NE: 'var(--c3)', N: 'var(--c4)' }
 
@@ -26,6 +26,8 @@ export default function Preco({ o }: { o: Observatory }) {
   const verde = bill(o, 'A4 Verde', a4Parts(o, 'verde'))
   const azul = bill(o, 'A4 Azul', a4Parts(o, 'azul'))
   const cmoRef = st.now.SE
+  const flag = flagNow(o)
+  const hist = o.bandeira.hist as [string, string][]
 
   return (
     <section className="sec" id="preco" aria-labelledby="preco-h">
@@ -54,7 +56,7 @@ export default function Preco({ o }: { o: Observatory }) {
             <svg className="svg" viewBox="0 0 680 220" role="img" aria-label={`Custo marginal de operação por subsistema, 48 meias-horas de ${o.cmo.day}.`}>
               <line x1={0} y1={y(o.pld.piso)} x2={680} y2={y(o.pld.piso)} stroke="var(--c5)" strokeDasharray="2 4" />
               <text className="ax" x={680} y={y(o.pld.piso)} dy={-3} textAnchor="end">{`piso PLD ${dec(o.pld.piso, 1)}`}</text>
-              {o.pld.teto > yMax && <text className="ax" x={680} y={12} textAnchor="end">{`teto PLD ${fmt(o.pld.teto)} · fora da escala`}</text>}
+              {o.pld.tetoEstrutural > yMax && <text className="ax" x={680} y={12} textAnchor="end">{`teto PLD ${fmt(o.pld.tetoEstrutural)} · fora da escala`}</text>}
               {(['N', 'NE', 'S', 'SE'] as Sub[]).map((s) => (
                 <path key={s} d={line(o.cmo.bySub[s], 0, 680, 20, 190, 0, yMax)} fill="none" stroke={SUB_STROKE[s]} strokeWidth={s === 'SE' ? 2 : 1.5} />
               ))}
@@ -82,7 +84,7 @@ export default function Preco({ o }: { o: Observatory }) {
               <span className="badge">{now === null ? 'última meia-hora do dia' : 'meia-hora atual'}</span>
             </div>
             <Stamp status={o.status.cmo} source={`ONS · CMO_SEMIHORARIO_${o.cmo.day.slice(0, 4)}.csv`} when={ddmm(`${o.cmo.day}T12:00:00Z`)} cadence="diário">
-              <Todo>limites do PLD {o.cmo.day.slice(0, 4)}: a confirmar na CCEE</Todo>
+              <span>PLD {o.pld.ano}: piso {dec(o.pld.piso)} · teto estrutural {dec(o.pld.tetoEstrutural)} · teto horário {dec(o.pld.tetoHorario)} R$/MWh ({o.pld.ato})</span>
             </Stamp>
           </div>
           <div className="inst">
@@ -93,43 +95,53 @@ export default function Preco({ o }: { o: Observatory }) {
             <div className="flags">
               {(
                 [
-                  ['Verde', o.b1.bandeira.verde, false],
-                  ['Amarela', o.b1.bandeira.amarela, true],
-                  ['Verm. 1', o.b1.bandeira.vermelha1, false],
-                  ['Verm. 2', o.b1.bandeira.vermelha2, false],
+                  ['Verde', 'verde'],
+                  ['Amarela', 'amarela'],
+                  ['Verm. 1', 'vermelha1'],
+                  ['Verm. 2', 'vermelha2'],
                 ] as const
-              ).map(([n, v, on]) => (
-                <div key={n} className={on ? 'flag on' : 'flag'}>
+              ).map(([n, k]) => (
+                <div key={k} className={k === flag ? 'flag on' : 'flag'}>
                   <span className="flagn">{n}</span>
-                  <span className="flagv">{v ? dec(v, 5) : '0'}</span>
+                  <span className="flagv">{o.b1.bandeira[k] ? dec(o.b1.bandeira[k], 5) : '0'}</span>
                 </div>
               ))}
             </div>
+            <svg className="svg" viewBox="0 0 300 40" role="img" aria-label={`Bandeiras de ${hist[0][0]} a ${hist.at(-1)![0]}: ${hist.map(([m, f]) => `${m} ${FLAG_NAME[f as Flag]}`).join(', ')}.`}>
+              {hist.map(([m, f], i) => (
+                <rect key={m} x={(i * 300) / hist.length + 0.5} y={4} width={300 / hist.length - 1} height={16} fill={FLAG_FILL[f as Flag]} opacity={0.85} />
+              ))}
+              <text className="ax" x={0} y={34}>{monthLabel(hist[0][0])}</text>
+              <text className="ax" x={300} y={34} textAnchor="end">{monthLabel(hist.at(-1)![0])}</text>
+            </svg>
             <div className="stamp">
-              <span>jun/2026 · amarela · fatura de referência</span>
-              <Todo>bandeira vigente e histórico de 24 meses: a ler da ANEEL</Todo>
+              <span>
+                {monthLabel(o.bandeira.mes)}: bandeira {FLAG_NAME[flag]} · últimos {hist.length} meses acima
+              </span>
             </div>
-            <Metodo>Valores da bandeira em R$/kWh antes de tributos (REH 3.472/2025, modelo URPX da Copel). O mês vigente será lido da ANEEL no build; a faixa de 24 meses só mostrará meses verificados.</Metodo>
+            <Metodo>
+              Acréscimos da bandeira em R$/kWh antes de tributos, fixados pela REH ANEEL 3.306/2024 e ainda vigentes. A bandeira de cada mês é a anunciada pela ANEEL no fim do mês anterior; o histórico foi conferido em notícias datadas de cada anúncio e em tabelas de distribuidoras, porque as páginas da ANEEL e da CCEE não permitem leitura automática. As faturas de 2c e 3b usam a bandeira do mês corrente.
+            </Metodo>
           </div>
         </div>
         <div className="inst" style={{ marginTop: 40 }}>
           <div className="instl">
-            <span>2c · três faturas, um MWh · Copel · REH 3.472/2025</span>
+            <span>2c · três faturas, um MWh · Copel · {o.b1.reh}</span>
             <span>R$/MWh, mesma régua em 3b</span>
           </div>
           <div className="ctl">
             <span>distribuidora <b>Copel</b></span>
             <span>B1: <b>{o.b1.refKwh} kWh</b> (fatura de referência)</span>
             <span>A4: <b>{A4_CASE.mwh} MWh/mês · {A4_CASE.kw} kW · {A4_CASE.ponta * 100} % na ponta</b></span>
-            <span>bandeira <b>amarela</b></span>
+            <span>bandeira <b>{FLAG_NAME[flag]}</b></span>
           </div>
           <Bills bills={[b1, verde, azul]} cmo={cmoRef} />
           <div className="stamp">
-            <span>B1 reproduz a fatura real de jun/2026 com diferença de R$ {dec(Math.abs(o.b1.refCalc - o.b1.refTotal))} ({dec(o.b1.refCalc)} calculado vs {dec(o.b1.refTotal)} impresso)</span>
-            <Todo>A4 Azul: TUSD energia assumida = TUSD fora-ponta Verde; a confirmar</Todo>
+            <span>Tarifas da {o.b1.reh} (revisão de 24/06/2026, efeito médio +20,51 %), tarifas de aplicação sem tributos, Tabelas 1 e 2 do anexo</span>
+            <span>o modelo reproduziu a fatura real de jun/2026 (ainda na REH 3.472/2025) com diferença de R$ {dec(Math.abs(o.b1.refCalc - o.b1.refTotal))}</span>
           </div>
           <Metodo>
-            Tarifas homologadas antes de tributos: B1 TE {dec(o.b1.te, 5)} + TUSD {dec(o.b1.tusd, 5)} R$/kWh; A4 Verde TUSD demanda {dec(o.a4.verde.demanda)} R$/kW, TUSD energia ponta {dec(o.a4.verde.tusdP)} / fora {dec(o.a4.verde.tusdFP)} R$/MWh, TE ponta {dec(o.a4.verde.teP)} / fora {dec(o.a4.verde.teFP)}; A4 Azul demanda ponta {dec(o.a4.azul.demandaP)} / fora {dec(o.a4.azul.demandaFP)} R$/kW. Tributos &quot;por dentro&quot;: preço ÷ [(1 − ICMS) × (1 − PIS − COFINS)] com ICMS {dec(o.b1.icms * 100, 0)} %, PIS {dec(o.b1.pis * 100, 4)} %, COFINS {dec(o.b1.cofins * 100, 4)} %. CIP municipal na B1. Modelo em URPX (padrão aberto de tarifas da LF Energy). O tracejado marca o CMO do Sudeste na meia-hora indicada em 2a: a fatia que vem do atacado.
+            Tarifas homologadas antes de tributos ({o.b1.reh}): B1 TE {dec(o.b1.te, 5)} + TUSD {dec(o.b1.tusd, 5)} R$/kWh; A4 Verde TUSD demanda {dec(o.a4.verde.demanda)} R$/kW, TUSD energia ponta {dec(o.a4.verde.tusdP)} / fora {dec(o.a4.verde.tusdFP)} R$/MWh, TE ponta {dec(o.a4.verde.teP)} / fora {dec(o.a4.verde.teFP)}; A4 Azul demanda ponta {dec(o.a4.azul.demandaP)} / fora {dec(o.a4.azul.demandaFP)} R$/kW, TUSD energia {dec(o.a4.azul.tusdE)} R$/MWh (igual na ponta e fora dela), TE como na Verde. Tributos &quot;por dentro&quot;: preço ÷ [(1 − ICMS) × (1 − PIS − COFINS)] com ICMS {dec(o.b1.icms * 100, 0)} %, PIS {dec(o.b1.pis * 100, 4)} %, COFINS {dec(o.b1.cofins * 100, 4)} %. CIP municipal na B1. Modelo em URPX (padrão aberto de tarifas da LF Energy). O tracejado marca o CMO do Sudeste na meia-hora indicada em 2a: a fatia que vem do atacado.
           </Metodo>
           <ParaVoce>
             Se a sua empresa é Grupo A (média tensão), a diferença entre Verde e Azul e a demanda que você contrata mas não usa são dinheiro recuperável. A{' '}

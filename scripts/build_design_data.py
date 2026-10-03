@@ -45,15 +45,28 @@ data = {
     'polyLow': sorted([[float(l['question'].split('$')[1].split(' ')[0]), l['p_yes']] for l in snap['polymarket']['ladder'] if 'LOW' in l['question']]),
     'kalshi': [[m['strike'], round((float(m['yes_bid']) + float(m['yes_ask'])) / 2, 4)] for m in snap['kalshi']['markets'] if m['close'] == snap['kalshi']['markets'][0]['close']],
     'cmo': cmo, 'cmoNow': {k: v[-1] for k, v in cmo.items()}, 'cmoDay': snap['ons_cmo']['day'],
-    'pld': {'piso': 58.57, 'teto': 779.27, 'nota': 'limites PLD 2026 — a confirmar na CCEE'},
+    # PLD 2026 limits: Despacho ANEEL nº 3.850/2025 (published 23/12/2025), via Cenário Energia and Canal Solar (consistent).
+    'pld': {'ano': 2026, 'piso': 57.31, 'tetoEstrutural': 785.27, 'tetoHorario': 1611.04, 'ato': 'Despacho ANEEL nº 3.850/2025'},
+    # Bandeira tarifária: surcharges REH ANEEL 3.306/2024 (gov.br/aneel); monthly flags from ANEEL announcements as reported
+    # by the press and distributor tables (ANEEL/CCEE pages block automated reads). Verified 2026-10-03.
+    'bandeira': {
+        'vigente': 'verde', 'mes': '2026-10',
+        'hist': [['2024-10', 'vermelha2'], ['2024-11', 'amarela'], ['2024-12', 'verde'], ['2025-01', 'verde'], ['2025-02', 'verde'],
+                 ['2025-03', 'verde'], ['2025-04', 'verde'], ['2025-05', 'amarela'], ['2025-06', 'vermelha1'], ['2025-07', 'vermelha1'],
+                 ['2025-08', 'vermelha2'], ['2025-09', 'vermelha2'], ['2025-10', 'vermelha1'], ['2025-11', 'vermelha1'], ['2025-12', 'amarela'],
+                 ['2026-01', 'verde'], ['2026-02', 'verde'], ['2026-03', 'verde'], ['2026-04', 'verde'], ['2026-05', 'amarela'],
+                 ['2026-06', 'amarela'], ['2026-07', 'amarela'], ['2026-08', 'amarela'], ['2026-09', 'amarela'], ['2026-10', 'verde']],
+    },
     'caiso': caiso, 'caisoTime': snap['caiso_fuel']['latest']['Time'],
     'nyiso': snap['nyiso_fuel']['latest'],
-    # Copel B1 residencial convencional, REH 3.472/2025 (urpx/copel-b1-residencial-convencional.jsonld; fatura 06/2026)
-    'b1': {'te': 0.27575, 'tusd': 0.36667, 'bandeira': {'verde': 0, 'amarela': 0.01885, 'vermelha1': 0.04463, 'vermelha2': 0.07877},
+    # Copel B1 residencial convencional, REH ANEEL nº 3.592/2026 (6ª revisão periódica, in force 24/06/2026–23/06/2027),
+    # "sem imposto" row of Copel's official tariff panels (copel.com, tarifas de energia elétrica). Verified 2026-10-03.
+    # The model reproduced the real June 2026 bill (still under REH 3.472/2025) within R$ 0,04: refTotal/refCalc.
+    'b1': {'reh': 'REH ANEEL nº 3.592/2026', 'te': 0.31085, 'tusd': 0.45717, 'bandeira': {'verde': 0, 'amarela': 0.01885, 'vermelha1': 0.04463, 'vermelha2': 0.07877},
            'icms': 0.19, 'pis': 0.015536, 'cofins': 0.071339, 'cip': 23.78, 'refKwh': 282, 'refTotal': 275.87, 'refCalc': 275.91},
-    # Copel A4, REH 3.472/2025, before tax (auditoria-fatura/bdgd_analise.md:71-73). R$/kW and R$/MWh.
-    'a4': {'verde': {'demanda': 20.78, 'tusdP': 1211.56, 'tusdFP': 120.91, 'teP': 413.69, 'teFP': 257.51},
-           'azul': {'demandaP': 44.93, 'demandaFP': 20.78, 'tusdE': 120.91, 'teP': 413.69, 'teFP': 257.51, 'nota': 'TUSD energia Azul assumida = TUSD FP Verde; a confirmar'}},
+    # Copel A4 (2,3–25 kV), REH ANEEL nº 3.592/2026, before tax, same source. R$/kW and R$/MWh.
+    'a4': {'verde': {'demanda': 25.33, 'tusdP': 1463.39, 'tusdFP': 146.59, 'teP': 475.55, 'teFP': 295.75},
+           'azul': {'demandaP': 54.13, 'demandaFP': 25.33, 'tusdE': 146.59, 'teP': 475.55, 'teFP': 295.75}},
     # BDGD V11 Copel 2025 (auditoria-fatura/bdgd_analise.md)
     'bdgd': {'units': 11780, 'idleShare': 0.164, 'brlYear': 122.6e6, 'pct': {'p10': 0.064, 'p25': 0.098, 'p50': 0.164, 'p75': 0.271, 'p90': 0.385, 'p95': 0.461},
              'sectors': [{'n': 'Educação', 'u': 468, 'idle': 0.296, 'brl': 6.0e6}, {'n': 'Hospitais', 'u': 241, 'idle': 0.206, 'brl': 2.5e6},

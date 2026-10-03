@@ -26,6 +26,7 @@ export type Observatory = {
   status: Record<SourceKey, Status>
   // Build-time datasets (monthly or slower); cited on the page with their own dates.
   pld: typeof snap.pld
+  bandeira: typeof snap.bandeira
   b1: typeof snap.b1
   a4: typeof snap.a4
   bdgd: typeof snap.bdgd
@@ -125,6 +126,7 @@ export async function getObservatory(now = new Date()): Promise<Observatory> {
     ...o,
     status,
     pld: snap.pld,
+    bandeira: snap.bandeira,
     b1: snap.b1,
     a4: snap.a4,
     bdgd: snap.bdgd,

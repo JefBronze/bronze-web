@@ -1,14 +1,16 @@
 // pt-BR number and time formatting used across the page.
-// Thousands use a plain space ("89 826"), as in the design; decimals use a comma.
+// Thousands use a non-breaking space ("89 826") so a number never wraps across lines; decimals use a comma.
+
+const NBSP = ' '
 
 export function fmt(n: number): string {
-  return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+  return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, NBSP)
 }
 
 export function dec(n: number, digits = 2): string {
   const s = n.toFixed(digits).replace('.', ',')
   const [int, frac] = s.split(',')
-  const grouped = int.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+  const grouped = int.replace(/\B(?=(\d{3})+(?!\d))/g, NBSP)
   return frac === undefined ? grouped : `${grouped},${frac}`
 }
 
@@ -62,6 +64,12 @@ const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'o
 export function dayMonth(isoDate: string): string {
   const [, m, d] = isoDate.slice(0, 10).split('-')
   return `${Number(d)} ${MESES[Number(m) - 1]}`
+}
+
+/** "2026-10" -> "out/2026" */
+export function monthLabel(ym: string): string {
+  const [y, m] = ym.split('-')
+  return `${MESES[Number(m) - 1]}/${y}`
 }
 
 /** "2026-08-06" -> "06/08/2026" */

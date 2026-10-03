@@ -860,9 +860,117 @@
  },
  "cmoDay": "2026-10-01",
  "pld": {
-  "piso": 58.57,
-  "teto": 779.27,
-  "nota": "limites PLD 2026 — a confirmar na CCEE"
+  "ano": 2026,
+  "piso": 57.31,
+  "tetoEstrutural": 785.27,
+  "tetoHorario": 1611.04,
+  "ato": "Despacho ANEEL nº 3.850/2025"
+ },
+ "bandeira": {
+  "vigente": "verde",
+  "mes": "2026-10",
+  "hist": [
+   [
+    "2024-10",
+    "vermelha2"
+   ],
+   [
+    "2024-11",
+    "amarela"
+   ],
+   [
+    "2024-12",
+    "verde"
+   ],
+   [
+    "2025-01",
+    "verde"
+   ],
+   [
+    "2025-02",
+    "verde"
+   ],
+   [
+    "2025-03",
+    "verde"
+   ],
+   [
+    "2025-04",
+    "verde"
+   ],
+   [
+    "2025-05",
+    "amarela"
+   ],
+   [
+    "2025-06",
+    "vermelha1"
+   ],
+   [
+    "2025-07",
+    "vermelha1"
+   ],
+   [
+    "2025-08",
+    "vermelha2"
+   ],
+   [
+    "2025-09",
+    "vermelha2"
+   ],
+   [
+    "2025-10",
+    "vermelha1"
+   ],
+   [
+    "2025-11",
+    "vermelha1"
+   ],
+   [
+    "2025-12",
+    "amarela"
+   ],
+   [
+    "2026-01",
+    "verde"
+   ],
+   [
+    "2026-02",
+    "verde"
+   ],
+   [
+    "2026-03",
+    "verde"
+   ],
+   [
+    "2026-04",
+    "verde"
+   ],
+   [
+    "2026-05",
+    "amarela"
+   ],
+   [
+    "2026-06",
+    "amarela"
+   ],
+   [
+    "2026-07",
+    "amarela"
+   ],
+   [
+    "2026-08",
+    "amarela"
+   ],
+   [
+    "2026-09",
+    "amarela"
+   ],
+   [
+    "2026-10",
+    "verde"
+   ]
+  ]
  },
  "caiso": {
   "time": [
@@ -2011,8 +2119,9 @@
   "Hydro": 2607.0
  },
  "b1": {
-  "te": 0.27575,
-  "tusd": 0.36667,
+  "reh": "REH ANEEL nº 3.592/2026",
+  "te": 0.31085,
+  "tusd": 0.45717,
   "bandeira": {
    "verde": 0,
    "amarela": 0.01885,
@@ -2029,19 +2138,18 @@
  },
  "a4": {
   "verde": {
-   "demanda": 20.78,
-   "tusdP": 1211.56,
-   "tusdFP": 120.91,
-   "teP": 413.69,
-   "teFP": 257.51
+   "demanda": 25.33,
+   "tusdP": 1463.39,
+   "tusdFP": 146.59,
+   "teP": 475.55,
+   "teFP": 295.75
   },
   "azul": {
-   "demandaP": 44.93,
-   "demandaFP": 20.78,
-   "tusdE": 120.91,
-   "teP": 413.69,
-   "teFP": 257.51,
-   "nota": "TUSD energia Azul assumida = TUSD FP Verde; a confirmar"
+   "demandaP": 54.13,
+   "demandaFP": 25.33,
+   "tusdE": 146.59,
+   "teP": 475.55,
+   "teFP": 295.75
   }
  },
  "bdgd": {

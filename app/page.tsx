@@ -9,8 +9,8 @@ import Petroleo from '@/components/sections/Petroleo'
 import Preco from '@/components/sections/Preco'
 import Pulso from '@/components/sections/Pulso'
 import { DJ_URL } from '@/components/ui'
-import { BBL_LITERS, cmoSlotNow } from '@/lib/derive'
-import { dec, ddmm, fmt, hhmm } from '@/lib/format'
+import { BBL_LITERS, cmoSlotNow, FLAG_NAME, flagNow } from '@/lib/derive'
+import { dec, ddmm, fmt, hhmm, monthLabel } from '@/lib/format'
 import { getObservatory } from '@/lib/observatory'
 
 // The page is rebuilt in the background at most every 5 minutes; each source also keeps its own cache (lib/sources).
@@ -46,7 +46,7 @@ export default async function Page() {
                 {[
                   ['#pulso', 'SIN', `${fmt(o.carga.sinNow)} MW`],
                   ['#preco', 'CMO SE/CO', `R$ ${dec(cmoSE, 1)}/MWh`],
-                  ['#preco', 'Bandeira', 'amarela · jun/26'],
+                  ['#preco', 'Bandeira', `${FLAG_NAME[flagNow(o)]} · ${monthLabel(o.bandeira.mes)}`],
                   ['#mercado', 'Mercado livre', `${Math.round(o.acl.share.total * 100)} % do consumo`],
                   ['#mercado', 'Geração distribuída', `${dec(o.gd.gw, 1)} GW`],
                   ['#petroleo', 'Brent', `R$ ${dec(brentL)}/L`],

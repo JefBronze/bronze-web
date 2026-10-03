@@ -6,10 +6,10 @@ import { parseFred, parseKalshi, parsePoly } from '@/lib/sources/markets'
 import { parseCarga, parseCmo } from '@/lib/sources/ons'
 
 describe('format', () => {
-  it('groups thousands with a space and uses a decimal comma', () => {
-    expect(fmt(89826)).toBe('89 826')
+  it('groups thousands with a non-breaking space and uses a decimal comma', () => {
+    expect(fmt(89826)).toBe('89 826')
     expect(dec(5.2079, 4)).toBe('5,2079')
-    expect(dec(1234.5, 1)).toBe('1 234,5')
+    expect(dec(1234.5, 1)).toBe('1 234,5')
   })
   it('renders Brasília time', () => {
     expect(hhmm('2026-10-02T02:30:00Z')).toBe('23:30')

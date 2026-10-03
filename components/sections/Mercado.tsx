@@ -136,11 +136,11 @@ export default function Mercado({ o }: { o: Observatory }) {
               <text className="axa" x={iNow * 80 + 40} y={10} textAnchor="middle">{`${fioB[iNow][0]} · ${pc(fioB[iNow][1])} %`}</text>
             </svg>
             <div className="stamp">
-              <span>Lei 14.300/2022, art. 27 · sistemas conectados a partir de 7/1/2023</span>
-              <Todo>parcela Fio B da TUSD Copel B1: a confirmar</Todo>
+              <span>Lei 14.300/2022, art. 27 · pedidos de acesso a partir de 7/1/2023</span>
+              <Todo>Fio B da Copel em R$/kWh: a tabela de componentes da ANEEL não está acessível; entra quando for conferida</Todo>
             </div>
             <Metodo>
-              Cada kWh injetado vira crédito igual à tarifa cheia menos a fração do Fio B do ano. Para um telhado conectado hoje: crédito = TE + TUSD − {pc(fioB[iNow][1])} % × Fio B; em 2029, − 100 %. Sistemas anteriores a 7/1/2023 mantêm o regime antigo até 2045. O valor em R$/kWh entra quando a parcela Fio B da REH 3.472 for conferida.
+              Cada kWh compensado vira crédito igual à tarifa cheia menos a fração do Fio B do ano (remuneração, depreciação e operação da rede de distribuição). Para um telhado com pedido de acesso hoje: crédito = TE + TUSD − {pc(fioB[iNow][1])} % × Fio B. Os degraus 15, 30, 45, 60, 75 e 90 % (2023 a 2028) estão no art. 27; a partir de 2029 vale a regra do art. 17, definida pela ANEEL com diretrizes do CNPE, que o gráfico mostra como 100 % do Fio B por referência. Sistemas com pedido anterior a 7/1/2023 mantêm o regime antigo até 2045. Minigeração acima de 500 kW de fonte não despachável em autoconsumo remoto ou geração compartilhada paga 100 % do Fio B e 40 % do Fio A até 2028 (art. 27, § 1º).
             </Metodo>
             <ParaVoce>Telhado comercial em Curitiba: a conta de quanto o sol compensa muda a cada ano até 2029 — e muda de novo se você migrar para o livre. As duas decisões se calculam juntas.</ParaVoce>
           </div>

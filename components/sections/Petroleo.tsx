@@ -1,8 +1,8 @@
 import { curve, steps, x as sx } from '@/lib/chart'
 import { BBL_LITERS, kalshiStats, polyRange } from '@/lib/derive'
-import { dayMonth, dec, ddmm, fmt, hhmm, isoDay } from '@/lib/format'
+import { brDate, dayMonth, dec, ddmm, fmt, hhmm, isoDay } from '@/lib/format'
 import type { Observatory } from '@/lib/observatory'
-import { Kicker, Lido, Metodo, ParaVoce, Stamp, Swatch, Todo } from '../ui'
+import { Kicker, Lido, Metodo, ParaVoce, Stamp, Swatch } from '../ui'
 
 const MONTHS: Record<string, string> = {
   January: 'janeiro', February: 'fevereiro', March: 'março', April: 'abril', May: 'maio', June: 'junho',
@@ -123,10 +123,10 @@ export default function Petroleo({ o }: { o: Observatory }) {
           <Stamp status={o.status.ptax} source="BCB · PTAX" when={dayMonth(o.ptax.day)} cadence="diário" />
         </div>
         <Metodo>
-          Kalshi: contratos &quot;WTI acima de X no fechamento&quot; do vencimento mais próximo; usamos o ponto médio bid/ask de cada strike, forçamos a curva a ser decrescente (ajuste isotônico) e lemos mediana e faixa de 80 % onde ela cruza 0,5, 0,9 e 0,1. Polymarket: contratos &quot;WTI toca X no mês&quot; para cima (HIGH) e para baixo (LOW); é probabilidade de toque, não distribuição do fechamento — por isso não se sobrepõe à curva do Kalshi. Spot: FRED, diário, com alguns dias de atraso; dólar: PTAX de venda do Banco Central, diário; 1 barril = {dec(BBL_LITERS, 3)} L. O &quot;Brent em reais&quot; é petróleo cru — a paridade de importação que o mercado acompanha usa gasolina e diesel prontos. Dados informativos; não é recomendação de investimento.
+          Kalshi: contratos &quot;WTI acima de X no fechamento&quot; do vencimento mais próximo; usamos o ponto médio bid/ask de cada strike, forçamos a curva a ser decrescente (ajuste isotônico) e lemos mediana e faixa de 80 % onde ela cruza 0,5, 0,9 e 0,1. Polymarket: contratos &quot;WTI toca X no mês&quot; para cima (HIGH) e para baixo (LOW); é probabilidade de toque, não distribuição do fechamento — por isso não se sobrepõe à curva do Kalshi. Spot: FRED, diário, com alguns dias de atraso; dólar: PTAX de venda do Banco Central, diário; 1 barril = {dec(BBL_LITERS, 3)} L. O &quot;Brent em reais&quot; é petróleo cru — a paridade de importação que o mercado acompanha usa gasolina e diesel prontos. Defasagem: cálculo da Abicom de {brDate(o.litro.paridade.data)}, conforme divulgado pela imprensa (o site da Abicom não permite leitura automática); atualizada à mão. Dados informativos; não é recomendação de investimento.
         </Metodo>
         <ParaVoce>
-          Dono de posto ou gestor de frota: quando o Brent em reais sobe e o preço de refinaria da Petrobras fica parado, abre-se a defasagem — e cresce a chance de reajuste. A seção 5 mostra onde ele cai no litro. <Todo>paridade de importação por produto: a integrar</Todo>
+          Dono de posto ou gestor de frota: quando o Brent em reais sobe e o preço de refinaria da Petrobras fica parado, abre-se a defasagem — e cresce a chance de reajuste. Em {brDate(o.litro.paridade.data)}, a Abicom calculava a Petrobras R$ {dec(o.litro.paridade.gasolina.rl)}/L abaixo da paridade de importação na gasolina ({o.litro.paridade.gasolina.pct} %) e R$ {dec(o.litro.paridade.diesel.rl)}/L no diesel ({o.litro.paridade.diesel.pct} %). A seção 5 mostra onde isso cai no litro.
         </ParaVoce>
       </div>
     </section>

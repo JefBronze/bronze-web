@@ -77,7 +77,20 @@ data = {
            'fioB': [[2023, 0.15], [2024, 0.30], [2025, 0.45], [2026, 0.60], [2027, 0.75], [2028, 0.90], [2029, 1.0]],
            'nota': 'parcela Fio B da TUSD B1 Copel: a confirmar na REH 3.472'},
     # Anatomy of a litre, Paraná, Aug 2026 — Petrobras + tax constants to confirm at build time; marked in the UI.
-    'litro': {'refinaria': 2.91, 'anidro': 0.68, 'pisCofins': 0.7925, 'icms': 1.57, 'nota': 'refinaria e tributos: valores de referência a confirmar (Petrobras, CONFAZ)'},
+    # Gasolina C in Curitiba, August 2026 (same month as the ANP pump median). Verified 2026-10-03.
+    # Per-litre-of-gasolina-A items are scaled by (1 - blend) in the page; ICMS is already per litre of gasolina C.
+    'litro': {
+        'month': '08/2026',
+        'blend': 0.32,           # anhydrous share, E32: Resolução CNPE nº 9/2026 (DOU 30/07/2026), from 2026-08-01
+        'refinariaA': 2.61,      # R$/L gasolina A, Petrobras average to distributors, note of 28/05/2026 (net of the MP 1.358/2026 discount)
+        'anidro': 2.4750,        # R$/L anhydrous, CEPEA/ESALQ São Paulo, Aug 2026 average (weekly indicators average 2,4751), ex-tax, ex-freight
+        'pisCofinsA': 0.7925,    # R$/L gasolina A, Decreto 5.059/2004 art. 2 I (in force until 2026-09-09; Decreto 13.116 cut it to 0,16 from 10/09)
+        'cideA': 0.10,           # R$/L gasolina A, Decreto 5.060/2004 art. 1 I (Decreto 8.395/2015)
+        'pisCofinsAnidro': 0.1922,  # R$/L anhydrous, CEPEA Nota 2 (LC 214/2024, since 2025-05-01)
+        'icms': 1.57,            # R$/L gasolina C, ad rem: Convênio ICMS 112/2025, from 2026-01-01
+        # Abicom price gap versus import parity, 2026-09-28 (secondary: press coverage; abicom.com.br blocks automated reads).
+        'paridade': {'data': '2026-09-28', 'gasolina': {'pct': 32, 'rl': 0.95}, 'diesel': {'pct': 102, 'rl': 3.34}},
+    },
 }
 js = 'window.BRONZE2 = ' + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + ';\n'
 open('design/data2.js', 'w').write(js)

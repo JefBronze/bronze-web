@@ -195,7 +195,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
   .bignums { grid-template-columns: 1fr 1fr; }
   .bnv { font-size: 32px; }
   .sec { padding: 48px 0; }
-  .wrap { padding: 0 16px; }
+  .wrap { padding-left: 16px; padding-right: 16px; } /* sides only: the masthead keeps its 12 px top/bottom */
   .sect { grid-template-columns: 7em minmax(0, 1fr) 3.5em; }
   .sect > span:nth-child(4) { display: none; }
 }

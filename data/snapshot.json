@@ -4267,10 +4267,24 @@
   "nota": "parcela Fio B da TUSD B1 Copel: a confirmar na REH 3.472"
  },
  "litro": {
-  "refinaria": 2.91,
-  "anidro": 0.68,
-  "pisCofins": 0.7925,
+  "month": "08/2026",
+  "blend": 0.32,
+  "refinariaA": 2.61,
+  "anidro": 2.475,
+  "pisCofinsA": 0.7925,
+  "cideA": 0.1,
+  "pisCofinsAnidro": 0.1922,
   "icms": 1.57,
-  "nota": "refinaria e tributos: valores de referência a confirmar (Petrobras, CONFAZ)"
+  "paridade": {
+   "data": "2026-09-28",
+   "gasolina": {
+    "pct": 32,
+    "rl": 0.95
+   },
+   "diesel": {
+    "pct": 102,
+    "rl": 3.34
+   }
+  }
  }
 }

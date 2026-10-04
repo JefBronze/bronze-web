@@ -1,3 +1,4 @@
+import Menu from '@/components/Menu'
 import ThemeToggle from '@/components/ThemeToggle'
 import Ticker, { type TickItem } from '@/components/Ticker'
 import Bastidores from '@/components/sections/Bastidores'
@@ -25,6 +26,23 @@ export const revalidate = 300
 
 const WHATSAPP = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '14389796085').replace(/\D/g, '')
 const SECTIONS = ['pulso', 'preco', 'pato', 'quem', 'mercado', 'minigeracao', 'petroleo', 'bomba', 'motor', 'eletrico', 'parana', 'fora', 'lab', 'bastidores']
+// Titles for the menu, in page order (same words as each section's kicker).
+const TITLES = [
+  'Pulso · ao vivo',
+  'O preço da energia no Brasil',
+  'A curva do pato',
+  'Quem gera',
+  'Mercado livre e geração distribuída',
+  'Minigeração sob controle',
+  'Petróleo, em reais',
+  'Na bomba',
+  'O motor por dentro',
+  'O motor elétrico por dentro',
+  'Demanda ociosa no Paraná',
+  'Lá fora',
+  'Laboratório OpenADR',
+  'Bastidores',
+]
 
 export default async function Page() {
   const o = await getObservatory()
@@ -128,7 +146,10 @@ export default async function Page() {
             </span>
             <span className="brandsub">observatório de energia</span>
           </a>
-          <ThemeToggle />
+          <span className="hdrr">
+            <Menu items={SECTIONS.map((id, i) => ({ id, title: TITLES[i] }))} />
+            <ThemeToggle />
+          </span>
         </div>
       </header>
       <div className="hoje" aria-label="Leituras de agora">
@@ -158,20 +179,23 @@ export default async function Page() {
         <Bastidores o={o} />
       </main>
       <footer className="foot wrap">
-        <span>Data Joule é um projeto da</span>
-        <a className="bz" href={BRONZE_URL}>Bronze Engenharia de Energia</a>
-        <span className="sep">·</span>
-        <span>CNPJ 19.824.419/0001-96</span>
-        <span className="sep">·</span>
-        <span>CREA-PR 194835/D</span>
-        <span className="sep">·</span>
-        <span>Curitiba · Montréal</span>
-        <span className="sep">·</span>
-        <a href={`https://wa.me/${WHATSAPP}`}>WhatsApp</a>
-        <span className="sep">·</span>
-        <a href="mailto:contato@data-joule.com">contato@data-joule.com</a>
-        <span className="sep">·</span>
-        <Link href="/privacidade">Privacidade</Link>
+        <span className="fg">
+          <span>Data Joule é um projeto da</span>
+          <a className="bz" href={BRONZE_URL}>Bronze Engenharia de Energia</a>
+        </span>
+        <span className="fg">
+          <span>CNPJ 19.824.419/0001-96</span>
+          <span className="sep">·</span>
+          <span>CREA-PR 194835/D</span>
+        </span>
+        <span className="fg">Curitiba · Montréal</span>
+        <span className="fg">
+          <a href={`https://wa.me/${WHATSAPP}`}>WhatsApp</a>
+          <span className="sep">·</span>
+          <a href="mailto:contato@data-joule.com">contato@data-joule.com</a>
+          <span className="sep">·</span>
+          <Link href="/privacidade">Privacidade</Link>
+        </span>
       </footer>
     </>
   )

@@ -42,18 +42,18 @@ export default function Lab({ o }: { o: Observatory }) {
             <text className="axl" x={0} y={12}>0–12 W</text>
           </svg>
           <div className="stamp">
-            <span>OpenADR 3.0 VEN · Raspberry Pi 5 ×2 · tomada inteligente</span>
+            <span>OpenADR 3.0 · laboratório em Montréal · potência medida na tomada</span>
             <Todo>degraus a partir de medições pontuais; a série temporal gravada entra quando exportada do VPS</Todo>
           </div>
         </div>
         <div>
           <Kicker n={13}>Laboratório OpenADR</Kicker>
           <h2 className="h2" id="lab-h">Computação consegue reduzir carga a um sinal da rede?</h2>
-          <p className="lede">Em Montréal, dois Raspberry Pi 5 — um nó de inferência de IA e um gateway OpenADR 3.0 — recebem eventos de resposta da demanda e reduzem a carga em níveis medidos na tomada.</p>
+          <p className="lede">OpenADR é o padrão aberto da resposta da demanda: a rede avisa que vem um pico, e os equipamentos que escutam o aviso reduzem consumo sozinhos. No laboratório em Montréal, um nó de inferência de IA recebe esses avisos e desacelera em degraus, com a potência medida na tomada.</p>
           <Lido label="Medido">
-            De ~{dec(tiers[0][1], 1)} W em operação normal a ~0 W no nível máximo, com retorno à operação em {o.lab.restoreS} segundos. Sinais que o gateway escuta: Hydro-Québec, ONS, NYISO, CAISO, ISO-NE. Integração com carregadores de VE via OCPP.
+            De ~{dec(tiers[0][1], 1)} W em operação normal a ~0 W no nível máximo, com retorno em {o.lab.restoreS} segundos. Os avisos vêm de sinais reais: os desafios da Hilo, o programa de resposta da demanda da Hydro-Québec, que pede aos clientes para cortar consumo nos picos de inverno; a demanda da própria Hydro-Québec; a carga do ONS; e os picos do NYISO (Nova York). Quando um desafio da Hilo começa, o laboratório reage como uma casa inscrita no programa reagiria.
           </Lido>
-          <Metodo>Cinco níveis: T0 normal, T1 governor conservador, T2 powersave, T3 processo suspenso, T4 corte na tomada. Potência medida por tomada inteligente. O evento se encerra sozinho ao fim da duração + 15 s. Código aberto (Apache 2.0).</Metodo>
+          <Metodo>Um servidor de eventos OpenADR 3.0 (VTN) recebe os sinais de cada rede por pontes que consultam Hilo, Hydro-Québec, ONS e NYISO; um gateway (VEN) no laboratório consulta o servidor a cada 10 s e aplica o degrau: T0 normal, T1 processador em modo conservador, T2 economia de energia, T3 processo suspenso, T4 corte na tomada. O gateway nunca é a carga que ele corta. Potência por tomada inteligente Zigbee; o evento se encerra sozinho ao fim da duração + 15 s. Carregadores de VE entram pelo mesmo caminho, via OCPP. Código aberto (Apache 2.0).</Metodo>
         </div>
       </div>
     </section>

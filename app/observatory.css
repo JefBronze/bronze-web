@@ -60,6 +60,15 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .brandsub { font-size: 12px; color: var(--mute); letter-spacing: 0.08em; text-transform: uppercase; }
 .tog { font: inherit; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--line); background: transparent; color: var(--ink2); padding: 6px 10px; border-radius: 999px; cursor: pointer; }
 .tog .to-light { display: none; }
+.hdrr { display: flex; align-items: center; gap: 8px; }
+.menu { position: relative; }
+.menub { display: inline-flex; align-items: center; gap: 7px; }
+.menup { position: absolute; right: 0; top: calc(100% + 8px); min-width: 280px; max-width: calc(100vw - 32px); background: var(--bg); border: 1px solid var(--line); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22); padding: 6px 0; z-index: 5; }
+.menup ol { list-style: none; margin: 0; padding: 0; }
+.menup a { display: flex; align-items: baseline; gap: 12px; padding: 9px 16px; color: var(--ink); font-size: 15px; }
+.menup a:hover, .menup a:focus-visible { background: var(--bg2); color: var(--ink); text-decoration: none; outline: none; }
+.menup i { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 0.06em; }
+@media (max-width: 420px) { .menub span { display: none; } .menub { padding: 7px 9px; } }
 :root[data-theme="dark"] .tog .to-light { display: inline; }
 :root[data-theme="dark"] .tog .to-dark { display: none; }
 @media (prefers-color-scheme: dark) {
@@ -232,7 +241,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .bv { font-family: var(--mono); font-size: 34px; letter-spacing: -0.02em; line-height: 1; }
 .bl { font-size: 13px; color: var(--mute); }
 .why { font-family: var(--serif); font-size: 15px; color: var(--ink2); margin: 40px 0 0 0; max-width: 40em; }
-.foot { padding: 20px 24px 56px; font-size: 13px; color: var(--mute); display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+.foot { padding: 20px 24px 56px; font-size: 13px; color: var(--mute); display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: center; }
+.fg { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+@media (max-width: 760px) { .foot { flex-direction: column; align-items: flex-start; gap: 10px; } }
 .sep { opacity: 0.5; }
 
 /* SVG text */
@@ -364,3 +375,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 @media (max-width: 760px) { .mcalc .tiles { grid-template-columns: 1fr; } }
 .mcal { overflow-x: auto; }
 @media (max-width: 760px) { .mcal svg { min-width: 640px; } }
+/* section 9d: the powertrain model takes the full width */
+.enginev.enginev1 { grid-template-columns: 1fr; }
+.eseg { flex-wrap: wrap; }

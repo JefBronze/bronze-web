@@ -329,7 +329,7 @@ export async function createEMotorScene(host: HTMLElement, opts: Opts) {
   const tmp = new THREE.Vector3()
   const frame = (now: number) => {
     raf = requestAnimationFrame(frame)
-    const dt = Math.min(0.1, (now - prev) / 1000)
+    const dt = Math.max(0, Math.min(0.1, (now - prev) / 1000)) // rAF's timestamp can precede performance.now()
     prev = now
     if (!visible || document.hidden) return
     if (tween) {

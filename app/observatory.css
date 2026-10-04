@@ -232,7 +232,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .bv { font-family: var(--mono); font-size: 34px; letter-spacing: -0.02em; line-height: 1; }
 .bl { font-size: 13px; color: var(--mute); }
 .why { font-family: var(--serif); font-size: 15px; color: var(--ink2); margin: 40px 0 0 0; max-width: 40em; }
-.foot { padding: 20px 24px 56px; font-size: 13px; color: var(--mute); display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+.foot { padding: 20px 24px 56px; font-size: 13px; color: var(--mute); display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: center; }
+.fg { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+@media (max-width: 760px) { .foot { flex-direction: column; align-items: flex-start; gap: 10px; } }
 .sep { opacity: 0.5; }
 
 /* SVG text */

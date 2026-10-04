@@ -156,20 +156,23 @@ export default async function Page() {
         <Bastidores o={o} />
       </main>
       <footer className="foot wrap">
-        <span>Data Joule é um projeto da</span>
-        <a className="bz" href={BRONZE_URL}>Bronze Engenharia de Energia</a>
-        <span className="sep">·</span>
-        <span>CNPJ 19.824.419/0001-96</span>
-        <span className="sep">·</span>
-        <span>CREA-PR 194835/D</span>
-        <span className="sep">·</span>
-        <span>Curitiba · Montréal</span>
-        <span className="sep">·</span>
-        <a href={`https://wa.me/${WHATSAPP}`}>WhatsApp</a>
-        <span className="sep">·</span>
-        <a href="mailto:contato@data-joule.com">contato@data-joule.com</a>
-        <span className="sep">·</span>
-        <Link href="/privacidade">Privacidade</Link>
+        <span className="fg">
+          <span>Data Joule é um projeto da</span>
+          <a className="bz" href={BRONZE_URL}>Bronze Engenharia de Energia</a>
+        </span>
+        <span className="fg">
+          <span>CNPJ 19.824.419/0001-96</span>
+          <span className="sep">·</span>
+          <span>CREA-PR 194835/D</span>
+        </span>
+        <span className="fg">Curitiba · Montréal</span>
+        <span className="fg">
+          <a href={`https://wa.me/${WHATSAPP}`}>WhatsApp</a>
+          <span className="sep">·</span>
+          <a href="mailto:contato@data-joule.com">contato@data-joule.com</a>
+          <span className="sep">·</span>
+          <Link href="/privacidade">Privacidade</Link>
+        </span>
       </footer>
     </>
   )

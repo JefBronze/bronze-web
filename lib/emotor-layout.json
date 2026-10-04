@@ -1,0 +1,23 @@
+{
+  "_": "Geometry of the example traction motor (mm), section 8. Read by scripts/blender/emotor.py (builds public/models/emotor.glb) and components/emotor/*. Blender axes: X along the shaft, Z up. The winding layout (slots, poles, phase belts) is a standard distributed hairpin winding; manufacturers do not publish lamination drawings.",
+  "slots": 48,
+  "polePairs": 4,
+  "layersPerSlot": 6,
+  "statorOD": 220,
+  "statorID": 150,
+  "airgap": 0.8,
+  "stack": 120,
+  "slotDepth": 22,
+  "slotWidth": 6.6,
+  "slotOpening": 2.4,
+  "toothTip": 1.2,
+  "shaftR": 22,
+  "magnetW": 19,
+  "magnetT": 4.2,
+  "magnetVAngle": 28,
+  "magnetDepth": 9,
+  "housingOD": 262,
+  "housingWall": 8,
+  "endTurn": 34,
+  "resolverX": 112
+}

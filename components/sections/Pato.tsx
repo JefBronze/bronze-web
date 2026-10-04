@@ -77,6 +77,16 @@ export default function Pato({ o }: { o: Observatory }) {
       })()
     : null
 
+  // Name only the sources that are generating: after sunset the share is all wind, and saying "sol e vento" would be wrong.
+  const agoraRen = (n: { carga: number; eol: number; sol: number }) => {
+    const ws = n.eol / n.carga
+    const ss = n.sol / n.carga
+    if (ss < 0.01 && ws < 0.01) return 'sol e vento quase não geram.'
+    if (ss < 0.01) return `sem sol, só o vento gera: ${pct(ws)} do consumo.`
+    if (ws < 0.01) return `o sol atende ${pct(ss)} do consumo; o vento quase não gera.`
+    return `sol e vento atendem ${pct(ss + ws)} do consumo: ${pct(ss)} do sol e ${pct(ws)} do vento.`
+  }
+
   // ---- 3b: who covers the ramp (D-2, stacked by source) -------------------------------------------------
   const sTop = 16
   const sBot = 170
@@ -131,7 +141,7 @@ export default function Pato({ o }: { o: Observatory }) {
           {d.itaipuMin ? `: no trecho mais rápido, as outras usinas tiveram de somar uma Itaipu inteira a cada ${d.itaipuMin} minutos` : ''}. As hidrelétricas cobriram {pct(Math.min(1, Math.max(0, d.hydroShare)))} dessa subida.{' '}
           {live && (
             <>
-              Agora, às {live.now.t.replace(':', 'h')}, sol e vento atendem {pct(live.now.ren)} do consumo.{' '}
+              Agora, às {live.now.t.replace(':', 'h')}, {agoraRen(live.now)}{' '}
             </>
           )}
           Em {monthLabel(c.m)}, o ONS mandou eólicas e solares deixarem de gerar {dec(c.total / 1e6, 1)} TWh, {pct(c.lostShare)} do que poderiam ter produzido; {pct(c.ne)} desses cortes foram no Nordeste.

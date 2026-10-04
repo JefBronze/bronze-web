@@ -5,6 +5,7 @@ import type { Observatory } from '@/lib/observatory'
 import { MOTIVOS } from '@/lib/sources/geracao'
 import type { Sub } from '@/lib/sources/ons'
 import MapaHover, { type PlantCard } from '../MapaHover'
+import FuelIcon, { FUEL_NAME, fuelOf, type Fuel } from '../FuelIcon'
 import { BRONZE_URL, Kicker, Lido, Metodo, ParaVoce, Stamp, Swatch } from '../ui'
 
 const TIPO_FILL: Record<string, string> = { hid: 'var(--c1)', eol: 'var(--c3)', sol: 'var(--sol)', ter: 'var(--c5)', nuc: 'var(--c5)', out: 'var(--c5)' }
@@ -210,26 +211,28 @@ export default function Quem({ o }: { o: Observatory }) {
     ['vermelha2', lim.vermelha1, null],
   ]
   const meses = o.gatilho.meses
+  const fuelsTop = ts ? [...new Set(ts.top.map((p) => fuelOf(p.comb)).filter((f): f is Fuel => f !== null))] : []
 
   return (
     <section className="sec" id="quem" aria-labelledby="quem-h">
       <div className="wrap">
         <Kicker n={4}>Quem gera</Kicker>
-        <h2 className="h2" id="quem-h">As maiores usinas do país, o que geraram ontem, e as térmicas que ligam sem ser chamadas pelo preço.</h2>
+        <h2 className="h2" id="quem-h">De onde veio a energia ontem, por que as térmicas ligaram e o que decide a cor da bandeira.</h2>
         <Lido>
           {ontem && big.med !== null && idle ? (
             <>
-              Em {day(ontem)}, {big.nome} gerou em média {gw(big.med)} GW, {pct(big.med / big.mw)} da capacidade; {idle.nome}, {gw(idle.med!)} GW de {gw(idle.mw)}.{' '}
+              Em {day(ontem)}, {big.nome} gerou em média {gw(big.med)} GW, {pct(big.med / big.mw)} do que pode; {idle.nome} usou só {gw(idle.med!)} dos seus {gw(idle.mw)} GW.{' '}
             </>
           ) : null}
           {ts && (
             <>
-              As térmicas despachadas pelo ONS geraram {fmt(ts.total / 1000)} GWh: {pct(ts.byMotivo.inflex / ts.total)} por inflexibilidade e {pct(ts.byMotivo.merito / ts.total)} por ordem de custo
-              {ts.caras.length > 0 ? `; ${ts.caras.length} delas ligaram custando mais que o custo marginal do seu subsistema` : ''}.{' '}
+              As térmicas geraram {fmt(ts.total / 1000)} GWh. Desse total, {pct(ts.byMotivo.inflex / ts.total)} veio de usinas inflexíveis, que o dono declarou que precisam rodar por contrato de combustível ou limite técnico, seja qual for o preço; só {pct(ts.byMotivo.merito / ts.total)} veio de usinas ligadas por serem baratas o bastante
+              {ts.caras.length > 0 ? `. ${ts.caras.length} térmicas geraram custando mais que o custo marginal da sua região` : ''}.{' '}
             </>
           )}
-          Em {monthLabel(g.m)}, a bandeira é {FLAG_NAME[flag]}: GSF de {dec(g.gsf)} e PLD de R$ {fmt(g.pld)} dão{' '}
-          {gVu > 0 ? `R$ ${dec(gVu)}/MWh de custo de risco hidrológico` : 'custo de risco hidrológico zero'}, {flag === 'verde' ? `abaixo do limite de R$ ${dec(lim.verde)} da verde` : 'acima do limite da verde'}.
+          A bandeira de {monthLabel(g.m)} é {FLAG_NAME[flag]}. Ela sai de uma conta: com as hidrelétricas entregando {pct(g.gsf)} da sua garantia física (GSF) e o PLD a R$ {fmt(g.pld)},{' '}
+          {gVu > 0 ? `o custo do risco hidrológico ficou em R$ ${dec(gVu)}/MWh` : 'o custo do risco hidrológico ficou em zero'},{' '}
+          {flag === 'verde' ? `abaixo dos R$ ${dec(lim.verde)} que acionariam a amarela` : `acima dos R$ ${dec(lim.verde)} que encerram a verde`}.
         </Lido>
 
         <div className="g3">
@@ -316,6 +319,7 @@ export default function Quem({ o }: { o: Observatory }) {
                 {ts.top.map((p) => (
                   <li key={p.ceg || p.nome}>
                     <span className="rk-n">
+                      {fuelOf(p.comb) && <FuelIcon fuel={fuelOf(p.comb)!} />}
                       {p.nome} <i>{p.sub}</i>
                     </span>
                     <span className={ts.cmoMed && p.cvu !== null && p.cvu > (ts.cmoMed[p.sub as keyof typeof ts.cmoMed] ?? Infinity) ? 'rk-v hot' : 'rk-v'}>
@@ -331,6 +335,16 @@ export default function Quem({ o }: { o: Observatory }) {
                   </li>
                 ))}
               </ol>
+            )}
+            {ts && fuelsTop.length > 0 && (
+              <div className="legend">
+                {fuelsTop.map((f) => (
+                  <span key={f}>
+                    <FuelIcon fuel={f} />
+                    {FUEL_NAME[f]}
+                  </span>
+                ))}
+              </div>
             )}
             <Stamp status={o.status.cvu} source="ONS · CVU_USINA_TERMICA" when={o.cvu ? `${day(o.cvu.from)}–${day(o.cvu.to)}` : '—'} cadence="semanal">
               {ts?.cmoMed && <span>em vermelho: CVU acima do custo marginal médio do subsistema no mesmo dia, {day(ts.day)}</span>}

@@ -1,5 +1,5 @@
 'use client'
-// Section 7a: a four-cylinder 1.0 in 3D (model from scripts/blender/motor.py), cut open two ways, with a guided tour,
+// Section 8a: a four-cylinder 1.0 in 3D (model from scripts/blender/motor.py), cut open two ways, with a guided tour,
 // part names on hover/tap and the p–V diagram of cylinder 1 running in step. The three.js scene (./scene.ts) and the
 // model load only when the section nears the viewport.
 import { useEffect, useRef, useState } from 'react'
@@ -172,7 +172,7 @@ export default function Engine3D() {
           {status !== 'ready' && (
             <div className="engineph">
               {status === 'nowebgl' ? (
-                <p>Este navegador não exibe 3D (WebGL). Os quatro tempos estão desenhados em 7b, logo abaixo.</p>
+                <p>Este navegador não exibe 3D (WebGL). Os quatro tempos estão desenhados em 8b, logo abaixo.</p>
               ) : (
                 <p>
                   Carregando o modelo 3D (1,7 MB)… {status === 'loading' && progress > 0 ? `${Math.round(progress * 100)} %` : ''}

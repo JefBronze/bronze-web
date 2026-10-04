@@ -2,8 +2,9 @@ import { describe, expect, it } from 'vitest'
 import { isotonicDecreasing, quantile } from '@/lib/chart'
 import { dec, fmt, hhmm, hhmmText, isoDay } from '@/lib/format'
 import { parseCaiso } from '@/lib/sources/abroad'
+import { parseCvu, parseTermicas, parseUsinaDia } from '@/lib/sources/geracao'
 import { parseFred, parseKalshi, parsePoly } from '@/lib/sources/markets'
-import { duckStats, netLoad } from '@/lib/derive'
+import { duckStats, netLoad, vu } from '@/lib/derive'
 import type { Observatory } from '@/lib/observatory'
 import { parseAgora, parseBalanco, parseCarga, parseCmo, type AgoraKey, type AgoraPoint } from '@/lib/sources/ons'
 
@@ -142,5 +143,73 @@ describe('ONS Energia Agora', () => {
     const a = parseAgora(raw, { Data: '2026-10-03T03:00:00-03:00', sul: { geracao: { mmgd: 0 } } })
     expect(a.mmgd[0]).toBe(0)
     expect(a.mmgdRatio).toBe(1.6)
+  })
+})
+
+describe('ONS geração por usina', () => {
+  // Two plants; day 2 is incomplete (stops at 05h). Itaipu's halves share one CEG.
+  const line = (d: string, h: number, nome: string, ceg: string, v: number) => `${d} ${String(h).padStart(2, '0')}:00:00;SE;SUDESTE;PR;PARANA;TIPO I;HIDROELÉTRICA;Hidráulica;${nome};X;${ceg};${v}`
+  const csv = [
+    'partial line from the range',
+    ...Array.from({ length: 24 }, (_, h) => line('2026-10-01', h, 'ITAIPU 50 HZ', 'IT', 3000)),
+    ...Array.from({ length: 24 }, (_, h) => line('2026-10-01', h, 'ITAIPU 60 HZ', 'IT', h === 18 ? 7000 : 5000)),
+    ...Array.from({ length: 24 }, (_, h) => line('2026-10-01', h, 'OUTRA', 'OT', 10)),
+    ...Array.from({ length: 6 }, (_, h) => line('2026-10-02', h, 'ITAIPU 50 HZ', 'IT', 1)),
+  ].join('\n')
+  it('keeps the last complete day, sums by CEG and filters', () => {
+    const u = parseUsinaDia(csv, '2026-10-03', new Set(['IT']))!
+    expect(u.day).toBe('2026-10-01')
+    expect(u.mwh.IT).toBe(24 * 8000 + 2000)
+    expect(u.peak.IT).toBe(10000)
+    expect(u.mwh.OT).toBeUndefined()
+  })
+  it('returns null when no day is complete', () => {
+    expect(parseUsinaDia(csv, '2026-10-01')).toBeNull()
+  })
+})
+
+describe('ONS térmicas por motivo', () => {
+  // 47 columns; only the ones the parser reads are set.
+  const row = (h: number, nome: string, inflex: number, merito: number) => {
+    const c = Array(47).fill('0')
+    c[0] = `2026-10-02 ${String(h).padStart(2, '0')}:00:00`
+    c[2] = 'SE'
+    c[4] = nome
+    c[5] = '13'
+    c[6] = `CEG-${nome}`
+    c[24] = String(inflex + merito)
+    c[26] = String(merito)
+    c[27] = String(inflex)
+    c[44] = 'Gás'
+    return c.join(';')
+  }
+  const csv = [...Array.from({ length: 24 }, (_, h) => row(h, 'A', 100, h >= 18 ? 50 : 0)), ...Array.from({ length: 24 }, (_, h) => row(h, 'B', 0, 0))].join('\n')
+  it('splits generation by reason, drops plants that did not run', () => {
+    const t = parseTermicas(csv, '2026-10-03')!
+    expect(t.day).toBe('2026-10-02')
+    expect(t.plants).toHaveLength(1)
+    expect(t.plants[0].mwh).toBe(2400 + 300)
+    expect(t.plants[0].byMotivo.merito).toBe(300)
+    expect(t.hourly.inflex[0]).toBe(100)
+    expect(t.hourly.merito[18]).toBe(50)
+  })
+})
+
+describe('ONS CVU', () => {
+  const csv = [
+    'dat_iniciosemana;dat_fimsemana;ano_referencia;mes_referencia;num_revisao;nom_semanaoperativa;cod_usinaplanejamento;id_subsistema;nom_subsistema;nom_usina;val_cvu',
+    '2026-09-26;2026-10-02;2026;10;0;PMO Outubro 2026;13;SE;Sudeste;ANGRA 2;20.12',
+    '2026-10-03;2026-10-09;2026;10;1;PMO Outubro 2026 - Revisão 1;13;SE;Sudeste;ANGRA 2;21.5',
+  ].join('\n')
+  it('picks the operative week that contains the day', () => {
+    expect(parseCvu(csv, '2026-10-02').byCod['13']).toBe(20.12)
+    expect(parseCvu(csv, '2026-10-05').from).toBe('2026-10-03')
+  })
+})
+
+describe('bandeira trigger', () => {
+  it('is PLD × (1 − GSF): Sep 2026 lands in amarela, Oct 2026 in verde', () => {
+    expect(vu({ gsf: 0.76, pld: 163.44 })).toBeCloseTo(39.23, 2)
+    expect(vu({ gsf: 0.82, pld: 90.19 })).toBeCloseTo(16.23, 2)
   })
 })

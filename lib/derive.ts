@@ -2,6 +2,7 @@
 import { quantile, type Pt } from './chart'
 import { hhmm, isoDay } from './format'
 import type { Observatory } from './observatory'
+import { MOTIVOS, type Motivo, type Termica } from './sources/geracao'
 import { CMO_SUBS, type Sub } from './sources/ons'
 
 // ---------- bills ----------------------------------------------------------------------------------------
@@ -34,7 +35,7 @@ function flagSeg(o: Observatory): Seg[] {
   return v > 0 ? [{ name: `bandeira ${FLAG_NAME[f]}`, v, kind: 'band' }] : []
 }
 
-/** The Grupo A reference case used in sections 2c and 4b. */
+/** The Grupo A reference case used in sections 2c and 5b. */
 export const A4_CASE = { mwh: 50, kw: 118, ponta: 0.1 }
 
 export function a4Parts(o: Observatory, modal: 'verde' | 'azul'): Seg[] {
@@ -199,4 +200,62 @@ export function curtailStats(o: Observatory) {
     reasons,
     months: o.curtail.map((r) => ({ m: r.m, eol: sum(r.eol.cut), sol: sum(r.sol.cut) })),
   }
+}
+
+// ---------- who generates (section 4) ---------------------------------------------------------------------
+
+export const MOTIVO_NAME: Record<Motivo, string> = {
+  inflex: 'inflexibilidade',
+  merito: 'ordem de custo',
+  uc: 'partida e parada',
+  eletrica: 'restrição elétrica',
+  seguranca: 'segurança energética',
+  outros: 'outros',
+}
+export const MOTIVO_FILL: Record<Motivo, string> = {
+  inflex: 'var(--c4)',
+  merito: 'var(--c2)',
+  uc: 'var(--dj)',
+  eletrica: 'var(--c5)',
+  seguranca: 'var(--c6)',
+  outros: 'var(--line)',
+}
+
+export type Usina = Observatory['usinas']['plants'][number] & {
+  /** Average MW over yesterday, null when the ONS file was not read. */
+  med: number | null
+  /** Thermal plants: the reason with the most MWh yesterday, null when it did not run. */
+  motivo: Motivo | null
+}
+
+export function usinasDia(o: Observatory): Usina[] {
+  const byCeg = new Map((o.termicas?.plants ?? []).filter((t) => t.ceg).map((t) => [t.ceg, t]))
+  return o.usinas.plants.map((p) => {
+    const mwh = o.usinaDia ? (o.usinaDia.mwh[p.ceg] ?? 0) : null
+    const t = byCeg.get(p.ceg)
+    const motivo = t && t.mwh > 0 ? MOTIVOS.reduce((a, m) => (t.byMotivo[m] > t.byMotivo[a] ? m : a)) : null
+    return { ...p, med: mwh === null ? null : mwh / 24, motivo }
+  })
+}
+
+/** Yesterday's thermal fleet: total, share per reason, and the plants that ran above the marginal cost of their subsystem. */
+export function termicaStats(o: Observatory) {
+  const t = o.termicas
+  if (!t) return null
+  const total = t.plants.reduce((s, p) => s + p.mwh, 0)
+  const byMotivo = Object.fromEntries(MOTIVOS.map((m) => [m, t.plants.reduce((s, p) => s + p.byMotivo[m], 0)])) as Record<Motivo, number>
+  const cvu = (p: Termica) => (p.cod && o.cvu ? (o.cvu.byCod[p.cod] ?? null) : null)
+  const cmo = o.cmoTermicas
+  const cmoMed = cmo ? (Object.fromEntries(CMO_SUBS.map((s) => [s, cmo.bySub[s].reduce((a, v) => a + v, 0) / cmo.bySub[s].length])) as Record<Sub, number>) : null
+  const withCvu = t.plants.map((p) => ({ ...p, cvu: cvu(p) }))
+  // Ran mostly by inflexibility although its variable cost is above the marginal cost of its subsystem.
+  const caras = cmoMed ? withCvu.filter((p) => p.cvu !== null && p.cvu > (cmoMed[p.sub as Sub] ?? Infinity) && p.byMotivo.inflex > p.mwh / 2) : []
+  return { day: t.day, total, byMotivo, top: withCvu.slice(0, 10), caras, carasMwh: caras.reduce((s, p) => s + p.mwh, 0), cmoMed }
+}
+
+export type Gatilho = Observatory['gatilho']['meses'][number]
+
+/** VU = PLD × (1 − GSF): the cost of the hydro deficit in R$/MWh that sets the flag (negative when hydro is in surplus). */
+export function vu(g: Pick<Gatilho, 'gsf' | 'pld'>): number {
+  return g.pld * (1 - g.gsf)
 }

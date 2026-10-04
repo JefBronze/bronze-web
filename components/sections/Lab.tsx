@@ -47,7 +47,7 @@ export default function Lab({ o }: { o: Observatory }) {
           </div>
         </div>
         <div>
-          <Kicker n={11}>Laboratório OpenADR</Kicker>
+          <Kicker n={12}>Laboratório OpenADR</Kicker>
           <h2 className="h2" id="lab-h">Computação consegue reduzir carga a um sinal da rede?</h2>
           <p className="lede">Em Montréal, dois Raspberry Pi 5 — um nó de inferência de IA e um gateway OpenADR 3.0 — recebem eventos de resposta da demanda e reduzem a carga em níveis medidos na tomada.</p>
           <Lido label="Medido">

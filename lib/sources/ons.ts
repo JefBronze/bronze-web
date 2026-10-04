@@ -87,14 +87,14 @@ export function parseCmo(text: string, preferDay: string): Cmo {
   return { day, bySub: Object.fromEntries(CMO_SUBS.map((s) => [s, d[s] as number[]])) as Record<Sub, number[]> }
 }
 
-export async function fetchCmo(now = new Date()): Promise<Cmo> {
+export async function fetchCmo(now = new Date(), preferDay = isoDay(now)): Promise<Cmo> {
   // The whole-year file passes Next's 2 MB cache limit in the last months of the year; the last ~4 days are enough.
   const text = await getText(`https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/cmo_tm/CMO_SEMIHORARIO_${now.getUTCFullYear()}.csv`, 3600, {
     headers: { Range: 'bytes=-40000' },
     timeoutMs: 20_000,
   })
   // A suffix range starts mid-line; parseCmo skips anything without a date.
-  return parseCmo(text, isoDay(now))
+  return parseCmo(text, preferDay)
 }
 
 // ---------- balanço de energia (hourly, by source) ------------------------------------------------------

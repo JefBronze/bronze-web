@@ -9,12 +9,13 @@ import Motor from '@/components/sections/Motor'
 import Eletrico from '@/components/sections/Eletrico'
 import Parana from '@/components/sections/Parana'
 import Pato from '@/components/sections/Pato'
+import Quem from '@/components/sections/Quem'
 import Petroleo from '@/components/sections/Petroleo'
 import Preco from '@/components/sections/Preco'
 import Pulso from '@/components/sections/Pulso'
 import Link from 'next/link'
 import { BRONZE_URL } from '@/components/ui'
-import { BBL_LITERS, cmoSlotNow, curtailStats, FLAG_NAME, flagNow } from '@/lib/derive'
+import { BBL_LITERS, cmoSlotNow, curtailStats, termicaStats, FLAG_NAME, flagNow } from '@/lib/derive'
 import { dec, ddmm, fmt, hhmm, monthLabel, pct } from '@/lib/format'
 import { getObservatory } from '@/lib/observatory'
 
@@ -22,7 +23,7 @@ import { getObservatory } from '@/lib/observatory'
 export const revalidate = 300
 
 const WHATSAPP = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '14389796085').replace(/\D/g, '')
-const SECTIONS = ['pulso', 'preco', 'pato', 'mercado', 'petroleo', 'bomba', 'motor', 'eletrico', 'parana', 'fora', 'lab', 'bastidores']
+const SECTIONS = ['pulso', 'preco', 'pato', 'quem', 'mercado', 'petroleo', 'bomba', 'motor', 'eletrico', 'parana', 'fora', 'lab', 'bastidores']
 
 export default async function Page() {
   const o = await getObservatory()
@@ -30,6 +31,7 @@ export default async function Page() {
   const brentL = (o.brent.at(-1)!.v * o.ptax.venda) / BBL_LITERS
   const fuel = o.fuel.curitiba as Record<string, number>
   const cut = curtailStats(o)
+  const term = termicaStats(o)
   const ticker: TickItem[] = [
     {
       href: '#pulso',
@@ -49,6 +51,16 @@ export default async function Page() {
       value: `${FLAG_NAME[flagNow(o)]} · ${monthLabel(o.bandeira.mes)}`,
       tip: 'Bandeira tarifária: sinal mensal da ANEEL sobre o custo de gerar energia. Na verde não há acréscimo. Na amarela e nas vermelhas, cada 100 kWh da conta de luz fica mais caro, porque falta água nos reservatórios e entram usinas térmicas, mais caras.',
     },
+    ...(term
+      ? [
+          {
+            href: '#quem',
+            label: 'Térmicas ontem',
+            value: `${fmt(term.total / 1000)} GWh · ${pct(term.byMotivo.inflex / term.total)} inflex.`,
+            tip: `Energia das usinas térmicas (gás, carvão, óleo, biomassa e nuclear) despachadas pelo ONS em ${ddmm(`${term.day}T15:00:00Z`)}. A maior parte liga por inflexibilidade, a geração mínima que o dono da usina declara (contrato de combustível, exigência técnica), e não porque é a opção mais barata: só ${pct(term.byMotivo.merito / term.total)} foi pela ordem de custo.`,
+          },
+        ]
+      : []),
     {
       href: '#pato',
       label: 'Cortes eól.+sol.',
@@ -132,6 +144,7 @@ export default async function Page() {
         <Pulso o={o} />
         <Preco o={o} />
         <Pato o={o} />
+        <Quem o={o} />
         <Mercado o={o} />
         <Petroleo o={o} />
         <Bomba o={o} />

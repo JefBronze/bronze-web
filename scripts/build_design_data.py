@@ -114,6 +114,18 @@ inter = json.load(open('data/intermitentes.json'))
 data['balanco'] = inter['balanco']
 data['duckHist'] = inter['duckHist']
 data['curtail'] = inter['curtail']
+# Section 4, "Quem gera": the largest plants with coordinates and the state outlines (scripts/usinas.py), and the
+# monthly bandeira trigger read from CCEE's InfoBandeira bulletins (GSF and PLD gatilho of the DECOMP; CCEE blocks
+# automated reads, so data/infobandeira.json is updated by hand after each announcement, last Friday of the month).
+usinas = json.load(open('data/usinas.json'))
+data['usinas'] = usinas
+data['gatilho'] = {
+    'meses': json.load(open('data/infobandeira.json')),
+    # VU = PLD × (1 − GSF), R$/MWh: upper limit of each flag. NT 009/2023-SGM-STR/ANEEL, Tabela 2; REH 3.306/2024
+    # and Submódulo 6.8 do PRORET v1.10 (REN 1.084/2024), in force since 2024-04-01. Checked against InfoBandeira 2026-09.
+    'vu': {'verde': 27.48, 'amarela': 68.99, 'vermelha1': 95.05, 'vermelha2': 142.55},
+    'proximo': '2026-10-30',  # ANEEL 2026 calendar: announcement of the November flag
+}
 js = 'window.BRONZE2 = ' + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + ';\n'
 open('design/data2.js', 'w').write(js)
 print('design/data2.js', len(js), 'bytes')

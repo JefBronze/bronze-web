@@ -29,7 +29,7 @@ export default function Mercado({ o }: { o: Observatory }) {
   return (
     <section className="sec" id="mercado" aria-labelledby="mercado-h">
       <div className="wrap">
-        <Kicker n={4}>Mercado livre e geração distribuída</Kicker>
+        <Kicker n={5}>Mercado livre e geração distribuída</Kicker>
         <h2 className="h2" id="mercado-h">Livre, cativo ou no telhado: onde a sua energia é comprada?</h2>
         <p className="lede">
           Desde 2024 qualquer consumidor de média tensão pode deixar a distribuidora e comprar energia no mercado livre (ACL), liquidado na CCEE. E {dec(gd.systems / 1e6, 1)} milhões de telhados já geram a própria. As três opções pagam o mesmo fio — o que muda é a energia.
@@ -40,7 +40,7 @@ export default function Mercado({ o }: { o: Observatory }) {
         <div className="g3">
           <div className="inst">
             <div className="instl">
-              <span>4a · consumo no mercado livre · {acl.shareAsOf}</span>
+              <span>5a · consumo no mercado livre · {acl.shareAsOf}</span>
               <span>% do consumo</span>
             </div>
             <div className="rows" style={{ gap: 6 }}>
@@ -71,12 +71,12 @@ export default function Mercado({ o }: { o: Observatory }) {
               <span>PR: {acl.prAbr26} migrações em abr/26</span>
             </div>
             <Metodo>
-              Participação por classe: CCEE/Abraceel, consumo de {acl.shareAsOf}. Migrações: boletins mensais da CCEE (InfoMercado). O portal de dados abertos da CCEE bloqueia leitura automática; estes números entram no build a partir do boletim do mês, com data. Elegibilidade: Portaria MME 50/2022 — todo o Grupo A desde 1/1/2024; baixa tensão em discussão <Todo>(calendário a confirmar)</Todo>.
+              Participação por classe: CCEE/Abraceel, consumo de {acl.shareAsOf}. Migrações: boletins mensais da CCEE (InfoMercado). O portal de dados abertos da CCEE bloqueia leitura automática; estes números entram no build a partir do boletim do mês, com data. Elegibilidade: Portaria MME 50/2022 — todo o Grupo A desde 1/1/2024. Baixa tensão: a Lei 15.269/2025 (art. 15, § 17, da Lei 9.074/1995), publicada em 25/11/2025, dá prazo máximo de 24 meses para indústria e comércio (até 25/11/2027) e de 36 meses para os demais, inclusive residências (até 25/11/2028). São prazos máximos, e a abertura depende antes de plano de comunicação, tarifas separadas para os dois ambientes, regras do suprimento de última instância, um produto padrão com preço de referência e regras para a sobrecontratação das distribuidoras.
             </Metodo>
           </div>
           <div className="inst span2">
             <div className="instl">
-              <span>4b · a mesma fatura A4, cativo e livre · {A4_CASE.mwh} MWh · {A4_CASE.kw} kW · Copel</span>
+              <span>5b · a mesma fatura A4, cativo e livre · {A4_CASE.mwh} MWh · {A4_CASE.kw} kW · Copel</span>
               <span>R$/MWh · régua de 2c</span>
             </div>
             <Bills bills={bills} />
@@ -99,7 +99,7 @@ export default function Mercado({ o }: { o: Observatory }) {
         <div className="g2" style={{ marginTop: 40 }}>
           <div>
             <div className="instl">
-              <span>4c · geração distribuída · ABGD / ANEEL · jan/2026</span>
+              <span>5c · geração distribuída · ABGD / ANEEL · jan/2026</span>
               <span>Brasil</span>
             </div>
             <div className="tiles" style={{ marginTop: 12 }}>
@@ -125,7 +125,7 @@ export default function Mercado({ o }: { o: Observatory }) {
           </div>
           <div className="inst">
             <div className="instl">
-              <span>4d · quanto vale o kWh injetado · Lei 14.300 · Fio B</span>
+              <span>5d · quanto vale o kWh injetado · Lei 14.300 · Fio B</span>
               <span>% do Fio B cobrado</span>
             </div>
             <svg className="svg" viewBox="0 0 560 150" role="img" aria-label={`Rampa da cobrança do Fio B sobre a energia injetada: ${fioB.map(([y, s]) => `${y} ${pc(s)} %`).join(', ')}.`}>

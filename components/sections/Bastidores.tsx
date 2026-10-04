@@ -13,6 +13,11 @@ export default function Bastidores({ o }: { o: Observatory }) {
     ['ONS · Energia Agora', o.agora ? `${o.agora.t.at(-1)} BRT` : 'sem sinal', s.agora.live],
     ['ONS · balanço de energia', ddmm(`${o.balanco.day}T15:00:00Z`), s.balanco.live],
     ['ONS · restrição de eólica e solar', o.curtail.at(-1)!.m, true],
+    ['ONS · geração por usina', o.usinaDia ? ddmm(`${o.usinaDia.day}T15:00:00Z`) : 'sem sinal', s.usinas.live],
+    ['ONS · térmicas por motivo', o.termicas ? ddmm(`${o.termicas.day}T15:00:00Z`) : 'sem sinal', s.termicas.live],
+    ['ONS · CVU semanal', o.cvu ? ddmm(`${o.cvu.from}T15:00:00Z`) : 'sem sinal', s.cvu.live],
+    ['CCEE · InfoBandeira', o.gatilho.meses.at(-1)!.m, true],
+    ['Wikidata · IBGE · posições e mapa', 'build', true],
     ['FRED · Brent, WTI, Henry Hub', brDate(o.brent.at(-1)!.d), s.fred.live],
     ['BCB · PTAX', brDate(o.ptax.day), s.ptax.live],
     ['Kalshi · KXWTI', at('kalshi'), s.kalshi.live],
@@ -28,14 +33,14 @@ export default function Bastidores({ o }: { o: Observatory }) {
   return (
     <section className="sec" id="bastidores" aria-labelledby="bastidores-h">
       <div className="wrap">
-        <Kicker n={11}>Bastidores</Kicker>
+        <Kicker n={12}>Bastidores</Kicker>
         <h2 className="h2" id="bastidores-h">Como isto é feito.</h2>
         <div className="colo">
           <div>
             <p className="ct">Método</p>
             <div className="li"><span>Next.js · React Server Components</span><span>render no servidor</span></div>
             <div className="li"><span>Gráficos em SVG escrito à mão</span><span>sem biblioteca</span></div>
-            <div className="li"><span>Motor 3D (seção 7): Blender + three.js</span><span>+156 kB e modelo de 1,7 MB, só ao chegar lá</span></div>
+            <div className="li"><span>Motor 3D (seção 8): Blender + three.js</span><span>+156 kB e modelo de 1,7 MB, só ao chegar lá</span></div>
             <div className="li"><span>Fontes auto-hospedadas</span><span>CSP estrita</span></div>
             <div className="li"><span>Cada fonte com cache próprio</span><span>2 min → 6 h</span></div>
             <div className="li"><span>Fonte fora do ar</span><span>última leitura, marcada</span></div>

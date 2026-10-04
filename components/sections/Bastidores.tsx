@@ -1,6 +1,6 @@
 import { brDate, ddmm, hhmm } from '@/lib/format'
 import type { Observatory, SourceKey } from '@/lib/observatory'
-import { Kicker, Todo } from '../ui'
+import { Kicker } from '../ui'
 
 const MTL = 'America/Toronto'
 
@@ -34,24 +34,27 @@ export default function Bastidores({ o }: { o: Observatory }) {
     <section className="sec" id="bastidores" aria-labelledby="bastidores-h">
       <div className="wrap">
         <Kicker n={13}>Bastidores</Kicker>
-        <h2 className="h2" id="bastidores-h">Como isto é feito.</h2>
+        <h2 className="h2" id="bastidores-h">De onde vêm os números.</h2>
         <div className="colo">
           <div>
-            <p className="ct">Método</p>
-            <div className="li"><span>Next.js · React Server Components</span><span>render no servidor</span></div>
-            <div className="li"><span>Gráficos em SVG escrito à mão</span><span>sem biblioteca</span></div>
-            <div className="li"><span>Motores 3D (seções 8 e 9): Blender + three.js</span><span>carregados só ao chegar lá</span></div>
-            <div className="li"><span>Fontes auto-hospedadas</span><span>CSP estrita</span></div>
+            <p className="ct">Ao vivo · lidos pelo servidor</p>
+            <div className="li"><span>ONS · dados abertos (CSV)</span><span>carga, CMO, balanço, usinas, térmicas</span></div>
+            <div className="li"><span>ONS · Energia Agora</span><span>minuto a minuto, hoje</span></div>
+            <div className="li"><span>Arquivos mensais grandes</span><span>só o fim do arquivo é baixado</span></div>
+            <div className="li"><span>FRED · BCB · Kalshi · Polymarket</span><span>petróleo, dólar, mercados</span></div>
+            <div className="li"><span>Hydro-Québec · CAISO · Open-Meteo</span><span>redes de fora e clima</span></div>
             <div className="li"><span>Cada fonte com cache próprio</span><span>2 min → 6 h</span></div>
             <div className="li"><span>Fonte fora do ar</span><span>última leitura, marcada</span></div>
-            <div className="li"><span>Repositório público</span><span>MIT</span></div>
           </div>
-          <div className="budget">
-            <p className="ct">Orçamento · medido no build</p>
-            <div><div className="bv">≥ 95</div><div className="bl">Lighthouse, nas quatro notas · meta</div></div>
-            <div><div className="bv">179 kB</div><div className="bl">JavaScript no cliente (gzip): o runtime do Next.js e do React; os gráficos chegam prontos do servidor, sem JS</div></div>
-            <div><div className="bv">0</div><div className="bl">cookies · rastreadores de terceiros</div></div>
-            <Todo>verificação automática no CI: a ligar</Todo>
+          <div>
+            <p className="ct">Montados antes · atualizados à mão</p>
+            <div className="li"><span>ANP · preço por posto</span><span>mensal, ~75 mil postos</span></div>
+            <div className="li"><span>ANEEL · BDGD · tarifas (REH)</span><span>anual</span></div>
+            <div className="li"><span>CCEE · InfoMercado · InfoBandeira</span><span>mensal, copiado à mão</span></div>
+            <div className="li"><span>ONS · cadastro de usinas</span><span>+ Wikidata e IBGE para o mapa</span></div>
+            <div className="li"><span>ONS · cortes de eólica e solar</span><span>20–45 MB por mês</span></div>
+            <div className="li"><span>Frases e gráficos</span><span>gerados dos dados, no servidor</span></div>
+            <div className="li"><span>Repositório público</span><span>MIT</span></div>
           </div>
           <div>
             <p className="ct">Fontes · última leitura</p>
@@ -64,7 +67,7 @@ export default function Bastidores({ o }: { o: Observatory }) {
           </div>
         </div>
         <p className="why">
-          Por que Curitiba e Montréal: a engenharia é registrada no Paraná, onde estão os clientes de média tensão e as bases da ANEEL; o laboratório fica em Montréal, onde a Hydro-Québec publica demanda e eventos de ponta em tempo quase real.
+          Curitiba e Montréal: a engenharia é do Paraná, registrada no CREA-PR, com clientes de média tensão e as bases da ANEEL e da Copel que alimentam este site. O laboratório fica em Montréal, onde a Hydro-Québec e a Hilo publicam demanda e eventos de ponta em tempo quase real, o que permite testar resposta da demanda com sinais de verdade.
         </p>
       </div>
     </section>

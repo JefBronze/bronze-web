@@ -126,14 +126,15 @@ export default function Pato({ o }: { o: Observatory }) {
         <Kicker n={3}>A curva do pato</Kicker>
         <h2 className="h2" id="pato-h">Ao meio-dia sobra energia; ao pôr do sol, falta. Quem cobre a rampa?</h2>
         <Lido>
-          {dayWord(o, b.day)}, a carga líquida do país (a carga menos o que sol e vento entregam) caiu a {gw(d.trough)} GW {hourText(d.troughH) === 'meio-dia' ? 'ao meio-dia' : `às ${hourText(d.troughH)}`} e subiu {gw(d.ramp)} GW até as {hourText(d.peakH)}
-          {d.itaipuMin ? `: no trecho mais rápido, o equivalente a uma Itaipu a cada ${d.itaipuMin} minutos` : ''}. {pct(Math.min(1, Math.max(0, d.hydroShare)))} dessa subida veio de hidrelétricas.{' '}
+          {dayWord(o, b.day)}, sol e vento derrubaram a carga líquida (o que sobra para as outras usinas atenderem) a {gw(d.trough)} GW{' '}
+          {hourText(d.troughH) === 'meio-dia' ? 'ao meio-dia' : `às ${hourText(d.troughH)}`}. Quando o sol foi embora, ela subiu {gw(d.ramp)} GW até as {hourText(d.peakH)}
+          {d.itaipuMin ? `: no trecho mais rápido, as outras usinas tiveram de somar uma Itaipu inteira a cada ${d.itaipuMin} minutos` : ''}. As hidrelétricas cobriram {pct(Math.min(1, Math.max(0, d.hydroShare)))} dessa subida.{' '}
           {live && (
             <>
-              Agora, às {live.now.t.replace(':', 'h')}, sol e vento atendem {pct(live.now.ren)} da carga.{' '}
+              Agora, às {live.now.t.replace(':', 'h')}, sol e vento atendem {pct(live.now.ren)} do consumo.{' '}
             </>
           )}
-          Em {monthLabel(c.m)}, o ONS mandou cortar {dec(c.total / 1e6, 1)} TWh de eólica e solar, {pct(c.lostShare)} do que essas usinas poderiam ter gerado, {pct(c.ne)} no Nordeste.
+          Em {monthLabel(c.m)}, o ONS mandou eólicas e solares deixarem de gerar {dec(c.total / 1e6, 1)} TWh, {pct(c.lostShare)} do que poderiam ter produzido; {pct(c.ne)} desses cortes foram no Nordeste.
         </Lido>
 
         <div className="inst">

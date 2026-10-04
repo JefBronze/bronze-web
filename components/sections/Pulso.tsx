@@ -23,9 +23,9 @@ export default function Pulso({ o }: { o: Observatory }) {
       <div className="wrap g2">
         <div>
           <Kicker n={1}>Pulso · ao vivo</Kicker>
-          <h1 className="h1" id="pulso-h">A energia do Brasil, lida agora.</h1>
+          <h1 className="h1" id="pulso-h">A energia do Brasil, em tempo real.</h1>
           <p className="lede">
-            Este site é um observatório do setor elétrico e dos combustíveis no Brasil: instrumentos ligados a dados públicos, lidos a cada poucos minutos. Cada número cita a fonte e a hora.
+            Quanto o país consome, quanto custa o MWh, quem gera e quanto sai o litro na bomba, com dados públicos do ONS, da ANEEL, da CCEE, da ANP e do Banco Central, atualizados assim que as fontes publicam. Ao lado de cada número estão a fonte e a hora da leitura.
           </p>
           <Lido>
             Às {hhmmText(c.asOf)} em Brasília, o país pedia {fmt(c.sinNow)} MW: {share('SECO')} % no Sudeste/Centro-Oeste, {share('NE')} % no Nordeste, {share('S')} % no Sul e {share('N')} % no Norte. O pico das últimas 24 horas foi às {hhmmText(peakAt)}, com {fmt(peak)} MW.

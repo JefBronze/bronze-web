@@ -2,8 +2,10 @@ import { b1Bill } from '@/lib/derive'
 import { baseRpm, emfLimitRpm, torqueParts, vPhaseMax } from '@/lib/emotor'
 import { EX5, EXAMPLE_PARAMS, evKwhPer100, KWH_PER_LEQ, MACHINE, SOURCES } from '@/lib/ev'
 import { brDate, dec, fmt, monthLabel, pct } from '@/lib/format'
+import { acChargeHours, POWERTRAIN_EXAMPLES, roadLoad, SERIES_ENGINE_KW } from '@/lib/powertrain'
 import type { Observatory } from '@/lib/observatory'
 import EMotor3D from '../emotor/EMotor3D'
+import Powertrain3D from '../powertrain/Powertrain3D'
 import { BRONZE_URL, Kicker, Lido, Metodo, ParaVoce } from '../ui'
 
 export default function Eletrico({ o }: { o: Observatory }) {
@@ -105,6 +107,14 @@ export default function Eletrico({ o }: { o: Observatory }) {
           </div>
         </div>
 
+        <div className="inst" style={{ marginTop: 40 }}>
+          <div className="instl">
+            <span>9d · o trem de força do EM-i · para onde vai a energia em cada modo</span>
+            <span>3D</span>
+          </div>
+          <Powertrain3D />
+        </div>
+
         <Metodo>
           <p>
             <b>Controle vetorial.</b> O inversor mede as correntes e o ângulo do rotor (resolver) e as leva ao referencial do rotor com as transformadas de Clarke (três
@@ -130,6 +140,15 @@ export default function Eletrico({ o }: { o: Observatory }) {
             parâmetros elétricos internos; aqui são valores de exemplo coerentes com o publicado: {EXAMPLE_PARAMS.join(', ')}. O fluxo do ímã (ψ<sub>f</sub> ={' '}
             {dec(MACHINE.psiF, 4)} Wb) é calibrado para que o MTPA no limite de corrente dê exatamente {EX5.motor.nm} N·m. O modelo 3D é um motor desse porte, modelado no
             Blender por script (<code>scripts/blender/emotor.py</code>).
+          </p>
+          <p>
+            <b>Trem de força (9d).</b> O EM-i é um híbrido série-paralelo: o gerador P1 fica no eixo do motor 1.5, o motor de tração P3 move as rodas por uma redução
+            fixa, e uma embreagem liga o motor 1.5 às rodas quando convém (modo paralelo). A potência pedida às rodas vem da dinâmica do carro: arrasto
+            ½·ρ·C<sub>x</sub>·A·v³ (C<sub>x</sub> {dec(EX5.cd, 3)}, publicado) mais rolamento C<sub>rr</sub>·m·g·v. A {100} km/h no plano dá {dec(roadLoad(100).total / 1000, 1)} kW, {pct(roadLoad(100).aero / roadLoad(100).total)} para
+            vencer o ar. A divisão da potência entre bateria, gerador e motor usa rendimentos típicos de cada etapa; no modo série, o motor 1.5 fica em{' '}
+            {SERIES_ENGINE_KW} kW, perto do seu melhor ponto, e o combustível é calculado com os {pct(EX5.engine.bte, 1)} anunciados para esse ponto (no uso real, é
+            mais). Recarga em CA de 0 a 100 %: cerca de {dec(acChargeHours(0, 100), 1)} h. Valores de exemplo: {POWERTRAIN_EXAMPLES.join(', ')}. A disposição das peças no 3D é
+            ilustrativa de um híbrido transversal de tração dianteira, com o entre-eixos (2 750 mm) e o tanque (60 L) publicados.
           </p>
           <p>
             <b>Consumo.</b> O Inmetro publica o modo elétrico em km/L equivalente: 1 litro de gasolina E22 = 28,99 MJ = {dec(KWH_PER_LEQ, 3)} kWh, medidos na tomada

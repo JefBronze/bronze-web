@@ -12,7 +12,8 @@
     "test": "vitest run",
     "snapshot": "python3 scripts/snapshot.py && python3 scripts/intermitentes.py && python3 scripts/usinas.py && python3 scripts/build_design_data.py",
     "model": "blender -b --factory-startup --python scripts/blender/motor.py && gltf-transform optimize .cache/motor-raw.glb public/models/motor.glb --compress false --texture-compress false --simplify false --instance false --join false --flatten false --palette false",
-    "model:emotor": "blender -b --factory-startup --python scripts/blender/emotor.py && gltf-transform optimize .cache/emotor-raw.glb public/models/emotor.glb --compress false --texture-compress false --simplify false --instance false --join false --flatten false --palette false"
+    "model:emotor": "blender -b --factory-startup --python scripts/blender/emotor.py && gltf-transform optimize .cache/emotor-raw.glb public/models/emotor.glb --compress false --texture-compress false --simplify false --instance false --join false --flatten false --palette false",
+    "model:powertrain": "blender -b --factory-startup --python scripts/blender/powertrain.py && gltf-transform optimize .cache/powertrain-raw.glb public/models/powertrain.glb --compress false --texture-compress false --simplify false --instance false --join false --flatten false --palette false"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

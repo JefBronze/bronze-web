@@ -1,3 +1,4 @@
+import Menu from '@/components/Menu'
 import ThemeToggle from '@/components/ThemeToggle'
 import Ticker, { type TickItem } from '@/components/Ticker'
 import Bastidores from '@/components/sections/Bastidores'
@@ -24,6 +25,22 @@ export const revalidate = 300
 
 const WHATSAPP = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '14389796085').replace(/\D/g, '')
 const SECTIONS = ['pulso', 'preco', 'pato', 'quem', 'mercado', 'petroleo', 'bomba', 'motor', 'eletrico', 'parana', 'fora', 'lab', 'bastidores']
+// Titles for the menu, in page order (same words as each section's kicker).
+const TITLES = [
+  'Pulso · ao vivo',
+  'O preço da energia no Brasil',
+  'A curva do pato',
+  'Quem gera',
+  'Mercado livre e geração distribuída',
+  'Petróleo, em reais',
+  'Na bomba',
+  'O motor por dentro',
+  'O motor elétrico por dentro',
+  'Demanda ociosa no Paraná',
+  'Lá fora',
+  'Laboratório OpenADR',
+  'Bastidores',
+]
 
 export default async function Page() {
   const o = await getObservatory()
@@ -127,7 +144,10 @@ export default async function Page() {
             </span>
             <span className="brandsub">observatório de energia</span>
           </a>
-          <ThemeToggle />
+          <span className="hdrr">
+            <Menu items={SECTIONS.map((id, i) => ({ id, title: TITLES[i] }))} />
+            <ThemeToggle />
+          </span>
         </div>
       </header>
       <div className="hoje" aria-label="Leituras de agora">

@@ -1,5 +1,5 @@
 'use client'
-// Section 9a: the traction motor and inverter in 3D, with the field-oriented-control instruments running in step:
+// Section 10a: the traction motor and inverter in 3D, with the field-oriented-control instruments running in step:
 // the space-vector hexagon (inverter states, voltage and current vectors, rotating d-q axes), the three phase currents
 // with the PWM pattern, and the torque–speed map with the operating point. Scene: ./scene.ts (loaded on demand).
 import { useEffect, useMemo, useRef, useState } from 'react'

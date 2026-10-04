@@ -50,6 +50,7 @@ export type Observatory = {
   gd: typeof snap.gd
   duckHist: typeof snap.duckHist
   curtail: typeof snap.curtail
+  mmgd: typeof snap.mmgd
   usinas: typeof snap.usinas
   gatilho: typeof snap.gatilho
 }
@@ -177,6 +178,7 @@ export async function getObservatory(now = new Date()): Promise<Observatory> {
     gd: snap.gd,
     duckHist: snap.duckHist,
     curtail: snap.curtail,
+    mmgd: snap.mmgd,
     usinas: snap.usinas,
     gatilho: snap.gatilho,
   }

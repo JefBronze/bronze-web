@@ -56,12 +56,20 @@ Valor do crédito perdido: tarifa homologada da distribuidora (REH) menos a parc
 
 Regra do site mantida: o que vem da ANEEL é montado em `scripts/build_design_data.py` e entra em `data/snapshot.json`; o navegador nunca fala com essas fontes. Os cortes do ONS podem ser buscados no servidor com cache diário, como a CMO.
 
-## O que precisa ser verificado antes de publicar
+## Verificação (fase 1, 03/10/2026)
 
-1. **O texto oficial das duas consultas.** Os números acima vêm de Agência iNFRA, Cenário Energia, TAGD e Canal Solar. O voto da ANEEL (processo 48500.002211/2026-10) não baixa por script. Ler a nota técnica da CP 33/2026 e a minuta da CP 9/2026 no navegador e citar artigo por artigo.
-2. **Se a CP 9/2026 prevê compensação** pela energia cortada. Se previr, a calculadora mostra a perda líquida; hoje nenhuma fonte diz.
-3. **Cobertura dos arquivos do ONS.** Uma contagem rápida do arquivo de outubro deu cerca de 4,2 GWh de solar cortado por sobra em 02/10, mas o arquivo parece cobrir só parte das usinas. Conferir contra o total que a seção 3 já mostra.
-4. **Datas dos acionamentos** do plano emergencial depois de 23/08/2026.
+| Item | Resultado |
+|---|---|
+| CP 33/2026, texto oficial | **Confirmado** no voto da diretora Agnes da Costa (processo 48500.002211/2026-10, 18ª Reunião Pública Ordinária de 2026): contribuições de 10/09 a 09/11/2026. A AIR recomenda aplicar os requisitos a todas as novas conexões e, no parque existente, às minigerações e às centrais Tipo III: cerca de 1,5 mil Tipo III (mais de 20 GW) e 68 mil minigerações, 1,6 % das unidades de MMGD mas mais de 13 GW (§ 69–70). Os requisitos são **funcionais e neutros em tecnologia**: o PRODIST não fixa protocolo (§ 28–29). A recomendação "não constitui, nesta etapa, decisão" (§ 68). |
+| Prazos de 4 e 6 meses para o parque existente | **Não estão no voto**; vêm da imprensa e devem estar na minuta. Ficam fora da página até serem lidos na minuta. |
+| CP 9/2026, mecanismo do corte e compensação | **Não verificado.** O documento oficial não foi encontrado: a notícia da ANEEL pede login, o portal de consultas antigo não existe mais, e a imprensa só repete o resumo (corte físico como último recurso, plano de gestão de excedentes, coordenação ONS–distribuidoras). Nenhuma fonte diz se a energia cortada seria compensada. A página trata o corte como hipótese e diz isso. Sem decisão da diretoria até 03/10/2026. |
+| Cobertura dos arquivos do ONS | **Resolvido.** A conta certa soma `val_geracaonaorealizadaapurada` de todas as usinas (como `scripts/intermitentes.py`): cerca de 1,5 TWh de solar cortado por ENE em setembro/2026, perto de 50 GWh por dia. A contagem rápida anterior (4 GWh) usou o método errado. |
+| Acionamentos do plano emergencial | 07/06/2026 (cerca de 1 GW, 10h–14h) e 23/08/2026 (11h–13h30), **os dois num domingo**. Nenhum outro encontrado até 03/10/2026. |
+| Relação de GD da ANEEL (6a) | **Bloqueado.** `dadosabertos.aneel.gov.br` não responde (nem por script, nem no navegador). 6a fica para quando o portal voltar; a calculadora não depende dele. |
+
+Consequências para a construção:
+- A calculadora não pede distribuidora: pede potência (kWp), região (perfil solar) e valor do crédito (R$/kWh, editável, pré-preenchido com o da Copel, R$ 0,639 em 2026).
+- O perfil solar vem do Open-Meteo (irradiância horária histórica, sem chave), uma cidade por subsistema, com fator de desempenho 0,80. É estimativa e a página diz.
 
 ## Cuidados
 

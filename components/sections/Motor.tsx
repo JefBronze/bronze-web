@@ -114,7 +114,7 @@ export default function Motor({ o }: { o: Observatory }) {
   return (
     <section className="sec" id="motor" aria-labelledby="motor-h">
       <div className="wrap">
-        <Kicker n={8}>O motor por dentro</Kicker>
+        <Kicker n={9}>O motor por dentro</Kicker>
         <h2 className="h2" id="motor-h">Do litro ao movimento: quatro tempos, e só um deles empurra o carro.</h2>
         <Lido>
           Dos R$ {dec(litro)} que o litro de gasolina custava em Curitiba em {mes}, entre R$ {dec(litro * WHEELS[1])} e R$ {dec(litro * WHEELS[2])} viram movimento nas
@@ -124,7 +124,7 @@ export default function Motor({ o }: { o: Observatory }) {
 
         <div className="inst">
           <div className="instl">
-            <span>8a · motor 1.0 em corte · 4 cilindros, 16 válvulas, comando duplo</span>
+            <span>9a · motor 1.0 em corte · 4 cilindros, 16 válvulas, comando duplo</span>
             <span>3D</span>
           </div>
           <Engine3D />
@@ -132,7 +132,7 @@ export default function Motor({ o }: { o: Observatory }) {
 
         <div className="inst" style={{ marginTop: 40 }}>
           <div className="instl">
-            <span>8b · os quatro tempos · duas voltas do virabrequim</span>
+            <span>9b · os quatro tempos · duas voltas do virabrequim</span>
             <span>esquema</span>
           </div>
           <svg className="svg" viewBox={`0 0 ${PW * 4} ${stripH}`} role="img" aria-label="Os quatro tempos: admissão, compressão, combustão e expansão, escape. Admissão à esquerda, escape à direita.">
@@ -149,7 +149,7 @@ export default function Motor({ o }: { o: Observatory }) {
 
         <div className="inst" style={{ marginTop: 40 }}>
           <div className="instl">
-            <span>8c · para onde vai a energia de um litro · carro a gasolina, uso misto</span>
+            <span>9c · para onde vai a energia de um litro · carro a gasolina, uso misto</span>
             <span>% da energia do combustível</span>
           </div>
           <div className="eflow">
@@ -169,8 +169,8 @@ export default function Motor({ o }: { o: Observatory }) {
           </div>
           <Metodo>
             <p>
-              8a é um motor 1.0 de exemplo, de quatro cilindros e 16 válvulas, modelado no Blender por script (<code>scripts/blender/motor.py</code>) e animado
-              no navegador com three.js. 8a e 8b usam a mesma geometria, calculada em <code>lib/engine.ts</code>: diâmetro de {dec(ENGINE.bore, 0)} mm, curso de{' '}
+              9a é um motor 1.0 de exemplo, de quatro cilindros e 16 válvulas, modelado no Blender por script (<code>scripts/blender/motor.py</code>) e animado
+              no navegador com three.js. 9a e 9b usam a mesma geometria, calculada em <code>lib/engine.ts</code>: diâmetro de {dec(ENGINE.bore, 0)} mm, curso de{' '}
               {dec(ENGINE.stroke, 1)} mm, biela de {ENGINE.rod} mm, taxa de compressão {ENGINE.r}:1, ordem de ignição 1-3-4-2. A posição de cada pistão sai da
               geometria biela-manivela; cada came está girado para abrir a sua válvula no ângulo certo. As válvulas abrem só no próprio tempo, sem o cruzamento
               que motores reais usam, e as partículas do gás são ilustrativas, para deixar o ciclo legível.
@@ -181,16 +181,16 @@ export default function Motor({ o }: { o: Observatory }) {
               rendimento do ciclo Otto ideal é 1 − 1/r<sup>γ−1</sup>; com r = {ENGINE.r} e γ = 1,4, dá {pct(ottoEfficiency)}.
             </p>
             <p>
-              8c usa a média de cidade e estrada do Departamento de Energia dos EUA para carros a gasolina convencionais; os números dependem do carro e do uso e
+              9c usa a média de cidade e estrada do Departamento de Energia dos EUA para carros a gasolina convencionais; os números dependem do carro e do uso e
               servem de ordem de grandeza. O valor em reais aplica a faixa &quot;chega às rodas&quot; à mediana do litro de gasolina comum em Curitiba no levantamento da ANP
-              de {mes} (seção 7).
+              de {mes} (seção 8).
             </p>
           </Metodo>
         </div>
 
         <div className="inst" style={{ marginTop: 40 }}>
           <div className="instl">
-            <span>8d · gasolina × etanol · energia em cada litro</span>
+            <span>9d · gasolina × etanol · energia em cada litro</span>
             <span>MJ por litro · Curitiba, {mes}</span>
           </div>
           <div className="eflow">
@@ -208,7 +208,7 @@ export default function Motor({ o }: { o: Observatory }) {
           </div>
           <p className="efnote">
             Um litro de etanol hidratado tem {pct(ratio)} da energia de um litro de gasolina C. Em Curitiba, em {mes}, o etanol custava {pct(priceRatio)} do preço
-            da gasolina: {priceRatio < ratio ? 'mais barato por unidade de energia' : 'mais caro por unidade de energia'}. A regra prática dos 70 % da seção 7 vem
+            da gasolina: {priceRatio < ratio ? 'mais barato por unidade de energia' : 'mais caro por unidade de energia'}. A regra prática dos 70 % da seção 8 vem
             desta conta; com a gasolina E{Math.round(blend * 100)} de hoje, a paridade de energia fica em {pct(ratio)}.
           </p>
           <div className="stamp">

@@ -32,7 +32,7 @@ export default function Eletrico({ o }: { o: Observatory }) {
   return (
     <section className="sec" id="eletrico" aria-labelledby="eletrico-h">
       <div className="wrap">
-        <Kicker n={9}>O motor elétrico por dentro</Kicker>
+        <Kicker n={10}>O motor elétrico por dentro</Kicker>
         <h2 className="h2" id="eletrico-h">Um híbrido plug-in aberto: como 400 volts viram {EX5.motor.nm} N·m.</h2>
         <Lido>
           O {EX5.name}, lançado no Brasil em {brDate(EX5.launch)} por R$ {fmt(EX5.price)}, anda {I.evRangeKm} km só com a bateria de {dec(EX5.battery.kwh, 1)} kWh, segundo o
@@ -42,7 +42,7 @@ export default function Eletrico({ o }: { o: Observatory }) {
 
         <div className="inst">
           <div className="instl">
-            <span>9a · motor de tração e inversor em corte · controle vetorial ao vivo</span>
+            <span>10a · motor de tração e inversor em corte · controle vetorial ao vivo</span>
             <span>3D</span>
           </div>
           <EMotor3D />
@@ -51,7 +51,7 @@ export default function Eletrico({ o }: { o: Observatory }) {
         <div className="g2e" style={{ marginTop: 40 }}>
           <div className="inst">
             <div className="instl">
-              <span>9b · o carro · de onde vem cada número</span>
+              <span>10b · o carro · de onde vem cada número</span>
               <span>fonte</span>
             </div>
             <dl className="emspec">
@@ -68,7 +68,7 @@ export default function Eletrico({ o }: { o: Observatory }) {
           </div>
           <div className="inst">
             <div className="instl">
-              <span>9c · quanto custa rodar 100 km · Curitiba</span>
+              <span>10c · quanto custa rodar 100 km · Curitiba</span>
               <span>R$</span>
             </div>
             <div className="eflow">
@@ -95,7 +95,7 @@ export default function Eletrico({ o }: { o: Observatory }) {
             </div>
             <p className="efnote">
               Na cidade, a mesma distância custa {pct(rows[0].ev / rows[0].gas)} na tomada do que na bomba. O motor elétrico chega a 98 % de eficiência no melhor ponto, segundo a Geely; o
-              motor a combustão deste carro anuncia {pct(EX5.engine.bte, 1)}, e um carro a gasolina comum leva 18 a 25 % da energia às rodas (seção 8).
+              motor a combustão deste carro anuncia {pct(EX5.engine.bte, 1)}, e um carro a gasolina comum leva 18 a 25 % da energia às rodas (seção 9).
             </p>
             <div className="stamp">
               <span>
@@ -126,14 +126,14 @@ export default function Eletrico({ o }: { o: Observatory }) {
             O ponto de operação mostrado é a menor corrente que entrega o torque pedido dentro do limite de corrente e de 95 % do limite de tensão.
           </p>
           <p>
-            <b>O que é dado e o que é exemplo.</b> Torque e potência do motor, bateria, recarga e consumo são publicados (9b). A Geely, como todo fabricante, não publica os
+            <b>O que é dado e o que é exemplo.</b> Torque e potência do motor, bateria, recarga e consumo são publicados (10b). A Geely, como todo fabricante, não publica os
             parâmetros elétricos internos; aqui são valores de exemplo coerentes com o publicado: {EXAMPLE_PARAMS.join(', ')}. O fluxo do ímã (ψ<sub>f</sub> ={' '}
             {dec(MACHINE.psiF, 4)} Wb) é calibrado para que o MTPA no limite de corrente dê exatamente {EX5.motor.nm} N·m. O modelo 3D é um motor desse porte, modelado no
             Blender por script (<code>scripts/blender/emotor.py</code>).
           </p>
           <p>
             <b>Consumo.</b> O Inmetro publica o modo elétrico em km/L equivalente: 1 litro de gasolina E22 = 28,99 MJ = {dec(KWH_PER_LEQ, 3)} kWh, medidos na tomada
-            (Portaria Inmetro nº 169/2023, Anexo E). Daí os {dec(rows[0].kwh, 1)} e {dec(rows[1].kwh, 1)} kWh/100 km de 9c, cálculo nosso. Os valores publicados já são
+            (Portaria Inmetro nº 169/2023, Anexo E). Daí os {dec(rows[0].kwh, 1)} e {dec(rows[1].kwh, 1)} kWh/100 km de 10c, cálculo nosso. Os valores publicados já são
             ajustados para uso real; que a coluna seja só do modo elétrico é inferência nossa (bate com os números, mas a tabela não diz). Os km/L na gasolina são com a
             gasolina de ensaio E22; a da bomba é E32.
           </p>

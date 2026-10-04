@@ -10,7 +10,7 @@ const W = Number(width)
 const H = 1100
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 const PORT = 9300 + Math.floor(Math.random() * 500)
-const SECTIONS = ['pulso', 'preco', 'pato', 'quem', 'mercado', 'petroleo', 'bomba', 'motor', 'eletrico', 'parana', 'fora', 'lab', 'bastidores']
+const SECTIONS = ['pulso', 'preco', 'pato', 'quem', 'mercado', 'minigeracao', 'petroleo', 'bomba', 'motor', 'eletrico', 'parana', 'fora', 'lab', 'bastidores']
 
 mkdirSync(out, { recursive: true })
 const chrome = spawn(CHROME, ['--headless=new', '--disable-gpu', '--hide-scrollbars', `--remote-debugging-port=${PORT}`, `--window-size=${W},${H}`, `--user-data-dir=/tmp/shoot-${PORT}`, 'about:blank'], { stdio: 'ignore' })

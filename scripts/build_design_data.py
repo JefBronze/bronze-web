@@ -126,6 +126,9 @@ data['gatilho'] = {
     'vu': {'verde': 27.48, 'amarela': 68.99, 'vermelha1': 95.05, 'vermelha2': 142.55},
     'proximo': '2026-10-30',  # ANEEL 2026 calendar: announcement of the November flag
 }
+# Section 6, "Minigeração sob controle": oversupply cuts per day and the exposure of a minigeração plant if it were cut
+# like utility-scale solar (scripts/minigeracao.py: ONS restrição + Open-Meteo irradiance).
+data['mmgd'] = json.load(open('data/minigeracao.json'))
 js = 'window.BRONZE2 = ' + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + ';\n'
 open('design/data2.js', 'w').write(js)
 print('design/data2.js', len(js), 'bytes')

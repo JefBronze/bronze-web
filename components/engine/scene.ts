@@ -1,4 +1,4 @@
-// The three.js side of section 7a. Imported dynamically by Engine3D.tsx, so three.js and the model only load
+// The three.js side of section 9a. Imported dynamically by Engine3D.tsx, so three.js and the model only load
 // when the visitor reaches the section. The model (public/models/motor.glb) is built by `npm run model` from
 // scripts/blender/motor.py; every motion here comes from lib/engine.ts and lib/engine-layout.json.
 // Coordinates: three.js, millimetres, X along the crank, Y up, Z toward the viewer (Blender's -Y).

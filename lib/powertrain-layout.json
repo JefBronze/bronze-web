@@ -1,0 +1,30 @@
+{
+  "_": "Layout of the EM-i powertrain model (mm, Blender axes: X forward, Y left, Z up; three.js: X, Y up, Z = -Y). Read by scripts/blender/powertrain.py and components/powertrain/*. Wheelbase and tank from Geely Brasil; the rest is an example layout of a transverse front-drive series-parallel hybrid.",
+  "wheelbase": 2750,
+  "track": 1620,
+  "wheelR": 359,
+  "tyreW": 235,
+  "engineAxis": [1250, 450],
+  "diffAxis": [1375, 359],
+  "p3Axis": [1060, 470],
+  "idlerAxis": [1220, 410],
+  "pinionR": 36,
+  "ringR": 119,
+  "p3PinionR": 32,
+  "idlerBigR": 139,
+  "idlerSmallR": 44,
+  "points": {
+    "tank": [-1140, 0, 320],
+    "engine": [1250, -180, 560],
+    "p1": [1250, 160, 450],
+    "edht": [1220, 300, 420],
+    "p3": [1060, 320, 470],
+    "diff": [1375, 300, 359],
+    "battery": [-250, 0, 230],
+    "batteryFront": [430, 300, 250],
+    "obc": [-1050, 450, 350],
+    "port": [-1650, 860, 800],
+    "wheelFL": [1375, 810, 359],
+    "wheelFR": [1375, -810, 359]
+  }
+}

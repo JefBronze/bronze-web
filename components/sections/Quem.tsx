@@ -217,21 +217,22 @@ export default function Quem({ o }: { o: Observatory }) {
     <section className="sec" id="quem" aria-labelledby="quem-h">
       <div className="wrap">
         <Kicker n={4}>Quem gera</Kicker>
-        <h2 className="h2" id="quem-h">As maiores usinas do país, o que geraram ontem, e as térmicas que ligam sem ser chamadas pelo preço.</h2>
+        <h2 className="h2" id="quem-h">De onde veio a energia ontem, por que as térmicas ligaram e o que decide a cor da bandeira.</h2>
         <Lido>
           {ontem && big.med !== null && idle ? (
             <>
-              Em {day(ontem)}, {big.nome} gerou em média {gw(big.med)} GW, {pct(big.med / big.mw)} da capacidade; {idle.nome}, {gw(idle.med!)} GW de {gw(idle.mw)}.{' '}
+              Em {day(ontem)}, {big.nome} gerou em média {gw(big.med)} GW, {pct(big.med / big.mw)} do que pode; {idle.nome} usou só {gw(idle.med!)} dos seus {gw(idle.mw)} GW.{' '}
             </>
           ) : null}
           {ts && (
             <>
-              As térmicas despachadas pelo ONS geraram {fmt(ts.total / 1000)} GWh: {pct(ts.byMotivo.inflex / ts.total)} por inflexibilidade e {pct(ts.byMotivo.merito / ts.total)} por ordem de custo
-              {ts.caras.length > 0 ? `; ${ts.caras.length} delas ligaram custando mais que o custo marginal do seu subsistema` : ''}.{' '}
+              As térmicas geraram {fmt(ts.total / 1000)} GWh. Desse total, {pct(ts.byMotivo.inflex / ts.total)} veio de usinas inflexíveis, que o dono declarou que precisam rodar por contrato de combustível ou limite técnico, seja qual for o preço; só {pct(ts.byMotivo.merito / ts.total)} veio de usinas ligadas por serem baratas o bastante
+              {ts.caras.length > 0 ? `. ${ts.caras.length} térmicas geraram custando mais que o custo marginal da sua região` : ''}.{' '}
             </>
           )}
-          Em {monthLabel(g.m)}, a bandeira é {FLAG_NAME[flag]}: GSF de {dec(g.gsf)} e PLD de R$ {fmt(g.pld)} dão{' '}
-          {gVu > 0 ? `R$ ${dec(gVu)}/MWh de custo de risco hidrológico` : 'custo de risco hidrológico zero'}, {flag === 'verde' ? `abaixo do limite de R$ ${dec(lim.verde)} da verde` : 'acima do limite da verde'}.
+          A bandeira de {monthLabel(g.m)} é {FLAG_NAME[flag]}. Ela sai de uma conta: com as hidrelétricas entregando {pct(g.gsf)} da sua garantia física (GSF) e o PLD a R$ {fmt(g.pld)},{' '}
+          {gVu > 0 ? `o custo do risco hidrológico ficou em R$ ${dec(gVu)}/MWh` : 'o custo do risco hidrológico ficou em zero'},{' '}
+          {flag === 'verde' ? `abaixo dos R$ ${dec(lim.verde)} que acionariam a amarela` : `acima dos R$ ${dec(lim.verde)} que encerram a verde`}.
         </Lido>
 
         <div className="g3">

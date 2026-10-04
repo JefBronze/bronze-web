@@ -5,6 +5,7 @@ import type { Observatory } from '@/lib/observatory'
 import { MOTIVOS } from '@/lib/sources/geracao'
 import type { Sub } from '@/lib/sources/ons'
 import MapaHover, { type PlantCard } from '../MapaHover'
+import FuelIcon, { FUEL_NAME, fuelOf, type Fuel } from '../FuelIcon'
 import { BRONZE_URL, Kicker, Lido, Metodo, ParaVoce, Stamp, Swatch } from '../ui'
 
 const TIPO_FILL: Record<string, string> = { hid: 'var(--c1)', eol: 'var(--c3)', sol: 'var(--sol)', ter: 'var(--c5)', nuc: 'var(--c5)', out: 'var(--c5)' }
@@ -210,6 +211,7 @@ export default function Quem({ o }: { o: Observatory }) {
     ['vermelha2', lim.vermelha1, null],
   ]
   const meses = o.gatilho.meses
+  const fuelsTop = ts ? [...new Set(ts.top.map((p) => fuelOf(p.comb)).filter((f): f is Fuel => f !== null))] : []
 
   return (
     <section className="sec" id="quem" aria-labelledby="quem-h">
@@ -316,6 +318,7 @@ export default function Quem({ o }: { o: Observatory }) {
                 {ts.top.map((p) => (
                   <li key={p.ceg || p.nome}>
                     <span className="rk-n">
+                      {fuelOf(p.comb) && <FuelIcon fuel={fuelOf(p.comb)!} />}
                       {p.nome} <i>{p.sub}</i>
                     </span>
                     <span className={ts.cmoMed && p.cvu !== null && p.cvu > (ts.cmoMed[p.sub as keyof typeof ts.cmoMed] ?? Infinity) ? 'rk-v hot' : 'rk-v'}>
@@ -331,6 +334,16 @@ export default function Quem({ o }: { o: Observatory }) {
                   </li>
                 ))}
               </ol>
+            )}
+            {ts && fuelsTop.length > 0 && (
+              <div className="legend">
+                {fuelsTop.map((f) => (
+                  <span key={f}>
+                    <FuelIcon fuel={f} />
+                    {FUEL_NAME[f]}
+                  </span>
+                ))}
+              </div>
             )}
             <Stamp status={o.status.cvu} source="ONS · CVU_USINA_TERMICA" when={o.cvu ? `${day(o.cvu.from)}–${day(o.cvu.to)}` : '—'} cadence="semanal">
               {ts?.cmoMed && <span>em vermelho: CVU acima do custo marginal médio do subsistema no mesmo dia, {day(ts.day)}</span>}

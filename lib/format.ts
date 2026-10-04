@@ -15,7 +15,7 @@ export function dec(n: number, digits = 2): string {
 }
 
 export function pct(share: number, digits = 0): string {
-  return `${dec(share * 100, digits)} %`
+  return `${dec(share * 100, digits)}${NBSP}%`
 }
 
 const BRT = 'America/Sao_Paulo'

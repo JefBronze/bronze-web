@@ -10,19 +10,23 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "snapshot": "python3 scripts/snapshot.py && python3 scripts/intermitentes.py && python3 scripts/usinas.py && python3 scripts/build_design_data.py"
+    "snapshot": "python3 scripts/snapshot.py && python3 scripts/intermitentes.py && python3 scripts/usinas.py && python3 scripts/build_design_data.py",
+    "model": "blender -b --factory-startup --python scripts/blender/motor.py && gltf-transform optimize .cache/motor-raw.glb public/models/motor.glb --compress false --texture-compress false --simplify false --instance false --join false --flatten false --palette false"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "next": "^16.2.6",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "three": "^0.186.1"
   },
   "devDependencies": {
+    "@gltf-transform/cli": "^4.5.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.186.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
     "typescript": "^5",

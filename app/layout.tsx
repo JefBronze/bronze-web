@@ -14,7 +14,7 @@ const mono = Fragment_Mono({ subsets: ['latin'], weight: ['400'], variable: '--f
 const SITE_URL = 'https://data-joule.com'
 const TITLE = 'Data Joule — a energia do Brasil, em tempo real'
 const DESCRIPTION =
-  'Instrumentos ligados a dados públicos do setor elétrico e de combustíveis no Brasil: carga do SIN, custo marginal, três faturas de um mesmo MWh, a curva do pato e os cortes de eólica e solar, o mapa das maiores usinas e as térmicas despachadas, mercado livre e geração distribuída, petróleo em reais e preços na bomba. Um projeto da Bronze Engenharia de Energia, CREA-PR 194835/D.'
+  'Instrumentos ligados a dados públicos do setor elétrico e de combustíveis no Brasil: carga do SIN, custo marginal, três faturas de um mesmo MWh, a curva do pato e os cortes de eólica e solar, o mapa das maiores usinas e as térmicas despachadas, mercado livre e geração distribuída, petróleo em reais, preços na bomba e um motor a combustão em 3D. Um projeto da Bronze Engenharia de Energia, CREA-PR 194835/D.'
 
 export const viewport: Viewport = {
   themeColor: [

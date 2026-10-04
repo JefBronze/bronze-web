@@ -1,4 +1,4 @@
-// Section 9a, the three.js side: the traction motor cut through the middle of the stack, and its inverter.
+// Section 10a, the three.js side: the traction motor cut through the middle of the stack, and its inverter.
 // Imported dynamically by EMotor3D.tsx. Model: public/models/emotor.glb (npm run model:emotor). Every colour and motion is
 // computed from lib/emotor.ts: the rotor angle sets the d axis, the controller places the current vector, the three phase
 // currents follow, each slot glows with its phase's current, and space-vector PWM drives the six switches.

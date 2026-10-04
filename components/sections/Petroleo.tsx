@@ -31,7 +31,7 @@ export default function Petroleo({ o }: { o: Observatory }) {
   return (
     <section className="sec" id="petroleo" aria-labelledby="petroleo-h">
       <div className="wrap">
-        <Kicker n={6}>Petróleo, em reais</Kicker>
+        <Kicker n={7}>Petróleo, em reais</Kicker>
         <h2 className="h2" id="petroleo-h">O barril entra em dólar e sai na bomba em real — e o que o mercado aposta para o mês.</h2>
         <p className="lede">O preço do combustível no Brasil começa aqui: Brent vezes dólar. Dois mercados de previsão apostam dinheiro em patamares do petróleo; fazem perguntas diferentes — e é por isso que ficam em dois painéis.</p>
         <Lido>
@@ -126,7 +126,7 @@ export default function Petroleo({ o }: { o: Observatory }) {
           Kalshi: contratos &quot;WTI acima de X no fechamento&quot; do vencimento mais próximo; usamos o ponto médio bid/ask de cada strike, forçamos a curva a ser decrescente (ajuste isotônico) e lemos mediana e faixa de 80 % onde ela cruza 0,5, 0,9 e 0,1. Polymarket: contratos &quot;WTI toca X no mês&quot; para cima (HIGH) e para baixo (LOW); é probabilidade de toque, não distribuição do fechamento — por isso não se sobrepõe à curva do Kalshi. Spot: FRED, diário, com alguns dias de atraso; dólar: PTAX de venda do Banco Central, diário; 1 barril = {dec(BBL_LITERS, 3)} L. O &quot;Brent em reais&quot; é petróleo cru — a paridade de importação que o mercado acompanha usa gasolina e diesel prontos. Defasagem: cálculo da Abicom de {brDate(o.litro.paridade.data)}, conforme divulgado pela imprensa (o site da Abicom não permite leitura automática); atualizada à mão. Dados informativos; não é recomendação de investimento.
         </Metodo>
         <ParaVoce>
-          Dono de posto ou gestor de frota: quando o Brent em reais sobe e o preço de refinaria da Petrobras fica parado, abre-se a defasagem — e cresce a chance de reajuste. Em {brDate(o.litro.paridade.data)}, a Abicom calculava a Petrobras R$ {dec(o.litro.paridade.gasolina.rl)}/L abaixo da paridade de importação na gasolina ({o.litro.paridade.gasolina.pct} %) e R$ {dec(o.litro.paridade.diesel.rl)}/L no diesel ({o.litro.paridade.diesel.pct} %). A seção 7 mostra onde isso cai no litro.
+          Dono de posto ou gestor de frota: quando o Brent em reais sobe e o preço de refinaria da Petrobras fica parado, abre-se a defasagem — e cresce a chance de reajuste. Em {brDate(o.litro.paridade.data)}, a Abicom calculava a Petrobras R$ {dec(o.litro.paridade.gasolina.rl)}/L abaixo da paridade de importação na gasolina ({o.litro.paridade.gasolina.pct} %) e R$ {dec(o.litro.paridade.diesel.rl)}/L no diesel ({o.litro.paridade.diesel.pct} %). A seção 8 mostra onde isso cai no litro.
         </ParaVoce>
       </div>
     </section>

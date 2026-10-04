@@ -6,6 +6,7 @@ import Bomba from '@/components/sections/Bomba'
 import Fora from '@/components/sections/Fora'
 import Lab from '@/components/sections/Lab'
 import Mercado from '@/components/sections/Mercado'
+import Mini from '@/components/sections/Mini'
 import Motor from '@/components/sections/Motor'
 import Eletrico from '@/components/sections/Eletrico'
 import Parana from '@/components/sections/Parana'
@@ -24,7 +25,7 @@ import { getObservatory } from '@/lib/observatory'
 export const revalidate = 300
 
 const WHATSAPP = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '14389796085').replace(/\D/g, '')
-const SECTIONS = ['pulso', 'preco', 'pato', 'quem', 'mercado', 'petroleo', 'bomba', 'motor', 'eletrico', 'parana', 'fora', 'lab', 'bastidores']
+const SECTIONS = ['pulso', 'preco', 'pato', 'quem', 'mercado', 'minigeracao', 'petroleo', 'bomba', 'motor', 'eletrico', 'parana', 'fora', 'lab', 'bastidores']
 // Titles for the menu, in page order (same words as each section's kicker).
 const TITLES = [
   'Pulso · ao vivo',
@@ -32,6 +33,7 @@ const TITLES = [
   'A curva do pato',
   'Quem gera',
   'Mercado livre e geração distribuída',
+  'Minigeração sob controle',
   'Petróleo, em reais',
   'Na bomba',
   'O motor por dentro',
@@ -166,6 +168,7 @@ export default async function Page() {
         <Pato o={o} />
         <Quem o={o} />
         <Mercado o={o} />
+        <Mini o={o} />
         <Petroleo o={o} />
         <Bomba o={o} />
         <Motor o={o} />

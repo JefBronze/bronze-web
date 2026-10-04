@@ -259,3 +259,39 @@ export type Gatilho = Observatory['gatilho']['meses'][number]
 export function vu(g: Pick<Gatilho, 'gsf' | 'pld'>): number {
   return g.pld * (1 - g.gsf)
 }
+
+// ---------- minigeração under control (section 6) ---------------------------------------------------------
+
+export type MmgdRegiao = keyof Observatory['mmgd']['regioes']
+
+/** Copel B1 credit for injected energy in the current year, R$/kWh: TE + the credited share of the TUSD (Lei 14.300). */
+export function copelCredit(o: Observatory): number {
+  return o.b1.te + o.b1.tusd * o.gd.copelB1.credTusd2026
+}
+
+/** Facts the section states in words: how often the ONS cut wind/solar for oversupply, when, and what a minigeração
+ *  plant would lose if it were cut like utility-scale solar. */
+export function mmgdStats(o: Observatory) {
+  const { days, regioes, emergencias } = o.mmgd
+  const cutDays = days.filter((d) => d.mwh > 0)
+  const byWeekday = Array.from({ length: 7 }, () => ({ mwh: 0, n: 0 })) // 0 = Monday
+  for (const d of days) {
+    const wd = (new Date(`${d.d}T12:00:00Z`).getUTCDay() + 6) % 7
+    byWeekday[wd].mwh += d.mwh
+    byWeekday[wd].n += 1
+  }
+  const avg = byWeekday.map((w) => w.mwh / Math.max(1, w.n))
+  const weekdayAvg = avg.slice(0, 5).reduce((a, b) => a + b, 0) / 5
+  const worst = days.reduce((a, b) => (b.mwh > a.mwh ? b : a), days[0])
+  const se = regioes.SE
+  return {
+    nDays: days.length,
+    cutDays: cutDays.length,
+    totalGWh: days.reduce((a, d) => a + d.mwh, 0) / 1000,
+    sundayX: avg[6] / weekdayAvg, // a Sunday cuts this many times an average weekday
+    worst,
+    emergencias,
+    se,
+    shareSE: se.prorata / se.anual,
+  }
+}

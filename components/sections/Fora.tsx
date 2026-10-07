@@ -52,7 +52,7 @@ export default function Fora({ o }: { o: Observatory }) {
       <div className="wrap">
         <Kicker n={12}>Lá fora</Kicker>
         <h2 className="h2" id="fora-h">O que outras redes fazem com o mesmo problema.</h2>
-        <p className="lede">Duas referências que o laboratório escuta: o Québec, que atravessa a ponta de inverno pagando o consumidor para reduzir carga, e a Califórnia, que atravessa o pôr do sol com baterias.</p>
+        <p className="lede">Duas referências de fora: o Québec, que atravessa a ponta de inverno pagando o consumidor para reduzir carga, e a Califórnia, que atravessa o pôr do sol com baterias.</p>
         <Lido>
           A Hydro-Québec pedia {fmt(hq.now)} MW às {hhmmText(hq.asOf, MTL)} de Montréal — o Brasil pede {dec(o.carga.sinNow / hq.now, 1)} vezes isso, mas o Québec passa de 40 GW nos dias mais frios do inverno. Na Califórnia, às {c.time[last].replace(':', 'h')},{' '}
           {bat >= 0 ? `as baterias entregavam ${gw(bat)} GW${bat > hydroNuc ? ' — mais do que a hidrelétrica e a nuclear juntas' : ''}.` : `as baterias carregavam ${gw(-bat)} GW.`}
@@ -79,7 +79,7 @@ export default function Fora({ o }: { o: Observatory }) {
             <Stamp status={o.status.hq} source="Hydro-Québec demande" when={`${hhmm(hq.asOf, MTL)} Montréal`} cadence="15 min">
               <span className="badge">{hq.lastPeak ? `sem evento de ponta · último em ${brDate(hq.lastPeak)}` : 'sem evento de ponta'}</span>
             </Stamp>
-            <Metodo>Demanda total (donnees.hydroquebec.com), de 15 em 15 minutos. Os eventos de ponta (dezembro a março) são publicados no mesmo portal e disparam a resposta da demanda do laboratório (seção 13).</Metodo>
+            <Metodo>Demanda total (donnees.hydroquebec.com), de 15 em 15 minutos. Os eventos de ponta (dezembro a março) são publicados no mesmo portal e são o sinal dos programas de resposta da demanda da Hydro-Québec, como os desafios da Hilo (seção 13).</Metodo>
           </div>
           <div className="inst">
             <div className="instl">

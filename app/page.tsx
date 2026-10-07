@@ -4,7 +4,6 @@ import Ticker, { type TickItem } from '@/components/Ticker'
 import Bastidores from '@/components/sections/Bastidores'
 import Bomba from '@/components/sections/Bomba'
 import Fora from '@/components/sections/Fora'
-import Lab from '@/components/sections/Lab'
 import Mercado from '@/components/sections/Mercado'
 import Mini from '@/components/sections/Mini'
 import Parana from '@/components/sections/Parana'
@@ -12,6 +11,7 @@ import Pato from '@/components/sections/Pato'
 import Quem from '@/components/sections/Quem'
 import Petroleo from '@/components/sections/Petroleo'
 import Preco from '@/components/sections/Preco'
+import Tendencias from '@/components/sections/Tendencias'
 import Pulso from '@/components/sections/Pulso'
 import Link from 'next/link'
 import { BRONZE_URL } from '@/components/ui'
@@ -23,7 +23,7 @@ import { getObservatory } from '@/lib/observatory'
 export const revalidate = 300
 
 const WHATSAPP = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '14389796085').replace(/\D/g, '')
-const SECTIONS = ['pulso', 'preco', 'pato', 'quem', 'mercado', 'minigeracao', 'petroleo', 'bomba', 'parana', 'fora', 'lab', 'bastidores']
+const SECTIONS = ['pulso', 'preco', 'pato', 'quem', 'mercado', 'minigeracao', 'petroleo', 'bomba', 'parana', 'fora', 'tendencias', 'bastidores']
 // Titles for the menu, in page order (same words as each section's kicker).
 const TITLES = [
   'Pulso · ao vivo',
@@ -36,7 +36,7 @@ const TITLES = [
   'Na bomba',
   'Demanda ociosa no Paraná',
   'Lá fora',
-  'Laboratório OpenADR',
+  'Tendências',
   'Bastidores',
 ]
 
@@ -169,7 +169,7 @@ export default async function Page() {
         <Bomba o={o} />
         <Parana o={o} />
         <Fora o={o} />
-        <Lab o={o} />
+        <Tendencias o={o} />
         <Bastidores o={o} />
       </main>
       <footer className="foot wrap">

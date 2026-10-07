@@ -67,7 +67,7 @@ export default function Bastidores({ o }: { o: Observatory }) {
           </div>
         </div>
         <p className="why">
-          Curitiba e Montréal: a engenharia é do Paraná, registrada no CREA-PR, com clientes de média tensão e as bases da ANEEL e da Copel que alimentam este site. O laboratório fica em Montréal, onde a Hydro-Québec e a Hilo publicam demanda e eventos de ponta em tempo quase real, o que permite testar resposta da demanda com sinais de verdade.
+          Curitiba e Montréal: a engenharia é do Paraná, registrada no CREA-PR, com clientes de média tensão e as bases da ANEEL e da Copel que alimentam este site. Montréal é a outra base: lá a Hydro-Québec e a Hilo publicam demanda e eventos de ponta em tempo quase real, a referência para a resposta da demanda que o Brasil ainda vai construir.
         </p>
       </div>
     </section>

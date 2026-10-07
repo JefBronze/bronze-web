@@ -47,7 +47,7 @@ export default function Lab({ o }: { o: Observatory }) {
           </div>
         </div>
         <div>
-          <Kicker n={13}>Laboratório OpenADR</Kicker>
+          <Kicker n={11}>Laboratório OpenADR</Kicker>
           <h2 className="h2" id="lab-h">Computação consegue reduzir carga a um sinal da rede?</h2>
           <p className="lede">OpenADR é o padrão aberto da resposta da demanda: a rede avisa que vem um pico, e os equipamentos que escutam o aviso reduzem consumo sozinhos. No laboratório em Montréal, um nó de inferência de IA recebe esses avisos e desacelera em degraus, com a potência medida na tomada.</p>
           <Lido label="Medido">

@@ -7,8 +7,6 @@ import Fora from '@/components/sections/Fora'
 import Lab from '@/components/sections/Lab'
 import Mercado from '@/components/sections/Mercado'
 import Mini from '@/components/sections/Mini'
-import Motor from '@/components/sections/Motor'
-import Eletrico from '@/components/sections/Eletrico'
 import Parana from '@/components/sections/Parana'
 import Pato from '@/components/sections/Pato'
 import Quem from '@/components/sections/Quem'
@@ -25,7 +23,7 @@ import { getObservatory } from '@/lib/observatory'
 export const revalidate = 300
 
 const WHATSAPP = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '14389796085').replace(/\D/g, '')
-const SECTIONS = ['pulso', 'preco', 'pato', 'quem', 'mercado', 'minigeracao', 'petroleo', 'bomba', 'motor', 'eletrico', 'parana', 'fora', 'lab', 'bastidores']
+const SECTIONS = ['pulso', 'preco', 'pato', 'quem', 'mercado', 'minigeracao', 'petroleo', 'bomba', 'parana', 'fora', 'lab', 'bastidores']
 // Titles for the menu, in page order (same words as each section's kicker).
 const TITLES = [
   'Pulso · ao vivo',
@@ -36,8 +34,6 @@ const TITLES = [
   'Minigeração sob controle',
   'Petróleo, em reais',
   'Na bomba',
-  'O motor por dentro',
-  'O motor elétrico por dentro',
   'Demanda ociosa no Paraná',
   'Lá fora',
   'Laboratório OpenADR',
@@ -171,8 +167,6 @@ export default async function Page() {
         <Mini o={o} />
         <Petroleo o={o} />
         <Bomba o={o} />
-        <Motor o={o} />
-        <Eletrico o={o} />
         <Parana o={o} />
         <Fora o={o} />
         <Lab o={o} />

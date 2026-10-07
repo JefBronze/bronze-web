@@ -2203,32 +2203,6 @@
    }
   ]
  },
- "lab": {
-  "tiers": [
-   [
-    "T0",
-    10.5
-   ],
-   [
-    "T1",
-    9.0
-   ],
-   [
-    "T2",
-    7.1
-   ],
-   [
-    "T3",
-    3.8
-   ],
-   [
-    "T4",
-    0.2
-   ]
-  ],
-  "restoreS": 55,
-  "nota": "degraus a partir de medições pontuais; sem série temporal gravada"
- },
  "fuel": {
   "month": "08/2026",
   "curitiba": {

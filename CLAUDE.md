@@ -30,7 +30,7 @@ node scripts/shoot.mjs http://127.0.0.1:3000/ <out-dir> [light|dark] [width]   #
 ## Data rules
 
 - Unverified constants carry a red `<Todo>` tag on the page ("a confirmar"). Remove the tag only when the value is checked against its primary source.
-- Build-time datasets (ANP fuel, BDGD, CCEE/ABGD numbers, Copel tariffs, lab tiers) live in `data/snapshot.json`, produced by `scripts/build_design_data.py`. Edit the script, not the JSON.
+- Build-time datasets (ANP fuel, BDGD, CCEE/ABGD numbers, Copel tariffs) live in `data/snapshot.json`, produced by `scripts/build_design_data.py`. Edit the script, not the JSON.
 - CMO and balanço: request only the tail of the yearly CSV (`Range: bytes=-40000`); the whole file passes Next's 2 MB fetch-cache limit late in the year.
 - Energia Agora (`tr.ons.org.br`): load includes rooftop solar (MMGD) but the solar series does not, and there is no MMGD series — only the current value in `GetBalancoEnergetico`. Today's MMGD curve is estimated (plant-solar profile × the measured ratio) and the page says so. Without a fallback: if it fails, 3a shows only the full day.
 - Per-plant generation and thermal dispatch by reason (`lib/sources/geracao.ts`): monthly ONS files that grow ~2.3 MB and ~1.1 MB a day. `getTail` in `http.ts` reads the end of the file in chunks under Next's 2 MB cache limit; early in a month it falls back to last month's file. Plants are joined by CEG (Itaipu's two halves share one); the CVU joins by `cod_usinaplanejamento`. Thermal reasons that add up to verified generation: ordem de mérito acima da inflexibilidade, inflexibilidade, razão elétrica, garantia energética + GFOM, unit commitment, and the rest (do not add `val_verifordemmerito`, it already contains inflexibility).

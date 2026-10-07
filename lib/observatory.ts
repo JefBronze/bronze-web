@@ -43,7 +43,6 @@ export type Observatory = {
   b1: typeof snap.b1
   a4: typeof snap.a4
   bdgd: typeof snap.bdgd
-  lab: typeof snap.lab
   fuel: typeof snap.fuel
   litro: typeof snap.litro
   acl: typeof snap.acl
@@ -171,7 +170,6 @@ export async function getObservatory(now = new Date()): Promise<Observatory> {
     b1: snap.b1,
     a4: snap.a4,
     bdgd: snap.bdgd,
-    lab: snap.lab,
     fuel: snap.fuel,
     litro: snap.litro,
     acl: snap.acl,

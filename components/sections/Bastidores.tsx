@@ -33,7 +33,7 @@ export default function Bastidores({ o }: { o: Observatory }) {
   return (
     <section className="sec" id="bastidores" aria-labelledby="bastidores-h">
       <div className="wrap">
-        <Kicker n={14}>Bastidores</Kicker>
+        <Kicker n={12}>Bastidores</Kicker>
         <h2 className="h2" id="bastidores-h">De onde vêm os números.</h2>
         <div className="colo">
           <div>

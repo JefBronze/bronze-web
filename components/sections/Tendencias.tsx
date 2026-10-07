@@ -71,7 +71,7 @@ export default function Tendencias({ o }: { o: Observatory }) {
         </>
       ),
       href: '#fora',
-      ver: 'seção 12',
+      ver: 'seção 10',
     },
     {
       tag: 'Tendência · armazenamento',
@@ -90,7 +90,7 @@ export default function Tendencias({ o }: { o: Observatory }) {
   return (
     <section className="sec" id="tendencias" aria-labelledby="tendencias-h">
       <div className="wrap">
-        <Kicker n={13}>Tendências</Kicker>
+        <Kicker n={11}>Tendências</Kicker>
         <h2 className="h2" id="tendencias-h">Para onde vai o setor elétrico brasileiro.</h2>
         <p className="lede">Seis mudanças em andamento, do jeito que a CCEE, a ANEEL e o ONS estão tratando. Onde há número, ele vem dos dados desta página.</p>
         <Lido>

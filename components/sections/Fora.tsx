@@ -50,7 +50,7 @@ export default function Fora({ o }: { o: Observatory }) {
   return (
     <section className="sec" id="fora" aria-labelledby="fora-h">
       <div className="wrap">
-        <Kicker n={12}>Lá fora</Kicker>
+        <Kicker n={10}>Lá fora</Kicker>
         <h2 className="h2" id="fora-h">O que outras redes fazem com o mesmo problema.</h2>
         <p className="lede">Duas referências de fora: o Québec, que atravessa a ponta de inverno pagando o consumidor para reduzir carga, e a Califórnia, que atravessa o pôr do sol com baterias.</p>
         <Lido>
@@ -79,7 +79,7 @@ export default function Fora({ o }: { o: Observatory }) {
             <Stamp status={o.status.hq} source="Hydro-Québec demande" when={`${hhmm(hq.asOf, MTL)} Montréal`} cadence="15 min">
               <span className="badge">{hq.lastPeak ? `sem evento de ponta · último em ${brDate(hq.lastPeak)}` : 'sem evento de ponta'}</span>
             </Stamp>
-            <Metodo>Demanda total (donnees.hydroquebec.com), de 15 em 15 minutos. Os eventos de ponta (dezembro a março) são publicados no mesmo portal e são o sinal dos programas de resposta da demanda da Hydro-Québec, como os desafios da Hilo (seção 13).</Metodo>
+            <Metodo>Demanda total (donnees.hydroquebec.com), de 15 em 15 minutos. Os eventos de ponta (dezembro a março) são publicados no mesmo portal e são o sinal dos programas de resposta da demanda da Hydro-Québec, como os desafios da Hilo (seção 11).</Metodo>
           </div>
           <div className="inst">
             <div className="instl">

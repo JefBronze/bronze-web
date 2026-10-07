@@ -43,7 +43,6 @@ A v1 põe na mesma curva dois objetos diferentes. Corrigir sem perder a ideia:
 - Bandas empilhadas do dia (CAISO), eixo em hora local da Califórnia; marcador "agora"; participação renovável como número, não como dial decorativo.
 - *Lido hoje:* "Às 19h35 na Califórnia, as baterias entregavam 10 GW — mais do que a hidrelétrica e a nuclear juntas."
 - Alternador CAISO / NYISO como duas abas de texto, não ícones.
-- Para você (sutil): "Esse mesmo tipo de sinal é o que o nosso laboratório OpenADR escuta (seção 7)."
 
 ### Seção 4 · O preço da energia no Brasil
 - Nomear corretamente: **CMO** (ONS, modelo DESSEM) com a faixa piso–teto do **PLD** desenhada atrás e a legenda "PLD = CMO limitado pela faixa; o oficial é da CCEE". O especialista relaxa; o comprador entende a faixa.
@@ -62,18 +61,16 @@ A v1 põe na mesma curva dois objetos diferentes. Corrigir sem perder a ideia:
 - Beeswarm por setor com a mediana de cada setor e a linha de 16 % do estado; filtro por setor; *Lido hoje:* "Escolas deixam 30 % da demanda contratada sem uso; hospitais, 21 %."
 - Método: BDGD 2025 Copel, 11 780 unidades A4 com 12 meses, REH 3.472/2025, definição de "ociosa".
 
-### Seção 7 · Laboratório OpenADR
-- Replay com scrubber (teclado: ← → espaço), escala W; marcadores T1/T2/T3 e o retorno em 55 s; abaixo, a lista dos sinais que o VEN escuta (HQ, ONS, NYISO, CAISO, ISO-NE) com um ponto que acende quando a seção 1 ou 3 mostra o mesmo sinal.
-- Método: hardware, OpenADR 3.0, medição por tomada inteligente, código aberto (Apache 2.0).
+_(Seção do laboratório OpenADR removida em out/2026: o laboratório em Montréal foi desligado.)_
 
 ### Seção 8 · Bastidores
 - Três colunas (método · orçamento · fontes) ficam; acrescentar **"código deste gráfico"** em cada seção (link para o arquivo no repositório) e uma linha "verificado em" com a data da última execução do CI.
-- Rodapé: identidade, CREA, cidades, WhatsApp, e-mail, privacidade, Data Joule. Uma frase, antes do rodapé, que responde "por que Curitiba e Montréal": *"Engenharia registrada no Paraná; laboratório em Montréal."*
+- Rodapé: identidade, CREA, cidades, WhatsApp, e-mail, privacidade, Data Joule. Uma frase, antes do rodapé, que responde "por que Curitiba e Montréal": *"Engenharia registrada no Paraná; segunda base em Montréal."*
 
 ### Tipografia, cor, movimento
 - Escala modular fixa: 12 · 13 · 14 · 17 · 20 · 26 · 36 · 56 px. Itálico serifa só para "lido hoje". Mono só para números, código e carimbos.
 - Cores de dados (claro / escuro): petróleo `#1F5F6B`/`#6FB3BF` (Brasil, Kalshi), ocre `#8A6A2B`/`#D1A85A` (Québec, Polymarket), cinza-tinta para spot; terracota `#B5561A` reservado ao link da Data Joule. Verificar 4,5:1 nos dois temas.
-- Movimento: só o ponto "ao vivo" pulsa (2 s) e o replay do laboratório roda; tudo desligado em `prefers-reduced-motion`.
+- Movimento: só o ponto "ao vivo" pulsa (2 s); tudo desligado em `prefers-reduced-motion`.
 
 ### Celular (360 px)
 - Faixa "Hoje" rola na horizontal; trilho de leitura some; cada instrumento mostra uma série por vez com alternador de texto; números grandes primeiro, gráfico depois; "método" recolhido.

@@ -15,7 +15,7 @@ Público: parceiros técnicos (distribuidoras, GEDISA, LF Energy, Hydro-Québec)
 - Painel de instrumentos encontra revista impressa. Sóbrio, numérico, tipográfico.
 - Nenhuma foto de banco de imagens, nenhum ícone genérico, nenhum gradiente decorativo. A informação é o ornamento.
 - Os gráficos são desenhados à mão em SVG (sem biblioteca de gráficos). Linhas finas, eixos discretos, anotações em texto direto no gráfico, números tabulares.
-- Movimento só quando carrega significado (o traço "ao vivo" avança; o replay do laboratório roda). Respeita `prefers-reduced-motion`.
+- Movimento só quando carrega significado (o traço "ao vivo" avança). Respeita `prefers-reduced-motion`.
 - Cada bloco ao vivo tem um rodapé pequeno: `Fonte · última leitura HH:MM · atualiza a cada N min`. Quando a fonte cai: `sem sinal · última leitura às HH:MM` — nunca um bloco vazio.
 
 ## Tipografia e cor
@@ -71,10 +71,7 @@ Pergunta: *quanta demanda contratada fica sem uso?*
 Dados: BDGD/Copel 2025, 11 780 unidades A4 (estático).
 Visual: beeswarm em canvas por setor, filtro por setor. Números: **16 %** da demanda de ponta sem uso; **R$ 122 milhões/ano**; educação 30 %, hospitais 21 %.
 
-### 7 · Laboratório OpenADR
-Pergunta: *computação consegue reduzir carga a um sinal da rede?*
-Dados: traço gravado de um evento real (W × t, níveis T1–T3) do laboratório em Montréal (estático).
-Visual: replay com scrubber: ~10–14 W → ~0 W no nível máximo, retorno em 55 s. Marcas dos sinais (Hydro-Québec, ONS, NYISO, CAISO, ISO-NE) e OCPP.
+_(Seção do laboratório OpenADR removida em out/2026: o laboratório em Montréal foi desligado.)_
 
 ### 8 · Bastidores
 Pergunta: *como isto é feito?*

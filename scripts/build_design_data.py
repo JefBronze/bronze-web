@@ -1,7 +1,7 @@
 """Build design/data2.js — everything the Direção A v2 mock-up renders — from verified inputs.
 
 Inputs: design-data.json (live snapshot), data/fuel-2026-08.json (ANP aggregate), and constants cited inline
-from Data-Joule/urpx and Data-Joule/auditoria-fatura (REH 3.472/2025) and the lab README.
+from Data-Joule/urpx and Data-Joule/auditoria-fatura (REH 3.472/2025).
 """
 import json
 
@@ -73,8 +73,6 @@ data = {
              'sectors': [{'n': 'Educação', 'u': 468, 'idle': 0.296, 'brl': 6.0e6}, {'n': 'Hospitais', 'u': 241, 'idle': 0.206, 'brl': 2.5e6},
                          {'n': 'Todas A4', 'u': 11780, 'idle': 0.164, 'brl': 122.6e6}, {'n': 'Varejo', 'u': 1581, 'idle': 0.127, 'brl': 12.7e6},
                          {'n': 'Supermercados', 'u': 870, 'idle': 0.117, 'brl': 8.6e6}, {'n': 'Indústria', 'u': 3722, 'idle': 0.111, 'brl': 40.8e6}]},
-    # Lab tiers: point measurements 2026-06-06 (data-joule README:58-76, Strategy:1142); restore 55 s.
-    'lab': {'tiers': [['T0', 10.5], ['T1', 9.0], ['T2', 7.1], ['T3', 3.8], ['T4', 0.2]], 'restoreS': 55, 'nota': 'degraus a partir de medições pontuais; sem série temporal gravada'},
     'fuel': {'month': fuel['month'], 'curitiba': fuel['curitiba'], 'brasil': fuel['brasil'], 'ratio': fuel['ratio_by_uf'], 'below070': fuel['uf_below_070'],
              # compact: per product, [price, brand index into brandList]
              'brandList': ['VIBRA', 'IPIRANGA', 'RAIZEN', 'BRANCA', 'OUTRA'],

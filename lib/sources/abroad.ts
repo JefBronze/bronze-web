@@ -1,4 +1,4 @@
-// "Lá fora": Hydro-Québec demand + peak events, CAISO fuel source; Open-Meteo for the two lab cities.
+// "Lá fora": Hydro-Québec demand + peak events, CAISO fuel source; Open-Meteo for Curitiba and Montréal.
 import { getJson, getText, rows } from './http'
 
 type HqRow = { date: string; valeurs_demandetotal: number }

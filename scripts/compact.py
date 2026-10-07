@@ -46,7 +46,6 @@ c = {
     'static': {
         'parana_idle_demand_share': 0.16, 'parana_idle_demand_brl_year': 122e6, 'parana_units_a4': 11780,
         'idle_education': 0.30, 'idle_hospitals': 0.21,
-        'openadr_lab': {'load_w_before': '10-14', 'load_w_top_tier': '~0', 'recovery_s': 55},
         'urpx_copel_b1_error_brl': 0.04,
     },
     'company': {

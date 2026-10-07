@@ -24,7 +24,7 @@ put('ons_carga', ons)
 
 def hq():
     j=json.loads(get('https://donnees.hydroquebec.com/api/explore/v2.1/catalog/datasets/demande-electricite-quebec/records?order_by=date%20desc&limit=96&where=valeurs_demandetotal%20is%20not%20null'))
-    # Peak-event fields are datedebut/datefin (the lab's hq_bridge.py still uses date_debut and gets a 400).
+    # Peak-event fields are datedebut/datefin (not date_debut, which gets a 400).
     ev=json.loads(get('https://donnees.hydroquebec.com/api/explore/v2.1/catalog/datasets/evenements-pointe/records?order_by=datedebut%20desc&limit=3'))
     return {'name':'Hydro-Québec demande','unit':'MW','latest':j['results'][0],'series_last24':[{'t':r['date'],'mw':r['valeurs_demandetotal']} for r in reversed(j['results'])],'peak_events_latest':ev['results']}
 put('hq_demand', hq)

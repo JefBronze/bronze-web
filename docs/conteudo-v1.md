@@ -79,17 +79,7 @@ What we did: we modelled Copel's residential tariff and the national tariff flag
 Result: bill reproduced within R$ 0.04, including Brazil's tax-inclusive ICMS and PIS/COFINS.
 Status: prototype · next: Grupo A (Verde and Azul) tariffs
 
-### 4.4 Laboratório OpenADR 3.0 — computação que responde à rede
-**PT**
-Problema: cargas de computação (como IA) podem ajudar a rede em momentos de estresse, mas precisam responder a sinais padronizados e provar a redução.
-O que fizemos: um laboratório em Montréal com dois Raspberry Pi 5 — um nó de inferência de IA e um gateway OpenADR 3.0 (VEN) — que recebe eventos de resposta da demanda baseados em sinais reais da rede (Hydro-Québec, ONS, NYISO, CAISO, ISO-NE) e reduz a carga em quatro níveis, medidos por tomada inteligente.
-Resultado: redução de ~10–14 W para ~0 W no nível máximo, com retorno à operação em 55 s; integração com carregadores de veículo elétrico via OCPP.
-Status: concluído (2026) · código aberto (Apache 2.0)
-**EN**
-Problem: compute loads such as AI can support the grid under stress, but they must respond to standard signals and prove the reduction.
-What we built: a Montréal lab with two Raspberry Pi 5s — an AI inference node and an OpenADR 3.0 gateway (VEN) — that receives demand-response events driven by real grid signals (Hydro-Québec, ONS, NYISO, CAISO, ISO-NE) and sheds load in four measured tiers.
-Result: from ~10–14 W to ~0 W at the top tier, back online in 55 s; EV-charger integration via OCPP.
-Status: completed (2026) · open source (Apache 2.0)
+_(Seção do laboratório OpenADR removida em out/2026: o laboratório em Montréal foi desligado.)_
 
 ### 4.5 Auditoria de cortes de geração (em desenvolvimento)
 **PT**

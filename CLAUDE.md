@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Guidance for Claude Code when working in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## What this is
 
@@ -9,12 +9,13 @@ Guidance for Claude Code when working in this repository.
 ## Commands
 
 ```bash
-npm run dev          # localhost:3000, no env vars required
+npm run dev          # localhost:3000, no env vars required (optional: NEXT_PUBLIC_WHATSAPP_NUMBER, see .env.example)
 npm test             # vitest: parsers and helpers (offline)
-LIVE=1 npm test      # also hits every real endpoint and prints a status table
+npx vitest run tests/parsers.test.ts -t "ONS CMO"   # one file / one describe block
+LIVE=1 npm test      # also runs tests/live.test.ts (skipped otherwise): hits every real endpoint, prints a status table, fails if any source is on snapshot
 npm run lint
-npm run build        # CI runs lint + test + build
-npm run snapshot     # refresh design-data.json, design/data2.js and data/snapshot.json from the live sources (python3, stdlib only)
+npm run build        # CI (.github/workflows, Node 24) runs lint + test + build
+npm run snapshot     # snapshot.py → intermitentes.py → minigeracao.py → usinas.py → build_design_data.py (python3, stdlib only); refreshes design-data.json, design/data2.js and data/snapshot.json. Run a single script when only its dataset changed.
 node scripts/shoot.mjs http://127.0.0.1:3000/ <out-dir> [light|dark] [width]   # per-section screenshots + layout boxes via Chrome DevTools protocol
 ```
 
@@ -25,6 +26,8 @@ node scripts/shoot.mjs http://127.0.0.1:3000/ <out-dir> [light|dark] [width]   #
 - `lib/derive.ts` — every number the page states in words (bills with taxes "por dentro", CMO extremes and spreads, Kalshi quantiles, Polymarket range). Sentences are generated from data; do not hard-code readings in copy.
 - `lib/chart.ts` — SVG path helpers ported from `design/helpers.js`, plus `isotonicDecreasing` (the "ajuste isotônico" the Método text promises).
 - `components/sections/*.tsx` — server components, one per section, in page order: Pulso, Preco, Pato ("A curva do pato": net load, the evening ramp, curtailment), Quem ("Quem gera": map of the largest plants, thermal dispatch by reason, the bandeira trigger), Mercado, Mini ("Minigeração sob controle": the oversupply-cut calendar and what a minigeração plant would lose if cut like utility solar), Petroleo, Bomba, Parana, Fora, Tendencias ("Para onde vai o setor": six trend cards; the first three follow the CCEE's 2026 challenges, numbers reused from other sections, unverified claims tagged), Bastidores. Client components: `components/ThemeToggle.tsx`, `components/MiniCalc.tsx` (section 6 calculator; per-kWp numbers come precomputed) and `components/Ticker.tsx` (the "Hoje" strip; each reading opens a short explanation on hover, focus or first tap — the copy lives in `app/page.tsx`).
+- Every section follows one skeleton (`docs/lapidacao-direcao-a.md`): number and name → question (serif h2) → "Lido hoje" (one-sentence conclusion, from `derive.ts`) → instrument → stamp `fonte · hora · cadência` → "Método" (`details`: formula, source URL, cadence, caveat) → "Para você" (only when there is an action). `docs/plano.md` is the approved plan; `docs/plano-minigeracao-sob-controle.md` covers section 6.
+- Imports use the `@/` alias for the repo root (tsconfig and `vitest.config.ts`).
 - `app/observatory.css` — tokens and every class, global (single page). Light/dark follows `prefers-color-scheme`; the toggle sets `html[data-theme]` and localStorage (applied before paint by the inline script in `app/layout.tsx`).
 
 ## Data rules
